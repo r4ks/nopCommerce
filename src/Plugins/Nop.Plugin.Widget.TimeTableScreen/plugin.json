@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "TimeTableScreen",
+  "SystemName": "Widgets.TimeTableScreen",
+  "Version": "0.01",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "nopCommerce dev ricks",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.TimeTableScreen.dll",
+  "Description": "This plugin integrates with TimeTableScreen"
+}
