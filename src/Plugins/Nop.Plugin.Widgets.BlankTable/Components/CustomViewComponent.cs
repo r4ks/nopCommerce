@@ -2,6 +2,8 @@
 using Nop.Web.Framework.Components;
 using System;
 
+/// ViewComponent for Widgets
+/// To be used to show charts or graphs on dashboard.
 namespace Nop.Plugin.Widgets.BlankTable.Components
 {
     [ViewComponent(Name = "Custom")]
