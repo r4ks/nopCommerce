@@ -32,10 +32,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
         private readonly IPermissionService _permissionService;
         private readonly ISettingService _settingService;
         private readonly IStoreContext _storeContext;
+        private readonly IDateTimeHelper _dateTimeHelper;
+        private readonly IOrderService _orderService;
 
         #endregion
 
-        public BlankTableController(ICustomersByCountryService service, ILanguageService languageService, ILocalizationService localizationService, IStoreContext storeContext, ISettingService settingService, IPermissionService permissionService, INotificationService notificationService)
+        public BlankTableController(ICustomersByCountryService service, ILanguageService languageService, ILocalizationService localizationService, IStoreContext storeContext, ISettingService settingService, IPermissionService permissionService, INotificationService notificationService, IDateTimeHelper dateTimeHelper, IOrderService orderService)
         {
             _service = service;
             _languageService = languageService;
@@ -44,6 +46,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             _settingService = settingService;
             _permissionService = permissionService;
             _notificationService = notificationService;
+            _dateTimeHelper = dateTimeHelper;
+            _orderService = orderService;
         }
 
         [HttpGet]
@@ -144,6 +148,90 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             {
                 return BadRequest(e);
             }
+        }
+
+        public virtual async Task<IActionResult> LoadOrderStatistics(string period)
+        {
+            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageOrders))
+                return Content(string.Empty);
+
+            //a vendor doesn't have access to this report
+            if (await _workContext.GetCurrentVendorAsync() != null)
+                return Content(string.Empty);
+
+            var result = new List<object>();
+
+            var nowDt = await _dateTimeHelper.ConvertToUserTimeAsync(DateTime.Now);
+            var timeZone = await _dateTimeHelper.GetCurrentTimeZoneAsync();
+
+            var culture = new CultureInfo((await _workContext.GetWorkingLanguageAsync()).LanguageCulture);
+
+            switch (period)
+            {
+                case "year":
+                    //year statistics
+                    var yearAgoDt = nowDt.AddYears(-1).AddMonths(1);
+                    var searchYearDateUser = new DateTime(yearAgoDt.Year, yearAgoDt.Month, 1);
+                    for (var i = 0; i <= 12; i++)
+                    {
+                        result.Add(new
+                        {
+                            date = searchYearDateUser.Date.ToString("Y", culture),
+                            value = (await _orderService.SearchOrdersAsync(
+                                createdFromUtc: _dateTimeHelper.ConvertToUtcTime(searchYearDateUser, timeZone),
+                                createdToUtc: _dateTimeHelper.ConvertToUtcTime(searchYearDateUser.AddMonths(1), timeZone),
+                                pageIndex: 0,
+                                pageSize: 1, getOnlyTotalCount: true)).TotalCount.ToString()
+                        });
+
+                        searchYearDateUser = searchYearDateUser.AddMonths(1);
+                    }
+
+                    break;
+                case "month":
+                    //month statistics
+                    var monthAgoDt = nowDt.AddDays(-30);
+                    var searchMonthDateUser = new DateTime(monthAgoDt.Year, monthAgoDt.Month, monthAgoDt.Day);
+                    for (var i = 0; i <= 30; i++)
+                    {
+                        result.Add(new
+                        {
+                            date = searchMonthDateUser.Date.ToString("M", culture),
+                            value = (await _orderService.SearchOrdersAsync(
+                                createdFromUtc: _dateTimeHelper.ConvertToUtcTime(searchMonthDateUser, timeZone),
+                                createdToUtc: _dateTimeHelper.ConvertToUtcTime(searchMonthDateUser.AddDays(1), timeZone),
+                                pageIndex: 0,
+                                pageSize: 1, getOnlyTotalCount: true)).TotalCount.ToString()
+                        });
+
+                        searchMonthDateUser = searchMonthDateUser.AddDays(1);
+                    }
+
+                    break;
+                case "week":
+                default:
+                    //week statistics
+                    var weekAgoDt = nowDt.AddDays(-7);
+                    var searchWeekDateUser = new DateTime(weekAgoDt.Year, weekAgoDt.Month, weekAgoDt.Day);
+                    for (var i = 0; i <= 7; i++)
+                    {
+                        result.Add(new
+                        {
+                            date = searchWeekDateUser.Date.ToString("d dddd", culture),
+                            value = (await _orderService.SearchOrdersAsync(
+                                createdFromUtc: _dateTimeHelper.ConvertToUtcTime(searchWeekDateUser, timeZone),
+                                createdToUtc: _dateTimeHelper.ConvertToUtcTime(searchWeekDateUser.AddDays(1), timeZone),
+                                pageIndex: 0,
+                                pageSize: 1, getOnlyTotalCount: true)).TotalCount.ToString()
+                        });
+
+                        searchWeekDateUser = searchWeekDateUser.AddDays(1);
+                    }
+
+                    break;
+            }
+
+            return Json(result);
         }
     }
 }

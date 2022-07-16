@@ -5,7 +5,7 @@ using Nop.Core.Infrastructure;
 using Nop.Plugin.Widgets.BlankTable.Services;
 using Nop.Services.Tax;
 
-namespace Nop.Plugin.Tax.FixedOrByCountryStateZip.Infrastructure
+namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
 {
     /// <summary>
     /// Represents object for the configuring services on application startup
@@ -20,6 +20,10 @@ namespace Nop.Plugin.Tax.FixedOrByCountryStateZip.Infrastructure
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ICustomersByCountryService, CustomersByCountryService>();
+
+            services.AddScoped<IExportManager, ExportManager>();
+            services.AddScoped<IImportManager, ImportManager>();
+            services.AddScoped<IPdfService, PdfService>();
         }
 
         /// <summary>

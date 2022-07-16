@@ -163,7 +163,7 @@ namespace Nop.Plugin.Widgets.BlankTable
         /// <returns></returns>
         public Task<IList<string>> GetWidgetZonesAsync()
         {
-            return Task.FromResult<IList<string>>(new List<string> { AdminWidgetZones.HeaderBefore });
+            return Task.FromResult<IList<string>>(new List<string> { AdminWidgetZones.DashboardTop });
         }
 
         /// <summary>
