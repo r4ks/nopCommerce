@@ -9,10 +9,17 @@ namespace Nop.Plugin.Widgets.BlankTable.Models
         #region Key Labels for Localized Text
         public static class Labels
         {
-            public const string AdditionalFee = "Plugins.Payment.CheckMoneyOrder.AdditionalFee";
-            public const string DescriptionText = "Plugins.Payment.CheckMoneyOrder.DescriptionText";
-            public const string AdditionalFeePercentage = "Plugins.Payment.CheckMoneyOrder.AdditionalFeePercentage";
-            public const string ShippableProductRequired = "Plugins.Payment.CheckMoneyOrder.ShippableProductRequired";
+            public const string Prefix = "Plugins.Payment.CheckMoneyOrder";
+            public const string AdditionalFee = Prefix + ".AdditionalFee";
+            public const string AdditionalFeeHint = Prefix + ".AdditionalFee.Hint";
+            public const string DescriptionText = Prefix + ".DescriptionText";
+            public const string DescriptionTextHint = Prefix + ".DescriptionText.Hint";
+            public const string AdditionalFeePercentage = Prefix + ".AdditionalFeePercentage";
+            public const string AdditionalFeePercentageHint = Prefix + ".AdditionalFeePercentage.Hint";
+            public const string PaymentMethodDescription = Prefix + ".PaymentMethodDescription";
+            public const string ShippableProductRequired = Prefix + ".ShippableProductRequired";
+            public const string ShippableProductRequiredHint = Prefix + ".ShippableProductRequired.Hint";
+
         }
         #endregion
 

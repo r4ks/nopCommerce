@@ -54,14 +54,14 @@ namespace Nop.Plugin.Widgets.BlankTable
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
             {
                 [ConfigurationModel.Labels.AdditionalFee] = "Additional fee",
-                ["Plugins.Payment.CheckMoneyOrder.AdditionalFee.Hint"] = "The additional fee.",
+                [ConfigurationModel.Labels.AdditionalFeeHint] = "The additional fee.",
                 [ConfigurationModel.Labels.AdditionalFeePercentage] = "Additional fee. Use percentage",
-                ["Plugins.Payment.CheckMoneyOrder.AdditionalFeePercentage.Hint"] = "Determines whether to apply a percentage additional fee to the order total. If not enabled, a fixed value is used.",
+                [ConfigurationModel.Labels.AdditionalFeePercentageHint] = "Determines whether to apply a percentage additional fee to the order total. If not enabled, a fixed value is used.",
                 [ConfigurationModel.Labels.DescriptionText] = "Description",
-                ["Plugins.Payment.CheckMoneyOrder.DescriptionText.Hint"] = "Enter info that will be shown to customers during checkout",
-                ["Plugins.Payment.CheckMoneyOrder.PaymentMethodDescription"] = "Pay by cheque or money order",
+                [ConfigurationModel.Labels.DescriptionTextHint] = "Enter info that will be shown to customers during checkout",
+                [ConfigurationModel.Labels.PaymentMethodDescription] = "Pay by cheque or money order",
                 [ConfigurationModel.Labels.ShippableProductRequired] = "Shippable product required",
-                ["Plugins.Payment.CheckMoneyOrder.ShippableProductRequired.Hint"] = "An option indicating whether shippable products are required in order to display this payment method during checkout."
+                [ConfigurationModel.Labels.ShippableProductRequiredHint] = "An option indicating whether shippable products are required in order to display this payment method during checkout."
             });
             await base.InstallAsync();
         }
@@ -72,7 +72,7 @@ namespace Nop.Plugin.Widgets.BlankTable
             await _settingService.DeleteSettingAsync<BlankTableSettings>();
 
             // locales
-            await _localizationService.DeleteLocaleResourcesAsync("Plugins.Payment.CheckMoneyOrder");
+            await _localizationService.DeleteLocaleResourcesAsync(ConfigurationModel.Labels.Prefix);
             await base.UninstallAsync();
         }
 
