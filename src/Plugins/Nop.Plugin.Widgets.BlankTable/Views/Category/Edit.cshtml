@@ -4,7 +4,7 @@
 
 @{
     //page title
-    ViewBag.PageTitle = T("Admin.Catalog.Categories.EditCategoryDetails").Text;
+    ViewBag.PageTitle = T(Model.Labels.EditCategoryDetails).Text;
     //active menu item (system name)
     NopHtml.SetActiveMenuItemSystemName("Categories");
 }
@@ -12,28 +12,28 @@
 <form asp-controller="Category" asp-action="Edit" method="post" id="category-form">
     <div class="content-header clearfix">
         <h1 class="float-left">
-            @T("Admin.Catalog.Categories.EditCategoryDetails") - @Model.Name
+            @T(Model.Labels.EditCategoryDetails) - @Model.Name
             <small>
                 <i class="fas fa-arrow-circle-left"></i>
-                <a asp-action="List">@T("Admin.Catalog.Categories.BackToList")</a>
+                <a asp-action="List">@T(Model.Labels.BackToList)</a>
             </small>
         </h1>
         <div class="float-right">
             <button type="button" onclick="javascript:OpenWindow('@(Url.RouteUrl<Category>(new { SeName = Model.SeName }))', 800, 600, true); return false;" class="btn btn-info">
                 <i class="far fa-eye"></i>
-                @T("Admin.Common.Preview")
+                @T(Common.Labels.Preview)
             </button>
             <button type="submit" name="save" class="btn btn-primary">
                 <i class="far fa-save"></i>
-                @T("Admin.Common.Save")
+                @T(Common.Labels.Save)
             </button>
             <button type="submit" name="save-continue" class="btn btn-primary">
                 <i class="far fa-save"></i>
-                @T("Admin.Common.SaveContinue")
+                @T(Common.Labels.SaveContinue)
             </button>
             <span id="category-delete" class="btn btn-danger">
                 <i class="far fa-trash-alt"></i>
-                @T("Admin.Common.Delete")
+                @T(Common.Labels.Delete)
             </span>
             @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CategoryDetailsButtons, additionalData = Model })
         </div>

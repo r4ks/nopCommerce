@@ -10,6 +10,25 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
     /// </summary>
     public partial record AddProductToCategorySearchModel : BaseSearchModel
     {
+        #region Labels
+        public static partial class Labels
+        {
+            public const string SearchProductName = "Admin.Catalog.Products.List.SearchProductName";
+
+            public const string SearchCategoryId = "Admin.Catalog.Products.List.SearchCategory";
+
+            public const string SearchManufacturerId = "Admin.Catalog.Products.List.SearchManufacturer";
+
+            public const string SearchStoreId = "Admin.Catalog.Products.List.SearchStore";
+
+            public const string SearchVendorId = "Admin.Catalog.Products.List.SearchVendor";
+
+            public const string SearchProductTypeId = "Admin.Catalog.Products.List.SearchProductType";
+            // View Labels:
+            public const string Name = "Admin.Catalog.Products.Fields.Name";
+            public const string Published = "Admin.Catalog.Products.Fields.Published";
+        }
+        #endregion
         #region Ctor
 
         public AddProductToCategorySearchModel()
@@ -25,22 +44,22 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 
         #region Properties
 
-        [NopResourceDisplayName("Admin.Catalog.Products.List.SearchProductName")]
+        [NopResourceDisplayName(Labels.SearchProductName)]
         public string SearchProductName { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Products.List.SearchCategory")]
+        [NopResourceDisplayName(Labels.SearchCategoryId)]
         public int SearchCategoryId { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Products.List.SearchManufacturer")]
+        [NopResourceDisplayName(Labels.SearchManufacturerId)]
         public int SearchManufacturerId { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Products.List.SearchStore")]
+        [NopResourceDisplayName(Labels.SearchStoreId)]
         public int SearchStoreId { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Products.List.SearchVendor")]
+        [NopResourceDisplayName(Labels.SearchVendorId)]
         public int SearchVendorId { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Products.List.SearchProductType")]
+        [NopResourceDisplayName(Labels.SearchProductTypeId)]
         public int SearchProductTypeId { get; set; }
 
         public IList<SelectListItem> AvailableCategories { get; set; }

@@ -1,7 +1,7 @@
 @model CategoryModel
 @{
     //page title
-    ViewBag.PageTitle = T("Admin.Catalog.Categories.AddNew").Text;
+    ViewBag.PageTitle = T(Model.Labels.AddNew).Text;
     //active menu item (system name)
     NopHtml.SetActiveMenuItemSystemName("Categories");
 }
@@ -9,20 +9,20 @@
 <form asp-controller="Category" asp-action="Create" method="post" id="category-form">
     <div class="content-header clearfix">
         <h1 class="float-left">
-            @T("Admin.Catalog.Categories.AddNew")
+            @T(Model.Labels.AddNew)
             <small>
                 <i class="fas fa-arrow-circle-left"></i>
-                <a asp-action="List">@T("Admin.Catalog.Categories.BackToList")</a>
+                <a asp-action="List">@T(Model.Labels.BackToList)</a>
             </small>
         </h1>
         <div class="float-right">
             <button type="submit" name="save" class="btn btn-primary">
                 <i class="far fa-save"></i>
-                @T("Admin.Common.Save")
+                @T(Common.Labels.Save)
             </button>
             <button type="submit" name="save-continue" class="btn btn-primary">
                 <i class="far fa-save"></i>
-                @T("Admin.Common.SaveContinue")
+                @T(Common.Labels.SaveContinue)
             </button>
             @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CategoryDetailsButtons, additionalData = Model })
         </div>

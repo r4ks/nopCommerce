@@ -4,7 +4,7 @@
     Layout = "_AdminPopupLayout";
 
     //page title
-    ViewBag.PageTitle = T("Admin.Catalog.Categories.Products.AddNew").Text;
+    ViewBag.PageTitle = T(CategoryProductModel.Labels.AddNew).Text;
 }
 
 @if (ViewBag.RefreshPage == true)
@@ -23,7 +23,7 @@ else
           asp-route-formId="@Context.Request.Query["formId"]">
         <div class="content-header clearfix">
             <h1 class="float-left">
-                @T("Admin.Catalog.Categories.Products.AddNew")
+                @T(CategoryProductModel.Labels.AddNew)
             </h1>
             <div class="float-right">
                 &nbsp;
@@ -93,7 +93,7 @@ else
                                     <div class="col-sm-12">
                                         <button type="button" id="search-products" class="btn btn-primary btn-search">
                                             <i class="fas fa-search"></i>
-                                            @T("Admin.Common.Search")
+                                            @T(Common.Labels.Search)
                                         </button>
                                     </div>
                                 </div>
@@ -129,11 +129,11 @@ else
                                         },
                                         new ColumnProperty(nameof(ProductModel.Name))
                                         {
-                                            Title = T("Admin.Catalog.Products.Fields.Name").Text
+                                            Title = T(Model.Labels.Name).Text
                                         },
                                         new ColumnProperty(nameof(ProductModel.Published))
                                         {
-                                            Title = T("Admin.Catalog.Products.Fields.Published").Text,
+                                            Title = T(Model.Labels.Published).Text,
                                             Width = "100",
                                             ClassName = NopColumnClassDefaults.CenterAll,
                                             Render = new RenderBoolean()
@@ -144,7 +144,7 @@ else
                             <div class="card-footer">
                                 <button type="submit" name="save" class="btn btn-primary">
                                     <i class="far fa-save"></i>
-                                    @T("Admin.Common.Save")
+                                    @T(Common.Labels.Save)
                                 </button>
                             </div>
                         </div>

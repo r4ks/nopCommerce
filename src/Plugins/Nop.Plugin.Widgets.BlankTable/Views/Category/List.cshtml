@@ -2,7 +2,7 @@
 
 @{
     //page title
-    ViewBag.PageTitle = T("Admin.Catalog.Categories").Text;
+    ViewBag.PageTitle = T(Model.Labels.Title).Text;
     //active menu item (system name)
     NopHtml.SetActiveMenuItemSystemName("Categories");
 }
@@ -14,17 +14,17 @@
 
 <div class="content-header clearfix">
     <h1 class="float-left">
-        @T("Admin.Catalog.Categories")
+        @T(Model.Labels.Title)
     </h1>
     <div class="float-right">
         <a asp-action="Create" class="btn btn-primary">
             <i class="fas fa-plus-square"></i>
-            @T("Admin.Common.AddNew")
+            @T(Common.Labels.AddNew)
         </a>
         <div class="btn-group">
             <button type="button" class="btn btn-success">
                 <i class="fas fa-download"></i>
-                @T("Admin.Common.Export")
+                @T(Common.Labels.Export)
             </button>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <span class="caret"></span>
@@ -34,25 +34,25 @@
                 <li class="dropdown-item">
                     <a asp-action="ExportXml">
                         <i class="far fa-file-code"></i>
-                        @T("Admin.Common.ExportToXml")
+                        @T(Common.Labels.ExportToXml)
                     </a>
                 </li>
                 <li class="dropdown-item">
                     <a asp-action="ExportXlsx">
                         <i class="far fa-file-excel"></i>
-                        @T("Admin.Common.ExportToExcel")
+                        @T(Common.Labels.ExportToExcel)
                     </a>
                 </li>
             </ul>
         </div>
         <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
             <i class="fas fa-upload"></i>
-            @T("Admin.Common.Import")
+            @T(Common.Labels.Import)
         </button>
         @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CategoryListButtons, additionalData = Model })
         <button type="button" id="delete-selected" class="btn btn-danger">
             <i class="far fa-trash-alt"></i>
-            @T("Admin.Common.Delete.Selected")
+            @T(Common.Labels.Selected)
         </button>
         <nop-action-confirmation asp-button-id="delete-selected" />
     </div>
@@ -65,7 +65,7 @@
                 <div class="card card-default card-search">
                     <div class="card-body">
                         <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
-                            <div class="search-text">@T("Admin.Common.Search")</div>
+                            <div class="search-text">@T(Common.Labels.Search)</div>
                             <div class="icon-search"><i class="fas fa-search" aria-hidden="true"></i></div>
                             <div class="icon-collapse"><i class="far fa-angle-@(!hideSearchBlock ? "up" : "down")" aria-hidden="true"></i></div>
                         </div>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="text-center col-12">
-                                    <button type="button" id="search-categories" class="btn btn-primary btn-search"><i class="fas fa-search"></i>@T("Admin.Common.Search")</button>
+                                    <button type="button" id="search-categories" class="btn btn-primary btn-search"><i class="fas fa-search"></i>@T(Common.Labels.Search)</button>
                                 </div>
                             </div>
                         </div>
@@ -138,24 +138,24 @@
                                 },
                                 new ColumnProperty(nameof(CategoryModel.Breadcrumb))
                                 {
-                                    Title = T("Admin.Catalog.Categories.Fields.Name").Text
+                                    Title = T(Model.Labels.Breadcrumb).Text
                                 },
                                 new ColumnProperty(nameof(CategoryModel.Published))
                                 {
-                                    Title = T("Admin.Catalog.Categories.Fields.Published").Text,
+                                    Title = T(Model.Labels.Published).Text,
                                     Width = "100",
                                     ClassName = NopColumnClassDefaults.CenterAll,
                                     Render = new RenderBoolean()
                                 },
                                 new ColumnProperty(nameof(CategoryModel.DisplayOrder))
                                 {
-                                    Title = T("Admin.Catalog.Categories.Fields.DisplayOrder").Text,
+                                    Title = T(Model.Labels.DisplayOrder).Text,
                                     Width = "150",
                                     ClassName =  NopColumnClassDefaults.CenterAll
                                 },
                                 new ColumnProperty(nameof(CategoryModel.Id))
                                 {
-                                    Title = T("Admin.Common.Edit").Text,
+                                    Title = T(Common.Labels.Edit).Text,
                                     Width = "100",
                                     ClassName =  NopColumnClassDefaults.Button,
                                     Render = new RenderButtonEdit(new DataUrl("Edit"))
@@ -181,7 +181,7 @@
                                         complete: function (jqXHR, textStatus) {
                                             if (jqXHR.status === 204)
                                             {
-                                                showAlert('nothingSelectedAlert', '@T("Admin.Common.Alert.NothingSelected")');
+                                                showAlert('nothingSelectedAlert', '@T(Common.Labels.NothingSelected)');
                                                 return;
                                             }
                                             updateTable('#categories-grid');
@@ -206,7 +206,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="importexcel-window-title">@T("Admin.Common.ImportFromExcel")</h4>
+                <h4 class="modal-title" id="importexcel-window-title">@T(Common.Labels.ImportFromExcel)</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
             </div>
             <form asp-controller="Category" asp-action="ImportFromXlsx" method="post" enctype="multipart/form-data">
@@ -214,17 +214,17 @@
                     <div class="modal-body">
                         <ul class="common-list">
                             <li>
-                                <em>@T("Admin.Catalog.Categories.List.ImportFromExcelTip")</em>
+                                <em>@T(Model.Labels.ImportFromExcelTip)</em>
                             </li>
                             <li>
-                                <em>@T("Admin.Common.ImportFromExcel.ManyRecordsWarning")</em>
+                                <em>@T(Common.Labels.ManyRecordsWarning)</em>
                             </li>
                         </ul>
                         <div class="form-group row">
                             <div class="col-md-2">
                                 <div class="label-wrapper">
                                     <label class="col-form-label">
-                                        @T("Admin.Common.ExcelFile")
+                                        @T(Common.Labels.ExcelFile)
                                     </label>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">
-                            @T("Admin.Common.ImportFromExcel")
+                            @T(Common.Labels.ImportFromExcel)
                         </button>
                     </div>
                 </div>

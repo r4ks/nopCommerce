@@ -10,6 +10,20 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
     /// </summary>
     public partial record CategorySearchModel : BaseSearchModel
     {
+        #region Labels
+        public static class Labels {
+            public const string SearchCategoryName = "Admin.Catalog.Categories.List.SearchCategoryName";
+            public const string SearchPublishedId = "Admin.Catalog.Categories.List.SearchPublished";
+            public const string SearchStoreId = "Admin.Catalog.Categories.List.SearchStore";
+            // View Labels:
+            public const string Title = "Admin.Catalog.Categories";
+            public const string DisplayOrder = "Admin.Catalog.Categories.Fields.DisplayOrder";
+            public const string Published = "Admin.Catalog.Categories.Fields.Published";
+            public const string Breadcrumb = "Admin.Catalog.Categories.Fields.Name";
+            public const string ImportFromExcelTip = "Admin.Catalog.Categories.List.ImportFromExcelTip";
+        }
+
+        #endregion
         #region Ctor
 
         public CategorySearchModel()
@@ -22,15 +36,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 
         #region Properties
 
-        [NopResourceDisplayName("Admin.Catalog.Categories.List.SearchCategoryName")]
+        [NopResourceDisplayName(Labels.SearchCategoryName)]
         public string SearchCategoryName { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Categories.List.SearchPublished")]
+        [NopResourceDisplayName(Labels.SearchPublishedId)]
         public int SearchPublishedId { get; set; }
 
         public IList<SelectListItem> AvailablePublishedOptions { get; set; }
 
-        [NopResourceDisplayName("Admin.Catalog.Categories.List.SearchStore")]
+        [NopResourceDisplayName(Labels.SearchStoreId)]
         public int SearchStoreId { get; set; }
 
         public IList<SelectListItem> AvailableStores { get; set; }
