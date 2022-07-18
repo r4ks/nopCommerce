@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Nop.Core.Domain.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
 using Nop.Services.Caching;
 using Nop.Services.Discounts;
 

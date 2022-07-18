@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,10 @@ using Nop.Core;
 using Nop.Plugin.Widgets.BlankTable.Models;
 using Nop.Plugin.Widgets.BlankTable.Services;
 using Nop.Services.Configuration;
+using Nop.Services.Helpers;
 using Nop.Services.Localization;
 using Nop.Services.Messages;
+using Nop.Services.Orders;
 using Nop.Services.Security;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
@@ -34,10 +37,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
         private readonly IStoreContext _storeContext;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IOrderService _orderService;
+        private readonly IWorkContext _workContext;
 
         #endregion
 
-        public BlankTableController(ICustomersByCountryService service, ILanguageService languageService, ILocalizationService localizationService, IStoreContext storeContext, ISettingService settingService, IPermissionService permissionService, INotificationService notificationService, IDateTimeHelper dateTimeHelper, IOrderService orderService)
+        public BlankTableController(ICustomersByCountryService service, ILanguageService languageService, ILocalizationService localizationService, IStoreContext storeContext, ISettingService settingService, IPermissionService permissionService, INotificationService notificationService, IDateTimeHelper dateTimeHelper, IOrderService orderService, IWorkContext workContext)
         {
             _service = service;
             _languageService = languageService;
@@ -48,6 +52,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             _notificationService = notificationService;
             _dateTimeHelper = dateTimeHelper;
             _orderService = orderService;
+            _workContext = workContext;
         }
 
         [HttpGet]

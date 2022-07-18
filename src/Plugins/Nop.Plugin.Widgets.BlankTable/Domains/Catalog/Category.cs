@@ -1,4 +1,5 @@
 ﻿using System;
+using Nop.Core;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Localization;
@@ -6,7 +7,7 @@ using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Stores;
 
-namespace Nop.Plugin.Widgets.BlankTable.Domains.Group
+namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
 {
     /// <summary>
     /// Represents a category

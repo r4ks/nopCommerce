@@ -1,5 +1,7 @@
 ﻿using FluentMigrator;
+using Nop.Data.Extensions;
 using Nop.Data.Migrations;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Migrations
 {

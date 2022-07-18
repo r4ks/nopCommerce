@@ -1,7 +1,8 @@
 ﻿using FluentMigrator.Builders.Create.Table;
-using Nop.Core.Domain.Catalog;
+using Nop.Data.Mapping.Builders;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
-namespace Nop.Plugin.Widgets.BlankTable.Mapping.Builders.Group
+namespace Nop.Plugin.Widgets.BlankTable.Mapping.Builders.Catalog
 {
     /// <summary>
     /// Represents a category entity builder

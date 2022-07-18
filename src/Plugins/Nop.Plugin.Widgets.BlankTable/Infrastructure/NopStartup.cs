@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
 using Nop.Plugin.Widgets.BlankTable.Services;
+using Nop.Plugin.Widgets.BlankTable.Services.ExportImport;
 using Nop.Services.Tax;
 
 namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
@@ -23,7 +24,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
 
             services.AddScoped<IExportManager, ExportManager>();
             services.AddScoped<IImportManager, ImportManager>();
-            services.AddScoped<IPdfService, PdfService>();
+            // services.AddScoped<IPdfService, PdfService>();
         }
 
         /// <summary>

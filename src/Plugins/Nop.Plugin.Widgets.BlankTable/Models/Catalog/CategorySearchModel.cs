@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 
-namespace Nop.Plugin.Widgets.BlankTable.Models.Category
+namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 {
     /// <summary>
     /// Represents a category search model

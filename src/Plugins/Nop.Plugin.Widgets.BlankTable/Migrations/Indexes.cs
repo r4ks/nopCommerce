@@ -1,18 +1,7 @@
 ﻿using FluentMigrator;
 using FluentMigrator.SqlServer;
 using Nop.Core.Domain.Catalog;
-using Nop.Core.Domain.Common;
-using Nop.Core.Domain.Customers;
-using Nop.Core.Domain.Directory;
-using Nop.Core.Domain.Forums;
-using Nop.Core.Domain.Localization;
-using Nop.Core.Domain.Logging;
-using Nop.Core.Domain.Messages;
-using Nop.Core.Domain.Orders;
-using Nop.Core.Domain.Security;
-using Nop.Core.Domain.Seo;
-using Nop.Core.Domain.Stores;
-using Nop.Data.Mapping;
+using Nop.Data.Migrations;
 
 namespace Nop.Plugin.Widgets.BlankTable.Migrations
 {

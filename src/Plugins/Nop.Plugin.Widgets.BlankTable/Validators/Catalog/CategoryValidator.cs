@@ -4,9 +4,10 @@ using Nop.Data.Mapping;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
 using Nop.Web.Areas.Admin.Models.Catalog;
+using Nop.Web.Areas.Admin.Validators;
 using Nop.Web.Framework.Validators;
 
-namespace Nop.Plugin.Widgets.BlankTable.Validators.Category
+namespace Nop.Plugin.Widgets.BlankTable.Validators.Catalog
 {
     public partial class CategoryValidator : BaseNopValidator<CategoryModel>
     {

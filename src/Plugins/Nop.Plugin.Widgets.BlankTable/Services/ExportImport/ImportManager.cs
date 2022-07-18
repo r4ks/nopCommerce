@@ -22,6 +22,7 @@ using Nop.Core.Domain.Vendors;
 using Nop.Core.Http;
 using Nop.Core.Infrastructure;
 using Nop.Data;
+using Nop.Services;
 using Nop.Services.Affiliates;
 using Nop.Services.Catalog;
 using Nop.Services.Common;

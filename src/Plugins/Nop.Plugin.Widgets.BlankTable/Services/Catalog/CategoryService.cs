@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nop.Core;
 using Nop.Core.Caching;
-using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Discounts;
 using Nop.Data;
@@ -13,8 +12,9 @@ using Nop.Services.Discounts;
 using Nop.Services.Localization;
 using Nop.Services.Security;
 using Nop.Services.Stores;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
-namespace Nop.Plugin.Widgets.BlankTable.Services.Category
+namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
 {
     /// <summary>
     /// Category service

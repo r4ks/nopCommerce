@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nop.Web.Framework.Models;
 
-namespace Nop.Plugin.Widgets.BlankTable.Models.Category
+namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 {
     /// <summary>
     /// Represents a product model to add to the category
