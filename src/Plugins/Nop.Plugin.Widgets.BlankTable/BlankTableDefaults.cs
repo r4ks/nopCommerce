@@ -34,6 +34,12 @@ namespace Nop.Plugin.Widgets.BlankTable
             public const string Preview = "Admin.Common.Preview";
             public const string Delete = "Admin.Common.Delete";
             public const string View = "Admin.Common.View";
+
+            //Others
+            public const string OrderStatistics = "Admin.SalesReport.OrderStatistics";
+            public const string OYear = "Admin.SalesReport.OrderStatistics.Year";
+            public const string OMonth = "Admin.SalesReport.OrderStatistics.Month";
+            public const string OWeek = "Admin.SalesReport.OrderStatistics.Week";
         }
     }
 }
