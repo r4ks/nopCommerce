@@ -14,10 +14,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
     /// </summary>
     public partial class Product : BaseEntity, ILocalizedEntity, ISlugSupported, IAclSupported, IStoreMappingSupported, IDiscountSupported<DiscountProductMapping>, ISoftDeletedEntity
     {
-        /// <summary>
-        /// Gets or sets the product type identifier
-        /// </summary>
-        public int ProductTypeId { get; set; }
 
         /// <summary>
         /// Gets or sets the parent product identifier. It's used to identify associated products (only with "grouped" products)
@@ -137,11 +133,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool IsGiftCard { get; set; }
 
         /// <summary>
-        /// Gets or sets the gift card type identifier
-        /// </summary>
-        public int GiftCardTypeId { get; set; }
-
-        /// <summary>
         /// Gets or sets gift card amount that can be used after purchase. If not specified, then product price will be used.
         /// </summary>
         public decimal? OverriddenGiftCardAmount { get; set; }
@@ -222,11 +213,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public int RecurringCycleLength { get; set; }
 
         /// <summary>
-        /// Gets or sets the cycle period
-        /// </summary>
-        public int RecurringCyclePeriodId { get; set; }
-
-        /// <summary>
         /// Gets or sets the total cycles
         /// </summary>
         public int RecurringTotalCycles { get; set; }
@@ -240,11 +226,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         /// Gets or sets the rental length for some period (price for this period)
         /// </summary>
         public int RentalPriceLength { get; set; }
-
-        /// <summary>
-        /// Gets or sets the rental period (price for this period)
-        /// </summary>
-        public int RentalPricePeriodId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the entity is ship enabled
@@ -287,11 +268,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool IsTelecommunicationsOrBroadcastingOrElectronicServices { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating how to manage inventory
-        /// </summary>
-        public int ManageInventoryMethodId { get; set; }
-
-        /// <summary>
         /// Gets or sets a product availability range identifier
         /// </summary>
         public int ProductAvailabilityRangeId { get; set; }
@@ -327,19 +303,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public int MinStockQuantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the low stock activity identifier
-        /// </summary>
-        public int LowStockActivityId { get; set; }
-
-        /// <summary>
         /// Gets or sets the quantity when admin should be notified
         /// </summary>
         public int NotifyAdminForQuantityBelow { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value backorder mode identifier
-        /// </summary>
-        public int BackorderModeId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to back in stock subscriptions are allowed
@@ -542,76 +508,5 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         /// </summary>
         public DateTime UpdatedOnUtc { get; set; }
 
-        /// <summary>
-        /// Gets or sets the product type
-        /// </summary>
-        public ProductType ProductType
-        {
-            get => (ProductType)ProductTypeId;
-            set => ProductTypeId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the backorder mode
-        /// </summary>
-        public BackorderMode BackorderMode
-        {
-            get => (BackorderMode)BackorderModeId;
-            set => BackorderModeId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the download activation type
-        /// </summary>
-        public DownloadActivationType DownloadActivationType
-        {
-            get => (DownloadActivationType)DownloadActivationTypeId;
-            set => DownloadActivationTypeId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the gift card type
-        /// </summary>
-        public GiftCardType GiftCardType
-        {
-            get => (GiftCardType)GiftCardTypeId;
-            set => GiftCardTypeId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the low stock activity
-        /// </summary>
-        public LowStockActivity LowStockActivity
-        {
-            get => (LowStockActivity)LowStockActivityId;
-            set => LowStockActivityId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the value indicating how to manage inventory
-        /// </summary>
-        public ManageInventoryMethod ManageInventoryMethod
-        {
-            get => (ManageInventoryMethod)ManageInventoryMethodId;
-            set => ManageInventoryMethodId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the cycle period for recurring products
-        /// </summary>
-        public RecurringProductCyclePeriod RecurringCyclePeriod
-        {
-            get => (RecurringProductCyclePeriod)RecurringCyclePeriodId;
-            set => RecurringCyclePeriodId = (int)value;
-        }
-
-        /// <summary>
-        /// Gets or sets the period for rental products
-        /// </summary>
-        public RentalPricePeriod RentalPricePeriod
-        {
-            get => (RentalPricePeriod)RentalPricePeriodId;
-            set => RentalPricePeriodId = (int)value;
-        }
     }
 }
