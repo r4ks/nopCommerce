@@ -2,7 +2,7 @@
 
 @{
     //page title
-    ViewBag.PageTitle = T(Model.Labels.Title).Text;
+    ViewBag.PageTitle = T(CategorySearchModel.Labels.Title).Text;
     //active menu item (system name)
     NopHtml.SetActiveMenuItemSystemName("Categories");
 }
@@ -14,7 +14,7 @@
 
 <div class="content-header clearfix">
     <h1 class="float-left">
-        @T(Model.Labels.Title)
+        @T(CategorySearchModel.Labels.Title)
     </h1>
     <div class="float-right">
         <a asp-action="Create" class="btn btn-primary">
@@ -138,18 +138,18 @@
                                 },
                                 new ColumnProperty(nameof(CategoryModel.Breadcrumb))
                                 {
-                                    Title = T(Model.Labels.Breadcrumb).Text
+                                    Title = T(CategorySearchModel.Labels.Breadcrumb).Text
                                 },
                                 new ColumnProperty(nameof(CategoryModel.Published))
                                 {
-                                    Title = T(Model.Labels.Published).Text,
+                                    Title = T(CategorySearchModel.Labels.Published).Text,
                                     Width = "100",
                                     ClassName = NopColumnClassDefaults.CenterAll,
                                     Render = new RenderBoolean()
                                 },
                                 new ColumnProperty(nameof(CategoryModel.DisplayOrder))
                                 {
-                                    Title = T(Model.Labels.DisplayOrder).Text,
+                                    Title = T(CategorySearchModel.Labels.DisplayOrder).Text,
                                     Width = "150",
                                     ClassName =  NopColumnClassDefaults.CenterAll
                                 },
@@ -214,7 +214,7 @@
                     <div class="modal-body">
                         <ul class="common-list">
                             <li>
-                                <em>@T(Model.Labels.ImportFromExcelTip)</em>
+                                <em>@T(CategorySearchModel.Labels.ImportFromExcelTip)</em>
                             </li>
                             <li>
                                 <em>@T(Common.Labels.ManyRecordsWarning)</em>

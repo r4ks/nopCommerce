@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nop.Core.Domain.Catalog;
-using Nop.Core.Domain.Customers;
-using Nop.Core.Domain.Directory;
-using Nop.Core.Domain.Messages;
-using Nop.Core.Domain.Orders;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 {

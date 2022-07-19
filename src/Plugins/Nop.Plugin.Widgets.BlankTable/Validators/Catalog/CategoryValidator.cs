@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Nop.Core.Domain.Catalog;
 using Nop.Data.Mapping;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
-using Nop.Web.Areas.Admin.Models.Catalog;
 using Nop.Web.Areas.Admin.Validators;
 using Nop.Web.Framework.Validators;
 

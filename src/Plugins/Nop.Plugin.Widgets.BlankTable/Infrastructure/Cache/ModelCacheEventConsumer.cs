@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Nop.Core.Caching;
-using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Configuration;
 using Nop.Core.Domain.Vendors;
 using Nop.Core.Events;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 using Nop.Services.Events;
 using Nop.Services.Plugins;
 
@@ -19,10 +19,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
         IConsumer<EntityInsertedEvent<Category>>,
         IConsumer<EntityUpdatedEvent<Category>>,
         IConsumer<EntityDeletedEvent<Category>>,
-        //manufacturers
-        IConsumer<EntityInsertedEvent<Manufacturer>>,
-        IConsumer<EntityUpdatedEvent<Manufacturer>>,
-        IConsumer<EntityDeletedEvent<Manufacturer>>,
         //vendors
         IConsumer<EntityInsertedEvent<Vendor>>,
         IConsumer<EntityUpdatedEvent<Vendor>>,
@@ -69,23 +65,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
         public async Task HandleEventAsync(EntityDeletedEvent<Category> eventMessage)
         {
             await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.CategoriesListPrefixCacheKey);
-        }
-
-        //manufacturers
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityInsertedEvent<Manufacturer> eventMessage)
-        {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.ManufacturersListPrefixCacheKey);
-        }
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityUpdatedEvent<Manufacturer> eventMessage)
-        {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.ManufacturersListPrefixCacheKey);
-        }
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityDeletedEvent<Manufacturer> eventMessage)
-        {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.ManufacturersListPrefixCacheKey);
         }
 
         //vendors

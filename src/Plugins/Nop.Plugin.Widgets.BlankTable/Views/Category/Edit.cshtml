@@ -1,10 +1,10 @@
 @model CategoryModel
 
-@using Nop.Core.Domain.Catalog
+@using  Nop.Plugin.Widgets.BlankTable.Domains.Catalog
 
 @{
     //page title
-    ViewBag.PageTitle = T(Model.Labels.EditCategoryDetails).Text;
+    ViewBag.PageTitle = T(CategoryModel.Labels.EditCategoryDetails).Text;
     //active menu item (system name)
     NopHtml.SetActiveMenuItemSystemName("Categories");
 }
@@ -12,10 +12,10 @@
 <form asp-controller="Category" asp-action="Edit" method="post" id="category-form">
     <div class="content-header clearfix">
         <h1 class="float-left">
-            @T(Model.Labels.EditCategoryDetails) - @Model.Name
+            @T(CategoryModel.Labels.EditCategoryDetails) - @Model.Name
             <small>
                 <i class="fas fa-arrow-circle-left"></i>
-                <a asp-action="List">@T(Model.Labels.BackToList)</a>
+                <a asp-action="List">@T(CategoryModel.Labels.BackToList)</a>
             </small>
         </h1>
         <div class="float-right">

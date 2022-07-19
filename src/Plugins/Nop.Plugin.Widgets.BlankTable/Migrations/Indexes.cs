@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 using FluentMigrator.SqlServer;
-using Nop.Core.Domain.Catalog;
 using Nop.Data.Migrations;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Migrations
 {

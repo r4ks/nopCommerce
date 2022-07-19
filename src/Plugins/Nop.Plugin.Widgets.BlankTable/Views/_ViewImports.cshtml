@@ -2,6 +2,16 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Nop.Web.Framework
 
+@inject IGenericAttributeService genericAttributeService
+@inject INopHtmlHelper NopHtml
+@inject IWorkContext workContext
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Nop.Web.Framework
+
+@using System.Globalization;
+@using System.Net;
+@using Microsoft.Extensions.Primitives
 @using Microsoft.AspNetCore.Mvc.ViewFeatures;
 @using Nop.Web.Framework.UI;
 @using Nop.Web.Framework.Extensions;
@@ -20,3 +30,5 @@
 @using Nop.Web.Framework.Security.Captcha
 @using Nop.Web.Framework.Security.Honeypot
 @using Nop.Web.Framework.Themes
+
+@using Nop.Web.Framework.UI

@@ -1,5 +1,5 @@
 ﻿using Nop.Core.Caching;
-using Nop.Core.Domain.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
 {
@@ -326,28 +326,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// {0} : Product attribute ID
         /// </remarks>
         public static CacheKey PredefinedProductAttributeValuesByAttributeCacheKey => new("Nop.predefinedproductattributevalue.byattribute.{0}");
-
-        #endregion
-
-        #region Product tags
-
-        /// <summary>
-        /// Gets a key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : store ID
-        /// {1} : hash of list of customer roles IDs
-        /// {2} : show hidden records?
-        /// </remarks>
-        public static CacheKey ProductTagCountCacheKey => new("Nop.producttag.count.{0}-{1}-{2}", NopEntityCacheDefaults<ProductTag>.Prefix);
-
-        /// <summary>
-        /// Gets a key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : product ID
-        /// </remarks>
-        public static CacheKey ProductTagsByProductCacheKey => new("Nop.producttag.byproduct.{0}", NopEntityCacheDefaults<ProductTag>.Prefix);
 
         #endregion
 

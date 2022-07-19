@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Nop.Core;
 using Nop.Core.Domain;
-using Nop.Core.Domain.Affiliates;
 using Nop.Core.Domain.Blogs;
-using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Cms;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Directory;
-using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Forums;
 using Nop.Core.Domain.Gdpr;
 using Nop.Core.Domain.Localization;
@@ -26,8 +20,6 @@ using Nop.Core.Domain.Messages;
 using Nop.Core.Domain.News;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
-using Nop.Core.Domain.Polls;
-using Nop.Core.Domain.ScheduleTasks;
 using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Shipping;
@@ -35,20 +27,16 @@ using Nop.Core.Domain.Stores;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Topics;
 using Nop.Core.Domain.Vendors;
-using Nop.Core.Http;
 using Nop.Core.Infrastructure;
 using Nop.Core.Security;
 using Nop.Data;
-using Nop.Services.Blogs;
-using Nop.Services.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
 using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Customers;
-using Nop.Services.ExportImport;
 using Nop.Services.Helpers;
-using Nop.Services.Localization;
 using Nop.Services.Media;
-using Nop.Services.News;
 using Nop.Services.Seo;
 
 namespace Nop.Services.Installation
@@ -73,16 +61,10 @@ namespace Nop.Services.Installation
         private readonly IRepository<DeliveryDate> _deliveryDateRepository;
         private readonly IRepository<EmailAccount> _emailAccountRepository;
         private readonly IRepository<Language> _languageRepository;
-        private readonly IRepository<Manufacturer> _manufacturerRepository;
-        private readonly IRepository<ManufacturerTemplate> _manufacturerTemplateRepository;
         private readonly IRepository<MeasureDimension> _measureDimensionRepository;
         private readonly IRepository<MeasureWeight> _measureWeightRepository;
         private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<ProductAttribute> _productAttributeRepository;
         private readonly IRepository<ProductAvailabilityRange> _productAvailabilityRangeRepository;
-        private readonly IRepository<ProductTag> _productTagRepository;
-        private readonly IRepository<ProductTemplate> _productTemplateRepository;
-        private readonly IRepository<SpecificationAttribute> _specificationAttributeRepository;
         private readonly IRepository<SpecificationAttributeOption> _specificationAttributeOptionRepository;
         private readonly IRepository<StateProvince> _stateProvinceRepository;
         private readonly IRepository<Store> _storeRepository;
@@ -108,16 +90,10 @@ namespace Nop.Services.Installation
             IRepository<DeliveryDate> deliveryDateRepository,
             IRepository<EmailAccount> emailAccountRepository,
             IRepository<Language> languageRepository,
-            IRepository<Manufacturer> manufacturerRepository,
-            IRepository<ManufacturerTemplate> manufacturerTemplateRepository,
             IRepository<MeasureDimension> measureDimensionRepository,
             IRepository<MeasureWeight> measureWeightRepository,
             IRepository<Product> productRepository,
-            IRepository<ProductAttribute> productAttributeRepository,
             IRepository<ProductAvailabilityRange> productAvailabilityRangeRepository,
-            IRepository<ProductTag> productTagRepository,
-            IRepository<ProductTemplate> productTemplateRepository,
-            IRepository<SpecificationAttribute> specificationAttributeRepository,
             IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository,
             IRepository<StateProvince> stateProvinceRepository,
             IRepository<Store> storeRepository,
@@ -139,16 +115,10 @@ namespace Nop.Services.Installation
             _deliveryDateRepository = deliveryDateRepository;
             _emailAccountRepository = emailAccountRepository;
             _languageRepository = languageRepository;
-            _manufacturerRepository = manufacturerRepository;
-            _manufacturerTemplateRepository = manufacturerTemplateRepository;
             _measureDimensionRepository = measureDimensionRepository;
             _measureWeightRepository = measureWeightRepository;
-            _productAttributeRepository = productAttributeRepository;
             _productAvailabilityRangeRepository = productAvailabilityRangeRepository;
             _productRepository = productRepository;
-            _productTagRepository = productTagRepository;
-            _productTemplateRepository = productTemplateRepository;
-            _specificationAttributeRepository = specificationAttributeRepository;
             _specificationAttributeOptionRepository = specificationAttributeOptionRepository;
             _stateProvinceRepository = stateProvinceRepository;
             _storeRepository = storeRepository;
@@ -197,46 +167,6 @@ namespace Nop.Services.Installation
 
             foreach (var entity in entities)
                 await _dataProvider.UpdateEntityAsync(entity);
-        }
-
-        /// <returns>A task that represents the asynchronous operation</returns>
-        protected virtual async Task<int> GetSpecificationAttributeOptionIdAsync(string specAttributeName, string specAttributeOptionName)
-        {
-            var specificationAttribute = await _specificationAttributeRepository.Table
-                .SingleAsync(sa => sa.Name == specAttributeName);
-
-            var specificationAttributeOption = await _specificationAttributeOptionRepository.Table
-                .SingleAsync(sao => sao.Name == specAttributeOptionName && sao.SpecificationAttributeId == specificationAttribute.Id);
-
-            return specificationAttributeOption.Id;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="product"></param>
-        /// <param name="fileName"></param>
-        /// <param name="displayOrder"></param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the identifier of inserted picture
-        /// </returns>
-        protected virtual async Task<int> InsertProductPictureAsync(Product product, string fileName, int displayOrder = 1)
-        {
-            var pictureService = EngineContext.Current.Resolve<IPictureService>();
-            var sampleImagesPath = GetSamplesPath();
-
-            var pic = await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, fileName)), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync(product.Name));
-
-            await InsertInstallationDataAsync(
-                new ProductPicture
-                {
-                    ProductId = product.Id,
-                    PictureId = pic.Id,
-                    DisplayOrder = displayOrder
-                });
-
-            return pic.Id;
         }
 
         /// <returns>A task that represents the asynchronous operation</returns>
@@ -400,14 +330,6 @@ namespace Nop.Services.Installation
                 ShowDocumentationReferenceLinks = true
             });
 
-            await settingService.SaveSettingAsync(new ProductEditorSettings
-            {
-                Weight = true,
-                Dimensions = true,
-                ProductAttributes = true,
-                SpecificationAttributes = true,
-                PAngV = isGermany
-            });
 
             await settingService.SaveSettingAsync(new GdprSettings
             {
@@ -520,11 +442,9 @@ namespace Nop.Services.Installation
                 EnablePriceRangeFiltering = true,
                 EnableSpecificationAttributeFiltering = true,
                 DisplayFromPrices = false,
-                AttributeValueOutOfStockDisplayType = AttributeValueOutOfStockDisplayType.AlwaysDisplay,
                 AllowCustomersToSearchWithCategoryName = true,
                 AllowCustomersToSearchWithManufacturerName = true,
                 DisplayAllPicturesOnCatalogPages = false,
-                ProductUrlStructureTypeId = (int)ProductUrlStructureType.Product
             });
 
             await settingService.SaveSettingAsync(new LocalizationSettings
@@ -676,7 +596,9 @@ namespace Nop.Services.Installation
 
             await settingService.SaveSettingAsync(new ExternalAuthenticationSettings
             {
-                RequireEmailValidation = false, LogErrors = false, AllowCustomersToRemoveAssociations = true
+                RequireEmailValidation = false,
+                LogErrors = false,
+                AllowCustomersToRemoveAssociations = true
             });
 
             await settingService.SaveSettingAsync(new RewardPointsSettings
@@ -722,7 +644,10 @@ namespace Nop.Services.Installation
 
             await settingService.SaveSettingAsync(new MessageTemplatesSettings
             {
-                CaseInvariantReplacement = false, Color1 = "#b9babe", Color2 = "#ebecee", Color3 = "#dde2e6"
+                CaseInvariantReplacement = false,
+                Color1 = "#b9babe",
+                Color2 = "#ebecee",
+                Color3 = "#dde2e6"
             });
 
             await settingService.SaveSettingAsync(new ShoppingCartSettings
@@ -870,7 +795,8 @@ namespace Nop.Services.Installation
 
             await settingService.SaveSettingAsync(new DateTimeSettings
             {
-                DefaultStoreTimeZoneId = string.Empty, AllowCustomersToSetTimeZone = false
+                DefaultStoreTimeZoneId = string.Empty,
+                AllowCustomersToSetTimeZone = false
             });
 
             await settingService.SaveSettingAsync(new BlogSettings
@@ -1517,3 +1443,4 @@ namespace Nop.Services.Installation
         #endregion
     }
 }
+

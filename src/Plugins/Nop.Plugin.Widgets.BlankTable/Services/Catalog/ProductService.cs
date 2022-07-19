@@ -5,17 +5,13 @@ using System.Threading.Tasks;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Domain.Common;
-using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Discounts;
 using Nop.Core.Domain.Localization;
-using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
-using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 using Nop.Services.Customers;
 using Nop.Services.Localization;
-using Nop.Services.Messages;
 using Nop.Services.Security;
 using Nop.Services.Shipping.Date;
 using Nop.Services.Stores;
@@ -36,8 +32,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         protected readonly IDateRangeService _dateRangeService;
         protected readonly ILanguageService _languageService;
         protected readonly ILocalizationService _localizationService;
-        protected readonly IProductAttributeParser _productAttributeParser;
-        protected readonly IProductAttributeService _productAttributeService;
         protected readonly IRepository<Category> _categoryRepository;
         protected readonly IRepository<DiscountProductMapping> _discountProductMappingRepository;
         protected readonly IRepository<LocalizedProperty> _localizedPropertyRepository;
@@ -62,8 +56,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
             IDateRangeService dateRangeService,
             ILanguageService languageService,
             ILocalizationService localizationService,
-            IProductAttributeParser productAttributeParser,
-            IProductAttributeService productAttributeService,
             IRepository<Category> categoryRepository,
             IRepository<DiscountProductMapping> discountProductMappingRepository,
             IRepository<LocalizedProperty> localizedPropertyRepository,
@@ -84,8 +76,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
             _dateRangeService = dateRangeService;
             _languageService = languageService;
             _localizationService = localizationService;
-            _productAttributeParser = productAttributeParser;
-            _productAttributeService = productAttributeService;
             _categoryRepository = categoryRepository;
             _discountProductMappingRepository = discountProductMappingRepository;
             _localizedPropertyRepository = localizedPropertyRepository;

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Nop.Core.Domain.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 using Nop.Services.ExportImport.Help;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport

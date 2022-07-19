@@ -575,10 +575,5 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         /// </summary>
         public bool DisplayAllPicturesOnCatalogPages { get; set; }
 
-        /// <summary>
-        /// Gets or sets the identifier of product URL structure type (e.g. '/category-seo-name/product-seo-name' or '/product-seo-name')
-        /// </summary>
-        /// <remarks>We have ProductUrlStructureType enum, but we use int value here so that it can be overridden in third-party plugins</remarks>
-        public int ProductUrlStructureTypeId { get; set; }
     }
 }
