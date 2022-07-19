@@ -50,19 +50,7 @@ namespace Nop.Plugin.Widgets.BlankTable
 
             await _settingService.SaveSettingAsync(settings);
 
-            //locales
-            await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
-            {
-                [ConfigurationModel.Labels.AdditionalFee] = "Additional fee",
-                [ConfigurationModel.Labels.AdditionalFeeHint] = "The additional fee.",
-                [ConfigurationModel.Labels.AdditionalFeePercentage] = "Additional fee. Use percentage",
-                [ConfigurationModel.Labels.AdditionalFeePercentageHint] = "Determines whether to apply a percentage additional fee to the order total. If not enabled, a fixed value is used.",
-                [ConfigurationModel.Labels.DescriptionText] = "Description",
-                [ConfigurationModel.Labels.DescriptionTextHint] = "Enter info that will be shown to customers during checkout",
-                [ConfigurationModel.Labels.PaymentMethodDescription] = "Pay by cheque or money order",
-                [ConfigurationModel.Labels.ShippableProductRequired] = "Shippable product required",
-                [ConfigurationModel.Labels.ShippableProductRequiredHint] = "An option indicating whether shippable products are required in order to display this payment method during checkout."
-            });
+            await InstallLocalizedStrings();
             await base.InstallAsync();
         }
 
@@ -175,5 +163,28 @@ namespace Nop.Plugin.Widgets.BlankTable
         {
             return typeof(CustomViewComponent);
         }
+
+        #region Helpers
+        /// <summary>
+        /// Add Localized Strings into the Localized Dictionary from Localization Service.
+        /// </summary>
+        /// <returns></returns>
+        private async Task InstallLocalizedStrings()
+        {
+            //locales
+            await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
+            {
+                [ConfigurationModel.Labels.AdditionalFee] = "Additional fee",
+                [ConfigurationModel.Labels.AdditionalFeeHint] = "The additional fee.",
+                [ConfigurationModel.Labels.AdditionalFeePercentage] = "Additional fee. Use percentage",
+                [ConfigurationModel.Labels.AdditionalFeePercentageHint] = "Determines whether to apply a percentage additional fee to the order total. If not enabled, a fixed value is used.",
+                [ConfigurationModel.Labels.DescriptionText] = "Description",
+                [ConfigurationModel.Labels.DescriptionTextHint] = "Enter info that will be shown to customers during checkout",
+                [ConfigurationModel.Labels.PaymentMethodDescription] = "Pay by cheque or money order",
+                [ConfigurationModel.Labels.ShippableProductRequired] = "Shippable product required",
+                [ConfigurationModel.Labels.ShippableProductRequiredHint] = "An option indicating whether shippable products are required in order to display this payment method during checkout."
+            });
+        }
+        #endregion
     }
 }

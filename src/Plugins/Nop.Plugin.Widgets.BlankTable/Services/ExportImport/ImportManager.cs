@@ -92,85 +92,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         #endregion
 
         #region Utilities
-
-        private static ExportedAttributeType GetTypeOfExportedAttribute(IXLWorksheet worksheet, PropertyManager<ExportProductAttribute> productAttributeManager, PropertyManager<ExportSpecificationAttribute> specificationAttributeManager, int iRow)
-        {
-            productAttributeManager.ReadFromXlsx(worksheet, iRow, ExportProductAttribute.ProducAttributeCellOffset);
-
-            if (productAttributeManager.IsCaption)
-            {
-                return ExportedAttributeType.ProductAttribute;
-            }
-
-            specificationAttributeManager.ReadFromXlsx(worksheet, iRow, ExportProductAttribute.ProducAttributeCellOffset);
-
-            if (specificationAttributeManager.IsCaption)
-            {
-                return ExportedAttributeType.SpecificationAttribute;
-            }
-
-            return ExportedAttributeType.NotSpecified;
-        }
-
-        /// <returns>A task that represents the asynchronous operation</returns>
-        private static async Task SetOutLineForSpecificationAttributeRowAsync(object cellValue, IXLWorksheet worksheet, int endRow)
-        {
-            var attributeType = (cellValue ?? string.Empty).ToString();
-
-            if (attributeType.Equals("AttributeType", StringComparison.InvariantCultureIgnoreCase))
-            {
-                worksheet.Row(endRow).OutlineLevel = 1;
-            }
-            else
-            {
-                if ((await SpecificationAttributeType.Option.ToSelectListAsync(useLocalization: false))
-                    .Any(p => p.Text.Equals(attributeType, StringComparison.InvariantCultureIgnoreCase)))
-                    worksheet.Row(endRow).OutlineLevel = 1;
-                else if (int.TryParse(attributeType, out var attributeTypeId) && Enum.IsDefined(typeof(SpecificationAttributeType), attributeTypeId))
-                    worksheet.Row(endRow).OutlineLevel = 1;
-            }
-        }
-
-        private static void CopyDataToNewFile(ImportProductMetadata metadata, IXLWorksheet worksheet, string filePath, int startRow, int endRow, int endCell)
-        {
-            using var stream = new FileStream(filePath, FileMode.OpenOrCreate);
-            // ok, we can run the real code of the sample now
-            using var workbook = new XLWorkbook(stream);
-            // uncomment this line if you want the XML written out to the outputDir
-            //xlPackage.DebugMode = true; 
-
-            // get handles to the worksheets
-            var outWorksheet = workbook.Worksheets.Add(typeof(Product).Name);
-            metadata.Manager.WriteCaption(outWorksheet);
-            var outRow = 2;
-            for (var row = startRow; row <= endRow; row++)
-            {
-                outWorksheet.Row(outRow).OutlineLevel = worksheet.Row(row).OutlineLevel;
-                for (var cell = 1; cell <= endCell; cell++)
-                {
-                    outWorksheet.Row(outRow).Cell(cell).Value = worksheet.Row(row).Cell(cell).Value;
-                }
-
-                outRow += 1;
-            }
-
-            workbook.Save();
-        }
-
-        protected virtual int GetColumnIndex(string[] properties, string columnName)
-        {
-            if (properties == null)
-                throw new ArgumentNullException(nameof(properties));
-
-            if (columnName == null)
-                throw new ArgumentNullException(nameof(columnName));
-
-            for (var i = 0; i < properties.Length; i++)
-                if (properties[i].Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
-                    return i + 1; //excel indexes start from 1
-            return 0;
-        }
-
         protected virtual string GetMimeTypeFromFilePath(string filePath)
         {
             new FileExtensionContentTypeProvider().TryGetContentType(filePath, out var mimeType);
@@ -398,45 +319,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 await _urlRecordService.SaveSlugAsync(category, await _urlRecordService.ValidateSeNameAsync(category, seName, category.Name, true), 0);
         }
 
-        /// <returns>A task that represents the asynchronous operation</returns>
-        private async Task<string> DownloadFileAsync(string urlString, IList<string> downloadedFiles)
-        {
-            if (string.IsNullOrEmpty(urlString))
-                return string.Empty;
-
-            if (!Uri.IsWellFormedUriString(urlString, UriKind.Absolute))
-                return urlString;
-
-            if (!_catalogSettings.ExportImportAllowDownloadImages)
-                return string.Empty;
-
-            //ensure that temp directory is created
-            var tempDirectory = _fileProvider.MapPath(ExportImportDefaults.UploadsTempPath);
-            _fileProvider.CreateDirectory(tempDirectory);
-
-            var fileName = _fileProvider.GetFileName(urlString);
-            if (string.IsNullOrEmpty(fileName))
-                return string.Empty;
-
-            var filePath = _fileProvider.Combine(tempDirectory, fileName);
-            try
-            {
-                var client = _httpClientFactory.CreateClient(NopHttpDefaults.DefaultHttpClient);
-                var fileData = await client.GetByteArrayAsync(urlString);
-                await using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
-                    fs.Write(fileData, 0, fileData.Length);
-
-                downloadedFiles?.Add(filePath);
-                return filePath;
-            }
-            catch (Exception ex)
-            {
-                await _logger.ErrorAsync("Download image failed", ex);
-            }
-
-            return string.Empty;
-        }
-
         #endregion
 
         #region Methods
@@ -578,19 +460,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         #endregion
 
         #region Nested classes
-
-        protected class ProductPictureMetadata
-        {
-            public Product ProductItem { get; set; }
-
-            public string Picture1Path { get; set; }
-
-            public string Picture2Path { get; set; }
-
-            public string Picture3Path { get; set; }
-
-            public bool IsNew { get; set; }
-        }
 
         public class CategoryKey
         {
