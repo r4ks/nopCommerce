@@ -471,11 +471,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool ExportImportProductUseLimitedToStores { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the products need to be exported/imported with their specification attributes
-        /// </summary>
-        public bool ExportImportProductSpecificationAttributes { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether need create dropdown list for export
         /// </summary>
         public bool ExportImportUseDropdownlistsForAssociatedEntities { get; set; }

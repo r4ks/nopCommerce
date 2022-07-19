@@ -356,7 +356,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
             bool searchSku = true,
             bool searchProductTags = false,
             int languageId = 0,
-            IList<SpecificationAttributeOption> filteredSpecOptions = null,
             ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
             bool? overridePublished = null)

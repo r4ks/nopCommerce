@@ -16,8 +16,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
         public PropertyManager<ExportProductAttribute> ProductAttributeManager { get; internal set; }
 
-        public PropertyManager<ExportSpecificationAttribute> SpecificationAttributeManager { get; internal set; }
-
         public int SkuCellNum { get; internal set; }
 
         public List<string> AllSku { get; set; }

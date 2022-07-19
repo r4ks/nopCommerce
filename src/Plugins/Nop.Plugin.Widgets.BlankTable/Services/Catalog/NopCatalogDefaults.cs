@@ -377,14 +377,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         public static CacheKey SpecificationAttributesWithOptionsCacheKey => new("Nop.specificationattribute.withoptions.");
 
         /// <summary>
-        /// Key for specification attributes caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : specification attribute ID
-        /// </remarks>
-        public static CacheKey SpecificationAttributeOptionsCacheKey => new("Nop.specificationattributeoption.byattribute.{0}");
-
-        /// <summary>
         /// Key for specification attribute options by category ID caching
         /// </summary>
         /// <remarks>
@@ -393,30 +385,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         public static CacheKey SpecificationAttributeOptionsByCategoryCacheKey => new("Nop.specificationattributeoption.bycategory.{0}", FilterableSpecificationAttributeOptionsPrefix);
 
         /// <summary>
-        /// Key for specification attribute options by manufacturer ID caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : manufacturer ID
-        /// </remarks>
-        public static CacheKey SpecificationAttributeOptionsByManufacturerCacheKey => new("Nop.specificationattributeoption.bymanufacturer.{0}", FilterableSpecificationAttributeOptionsPrefix);
-
-        /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
         public static string FilterableSpecificationAttributeOptionsPrefix => "Nop.filterablespecificationattributeoptions";
-
-        /// <summary>
-        /// Gets a key for specification attribute groups caching by product id
-        /// </summary>
-        /// <remarks>
-        /// {0} : product ID
-        /// </remarks>
-        public static CacheKey SpecificationAttributeGroupByProductCacheKey => new("Nop.specificationattributegroup.byproduct.{0}", SpecificationAttributeGroupByProductPrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        public static string SpecificationAttributeGroupByProductPrefix => "Nop.specificationattributegroup.byproduct.";
 
         #endregion
 

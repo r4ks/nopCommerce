@@ -65,7 +65,6 @@ namespace Nop.Services.Installation
         private readonly IRepository<MeasureWeight> _measureWeightRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<ProductAvailabilityRange> _productAvailabilityRangeRepository;
-        private readonly IRepository<SpecificationAttributeOption> _specificationAttributeOptionRepository;
         private readonly IRepository<StateProvince> _stateProvinceRepository;
         private readonly IRepository<Store> _storeRepository;
         private readonly IRepository<TaxCategory> _taxCategoryRepository;
@@ -94,7 +93,6 @@ namespace Nop.Services.Installation
             IRepository<MeasureWeight> measureWeightRepository,
             IRepository<Product> productRepository,
             IRepository<ProductAvailabilityRange> productAvailabilityRangeRepository,
-            IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository,
             IRepository<StateProvince> stateProvinceRepository,
             IRepository<Store> storeRepository,
             IRepository<TaxCategory> taxCategoryRepository,
@@ -119,7 +117,6 @@ namespace Nop.Services.Installation
             _measureWeightRepository = measureWeightRepository;
             _productAvailabilityRangeRepository = productAvailabilityRangeRepository;
             _productRepository = productRepository;
-            _specificationAttributeOptionRepository = specificationAttributeOptionRepository;
             _stateProvinceRepository = stateProvinceRepository;
             _storeRepository = storeRepository;
             _taxCategoryRepository = taxCategoryRepository;
@@ -430,7 +427,6 @@ namespace Nop.Services.Installation
                 ProductReviewsPageSizeOnAccountPage = 10,
                 ProductReviewsSortByCreatedDateAscending = false,
                 ExportImportProductAttributes = true,
-                ExportImportProductSpecificationAttributes = true,
                 ExportImportUseDropdownlistsForAssociatedEntities = true,
                 ExportImportProductsCountInOneFile = 500,
                 ExportImportSplitProductsFile = false,

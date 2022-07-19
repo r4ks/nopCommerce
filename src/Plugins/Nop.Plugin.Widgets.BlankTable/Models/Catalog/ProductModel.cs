@@ -519,12 +519,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public bool ProductAttributesExist { get; set; }
         public bool CanCreateCombinations { get; set; }
 
-        //specification attributes
-        public bool HasAvailableSpecificationAttributes { get; set; }
-
-        //copy product
-        // public CopyProductModel CopyProductModel { get; set; }
-
         //editor settings
         public ProductEditorSettingsModel ProductEditorSettingsModel { get; set; }
 

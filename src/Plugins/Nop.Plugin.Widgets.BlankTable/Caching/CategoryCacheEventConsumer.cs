@@ -28,9 +28,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Caching
             await RemoveByPrefixAsync(NopCatalogDefaults.CategoryProductsNumberPrefix);
             await RemoveByPrefixAsync(NopDiscountDefaults.CategoryIdsPrefix);
 
-            if (entityEventType == EntityEventType.Delete)
-                await RemoveAsync(NopCatalogDefaults.SpecificationAttributeOptionsByCategoryCacheKey, entity);
-
             await RemoveAsync(NopDiscountDefaults.AppliedDiscountsCacheKey, nameof(Category), entity);
 
             await base.ClearCacheAsync(entity, entityEventType);

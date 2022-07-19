@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nop.Core;
-using Nop.Core.Domain.Customers;
-using Nop.Core.Domain.Discounts;
-using Nop.Core.Domain.Orders;
-using Nop.Core.Domain.Shipping;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
@@ -162,7 +158,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
             bool searchSku = true,
             bool searchProductTags = false,
             int languageId = 0,
-            IList<SpecificationAttributeOption> filteredSpecOptions = null,
             ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
             bool? overridePublished = null);
