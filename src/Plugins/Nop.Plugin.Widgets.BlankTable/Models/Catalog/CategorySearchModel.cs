@@ -12,15 +12,20 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
     {
         #region Labels
         public static class Labels {
-            public const string SearchCategoryName = "Admin.Catalog.Categories.List.SearchCategoryName";
-            public const string SearchPublishedId = "Admin.Catalog.Categories.List.SearchPublished";
-            public const string SearchStoreId = "Admin.Catalog.Categories.List.SearchStore";
-            // View Labels:
             public const string Title = "Admin.Catalog.Categories";
+
             public const string DisplayOrder = "Admin.Catalog.Categories.Fields.DisplayOrder";
             public const string Published = "Admin.Catalog.Categories.Fields.Published";
             public const string Breadcrumb = "Admin.Catalog.Categories.Fields.Name";
+
+            public const string SearchCategoryName = "Admin.Catalog.Categories.List.SearchCategoryName";
+            public const string SearchStoreId = "Admin.Catalog.Categories.List.SearchStore";
             public const string ImportFromExcelTip = "Admin.Catalog.Categories.List.ImportFromExcelTip";
+
+            public const string SearchPublishedId = "Admin.Catalog.Categories.List.SearchPublished";
+            public const string All = "Admin.Catalog.Categories.List.SearchPublished.All";
+            public const string PublishedOnly = "Admin.Catalog.Categories.List.SearchPublished.PublishedOnly";
+            public const string UnpublishedOnly = "Admin.Catalog.Categories.List.SearchPublished.UnpublishedOnly";
         }
 
         #endregion

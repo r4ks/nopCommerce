@@ -508,5 +508,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         /// </summary>
         public DateTime UpdatedOnUtc { get; set; }
 
+        /// <summary>
+        /// Product Id
+        /// </summary>
+        public int ProductTypeId { get; internal set; }
     }
 }

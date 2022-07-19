@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Nop.Core.Domain.Catalog;
-using Nop.Web.Areas.Admin.Models.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Factories
 {

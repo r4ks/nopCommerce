@@ -63,16 +63,16 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
             public const string SelectedCustomerRoleIds = "Admin.Catalog.Categories.Fields.AclCustomerRoles";
             public const string SelectedStoreIds = "Admin.Catalog.Categories.Fields.LimitedToStores";
             public const string SelectedDiscountIds = "Admin.Catalog.Categories.Fields.Discounts";
+            public const string None = "Admin.Catalog.Categories.Fields.Parent.None";
 
             //View Labels:
+            public const string NoDiscounts = "Admin.Catalog.Categories.Fields.Discounts.NoDiscounts";
             public const string EditCategoryDetails = "Admin.Catalog.Categories.EditCategoryDetails";
             public const string BackToList = "Admin.Catalog.Categories.BackToList";
             public const string AddNew = "Admin.Catalog.Categories.AddNew";
-            public const string NoDiscounts = "Admin.Catalog.Categories.Fields.Discounts.NoDiscounts";
             public const string Info = "Admin.Catalog.Categories.Info";
             public const string Display = "Admin.Catalog.Categories.Display";
             public const string Mappings = "Admin.Catalog.Categories.Mappings";
-            public const string SEO = "Admin.Common.SEO";
             public const string Products = "Admin.Catalog.Categories.Products";
         }
         #endregion

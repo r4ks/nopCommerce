@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Discounts;
-using Nop.Services.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 using Nop.Services.Directory;
 using Nop.Services.Discounts;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
-using Nop.Web.Areas.Admin.Factories;
+using IBaseAdminModelFactory = Nop.Web.Areas.Admin.Factories.IBaseAdminModelFactory;
 using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
-using Nop.Web.Areas.Admin.Models.Catalog;
 using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Factories;
 using Nop.Web.Framework.Models.Extensions;
+using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
 
 namespace Nop.Plugin.Widgets.BlankTable.Factories
 {
@@ -126,17 +126,17 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
             {
                 Value = "0",
-                Text = await _localizationService.GetResourceAsync("Admin.Catalog.Categories.List.SearchPublished.All")
+                Text = await _localizationService.GetResourceAsync(CategorySearchModel.Labels.All)
             });
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
             {
                 Value = "1",
-                Text = await _localizationService.GetResourceAsync("Admin.Catalog.Categories.List.SearchPublished.PublishedOnly")
+                Text = await _localizationService.GetResourceAsync(CategorySearchModel.Labels.PublishedOnly)
             });
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
             {
                 Value = "2",
-                Text = await _localizationService.GetResourceAsync("Admin.Catalog.Categories.List.SearchPublished.UnpublishedOnly")
+                Text = await _localizationService.GetResourceAsync(CategorySearchModel.Labels.UnpublishedOnly)
             });
 
             //prepare page parameters
@@ -246,7 +246,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
 
             //prepare available parent categories
             await _baseAdminModelFactory.PrepareCategoriesAsync(model.AvailableCategories,
-                defaultItemText: await _localizationService.GetResourceAsync("Admin.Catalog.Categories.Fields.Parent.None"));
+                defaultItemText: await _localizationService.GetResourceAsync(CategoryModel.Labels.None));
 
             //prepare model discounts
             var availableDiscounts = await _discountService.GetAllDiscountsAsync(DiscountType.AssignedToCategories, showHidden: true);
