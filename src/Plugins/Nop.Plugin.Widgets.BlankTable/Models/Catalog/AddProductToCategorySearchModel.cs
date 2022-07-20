@@ -18,7 +18,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
             public const string SearchManufacturerId = "Admin.Catalog.Products.List.SearchManufacturer";
             public const string SearchStoreId = "Admin.Catalog.Products.List.SearchStore";
             public const string SearchVendorId = "Admin.Catalog.Products.List.SearchVendor";
-            public const string SearchProductTypeId = "Admin.Catalog.Products.List.SearchProductType";
 
             // View Labels:
             public const string Name = "Admin.Catalog.Products.Fields.Name";
@@ -33,7 +32,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
             AvailableManufacturers = new List<SelectListItem>();
             AvailableStores = new List<SelectListItem>();
             AvailableVendors = new List<SelectListItem>();
-            AvailableProductTypes = new List<SelectListItem>();
         }
 
         #endregion
@@ -55,9 +53,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         [NopResourceDisplayName(Labels.SearchVendorId)]
         public int SearchVendorId { get; set; }
 
-        [NopResourceDisplayName(Labels.SearchProductTypeId)]
-        public int SearchProductTypeId { get; set; }
-
         public IList<SelectListItem> AvailableCategories { get; set; }
 
         public IList<SelectListItem> AvailableManufacturers { get; set; }
@@ -65,8 +60,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public IList<SelectListItem> AvailableStores { get; set; }
 
         public IList<SelectListItem> AvailableVendors { get; set; }
-
-        public IList<SelectListItem> AvailableProductTypes { get; set; }
 
         #endregion
     }

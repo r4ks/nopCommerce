@@ -11,7 +11,6 @@ using Nop.Services.Directory;
 using Nop.Services.Discounts;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
-using IBaseAdminModelFactory = Nop.Web.Areas.Admin.Factories.IBaseAdminModelFactory;
 using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Factories;
@@ -326,9 +325,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             //prepare available vendors
             await _baseAdminModelFactory.PrepareVendorsAsync(searchModel.AvailableVendors);
 
-            //prepare available product types
-            await _baseAdminModelFactory.PrepareProductTypesAsync(searchModel.AvailableProductTypes);
-
             //prepare page parameters
             searchModel.SetPopupGridPageSize();
 
@@ -354,7 +350,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
                 manufacturerIds: new List<int> { searchModel.SearchManufacturerId },
                 storeId: searchModel.SearchStoreId,
                 vendorId: searchModel.SearchVendorId,
-                productType: searchModel.SearchProductTypeId > 0 ? (ProductType?)searchModel.SearchProductTypeId : null,
                 keywords: searchModel.SearchProductName,
                 pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
 

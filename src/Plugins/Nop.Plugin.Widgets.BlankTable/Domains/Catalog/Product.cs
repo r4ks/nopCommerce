@@ -507,10 +507,5 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         /// Gets or sets the date and time of product update
         /// </summary>
         public DateTime UpdatedOnUtc { get; set; }
-
-        /// <summary>
-        /// Product Id
-        /// </summary>
-        public int ProductTypeId { get; internal set; }
     }
 }

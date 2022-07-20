@@ -71,14 +71,6 @@ else
                                                 <nop-select asp-for="SearchStoreId" asp-items="Model.AvailableStores" />
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-5">
-                                                <nop-label asp-for="SearchProductTypeId" />
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <nop-select asp-for="SearchProductTypeId" asp-items="Model.AvailableProductTypes" />
-                                            </div>
-                                        </div>
                                         <div class="form-group row" @(Model.AvailableManufacturers.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
                                             <div class="col-sm-5">
                                                 <nop-label asp-for="SearchManufacturerId" />
@@ -116,7 +108,6 @@ else
                                         new FilterParameter(nameof(Model.SearchManufacturerId)),
                                         new FilterParameter(nameof(Model.SearchStoreId)),
                                         new FilterParameter(nameof(Model.SearchVendorId)),
-                                        new FilterParameter(nameof(Model.SearchProductTypeId))
                                     },
                                     ColumnCollection = new List<ColumnProperty>
                                     {

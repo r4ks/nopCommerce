@@ -114,7 +114,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// <param name="storeId">Store identifier; 0 to load all records</param>
         /// <param name="vendorId">Vendor identifier; 0 to load all records</param>
         /// <param name="warehouseId">Warehouse identifier; 0 to load all records</param>
-        /// <param name="productType">Product type; 0 to load all records</param>
         /// <param name="visibleIndividuallyOnly">A values indicating whether to load only products marked as "visible individually"; "false" to load all records; "true" to load "visible individually" only</param>
         /// <param name="excludeFeaturedProducts">A value indicating whether loaded products are marked as featured (relates only to categories and manufacturers); "false" (by default) to load all records; "true" to exclude featured products from results</param>
         /// <param name="priceMin">Minimum price; null to load all records</param>
@@ -146,7 +145,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
             int storeId = 0,
             int vendorId = 0,
             int warehouseId = 0,
-            ProductType? productType = null,
             bool visibleIndividuallyOnly = false,
             bool excludeFeaturedProducts = false,
             decimal? priceMin = null,

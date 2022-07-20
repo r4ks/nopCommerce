@@ -65,7 +65,6 @@
     <Folder Include="Areas\Admin\Factories\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Factories\" />
   </ItemGroup>
  
   <!-- This target execute after "Build" target -->

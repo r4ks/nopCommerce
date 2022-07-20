@@ -54,7 +54,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public static class Labels {
             public const string Prefix = "Admin.Catalog.Products.Fields";
             public const string PictureThumbnailUrl = Prefix + ".PictureThumbnailUrl";
-            public const string ProductType = Prefix + ".ProductType";
             public const string AssociatedToProduct = Prefix + ".AssociatedToProductName";
             public const string VisibleIndividually = Prefix + ".VisibleIndividually";
             public const string ProductTemplateId = Prefix + ".ProductTemplate";
@@ -163,11 +162,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         [NopResourceDisplayName(Labels.PictureThumbnailUrl)]
         public string PictureThumbnailUrl { get; set; }
 
-        [NopResourceDisplayName(Labels.ProductType)]
-        public int ProductTypeId { get; set; }
-
-        [NopResourceDisplayName(Labels.ProductType)]
-        public string ProductTypeName { get; set; }
 
         [NopResourceDisplayName(Labels.AssociatedToProduct)]
         public int AssociatedToProductId { get; set; }
