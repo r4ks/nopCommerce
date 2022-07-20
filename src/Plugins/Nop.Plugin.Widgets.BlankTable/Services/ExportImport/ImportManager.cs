@@ -137,15 +137,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                     case "Description":
                         category.Description = property.StringValue;
                         break;
-                    case "MetaKeywords":
-                        category.MetaKeywords = property.StringValue;
-                        break;
-                    case "MetaDescription":
-                        category.MetaDescription = property.StringValue;
-                        break;
-                    case "MetaTitle":
-                        category.MetaTitle = property.StringValue;
-                        break;
                     case "ParentCategoryId":
                         if (!isParentCategorySet)
                         {

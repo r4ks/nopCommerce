@@ -181,9 +181,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
                 {
                     locale.Name = await _localizationService.GetLocalizedAsync(category, entity => entity.Name, languageId, false, false);
                     locale.Description = await _localizationService.GetLocalizedAsync(category, entity => entity.Description, languageId, false, false);
-                    locale.MetaKeywords = await _localizationService.GetLocalizedAsync(category, entity => entity.MetaKeywords, languageId, false, false);
-                    locale.MetaDescription = await _localizationService.GetLocalizedAsync(category, entity => entity.MetaDescription, languageId, false, false);
-                    locale.MetaTitle = await _localizationService.GetLocalizedAsync(category, entity => entity.MetaTitle, languageId, false, false);
                     locale.SeName = await _urlRecordService.GetSeNameAsync(category, languageId, false, false);
                 };
             }

@@ -39,9 +39,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public static partial class Labels {
             public const string Name = "Admin.Catalog.Categories.Fields.Name";
             public const string Description = "Admin.Catalog.Categories.Fields.Description";
-            public const string MetaKeywords = "Admin.Catalog.Categories.Fields.MetaKeywords";
-            public const string MetaDescription = "Admin.Catalog.Categories.Fields.MetaDescription";
-            public const string MetaTitle = "Admin.Catalog.Categories.Fields.MetaTitle";
             public const string SeName = "Admin.Catalog.Categories.Fields.SeName";
             public const string ParentCategoryId = "Admin.Catalog.Categories.Fields.Parent";
             public const string PictureId = "Admin.Catalog.Categories.Fields.Picture";
@@ -81,16 +78,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 
         [NopResourceDisplayName(Labels.Description)]
         public string Description { get; set; }
-
-
-        [NopResourceDisplayName(Labels.MetaKeywords)]
-        public string MetaKeywords { get; set; }
-
-        [NopResourceDisplayName(Labels.MetaDescription)]
-        public string MetaDescription { get; set; }
-
-        [NopResourceDisplayName(Labels.MetaTitle)]
-        public string MetaTitle { get; set; }
 
         [NopResourceDisplayName(Labels.SeName)]
         public string SeName { get; set; }
@@ -173,15 +160,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 
         [NopResourceDisplayName(CategoryModel.Labels.Description)]
         public string Description {get;set;}
-
-        [NopResourceDisplayName(CategoryModel.Labels.MetaKeywords)]
-        public string MetaKeywords { get; set; }
-
-        [NopResourceDisplayName(CategoryModel.Labels.MetaDescription)]
-        public string MetaDescription { get; set; }
-
-        [NopResourceDisplayName(CategoryModel.Labels.MetaTitle)]
-        public string MetaTitle { get; set; }
 
         [NopResourceDisplayName(CategoryModel.Labels.SeName)]
         public string SeName { get; set; }
