@@ -3,8 +3,8 @@ using Nop.Core.Configuration;
 using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Stores;
 using Nop.Core.Infrastructure.Mapper;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Models;
 

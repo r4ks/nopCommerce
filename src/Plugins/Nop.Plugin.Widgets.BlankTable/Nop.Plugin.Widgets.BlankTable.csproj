@@ -60,11 +60,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Extensions\" />
-    <Folder Include="Areas\Admin\Factories\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Validators\" />
   </ItemGroup>
  
   <!-- This target execute after "Build" target -->

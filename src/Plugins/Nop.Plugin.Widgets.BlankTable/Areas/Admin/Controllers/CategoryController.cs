@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Domain.Discounts;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Factories;
-using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Services.ExportImport;
 using Nop.Services.Customers;
@@ -28,7 +28,7 @@ using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc;
 using Nop.Web.Framework.Mvc.Filters;
 
-namespace Nop.Plugin.Widgets.BlankTable.Controllers
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 {
     public partial class CategoryController : BaseAdminController
     {
@@ -135,13 +135,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             var existingAclRecords = await _aclService.GetAclRecordsAsync(category);
             var allCustomerRoles = await _customerService.GetAllCustomerRolesAsync(true);
             foreach (var customerRole in allCustomerRoles)
-            {
                 if (model.SelectedCustomerRoleIds.Contains(customerRole.Id))
-                {
                     //new role
                     if (!existingAclRecords.Any(acl => acl.CustomerRoleId == customerRole.Id))
                         await _aclService.InsertAclRecordAsync(category, customerRole.Id);
-                }
                 else
                 {
                     //remove role
@@ -149,7 +146,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
                     if (aclRecordToDelete != null)
                         await _aclService.DeleteAclRecordAsync(aclRecordToDelete);
                 }
-            }
         }
 
         protected virtual async Task SaveStoreMappingsAsync(Category category, CategoryModel model)
@@ -160,13 +156,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             var existingStoreMappings = await _storeMappingService.GetStoreMappingsAsync(category);
             var allStores = await _storeService.GetAllStoresAsync();
             foreach (var store in allStores)
-            {
                 if (model.SelectedStoreIds.Contains(store.Id))
-                {
                     //new store
                     if (!existingStoreMappings.Any(sm => sm.StoreId == store.Id))
                         await _storeMappingService.InsertStoreMappingAsync(category, store.Id);
-                }
                 else
                 {
                     //remove store
@@ -174,7 +167,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
                     if (storeMappingToDelete != null)
                         await _storeMappingService.DeleteStoreMappingAsync(storeMappingToDelete);
                 }
-            }
         }
 
         #endregion
@@ -247,10 +239,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
                 //discounts
                 var allDiscounts = await _discountService.GetAllDiscountsAsync(DiscountType.AssignedToCategories, showHidden: true);
                 foreach (var discount in allDiscounts)
-                {
                     if (model.SelectedDiscountIds != null && model.SelectedDiscountIds.Contains(discount.Id))
                         await _categoryService.InsertDiscountCategoryMappingAsync(new DiscountCategoryMapping { DiscountId = discount.Id, EntityId = category.Id });
-                }
 
                 await _categoryService.UpdateCategoryAsync(category);
 
@@ -271,7 +261,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
 
                 if (!continueEditing)
                     return RedirectToAction("List");
-                
+
                 return RedirectToAction("Edit", new { id = category.Id });
             }
 
@@ -334,20 +324,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
                 //discounts
                 var allDiscounts = await _discountService.GetAllDiscountsAsync(DiscountType.AssignedToCategories, showHidden: true);
                 foreach (var discount in allDiscounts)
-                {
                     if (model.SelectedDiscountIds != null && model.SelectedDiscountIds.Contains(discount.Id))
-                    {
                         //new discount
                         if (await _categoryService.GetDiscountAppliedToCategoryAsync(category.Id, discount.Id) is null)
                             await _categoryService.InsertDiscountCategoryMappingAsync(new DiscountCategoryMapping { DiscountId = discount.Id, EntityId = category.Id });
-                    }
                     else
-                    {
                         //remove discount
                         if (await _categoryService.GetDiscountAppliedToCategoryAsync(category.Id, discount.Id) is DiscountCategoryMapping mapping)
                             await _categoryService.DeleteDiscountCategoryMappingAsync(mapping);
-                    }
-                }
 
                 await _categoryService.UpdateCategoryAsync(category);
 
@@ -376,7 +360,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
 
                 if (!continueEditing)
                     return RedirectToAction("List");
-                
+
                 return RedirectToAction("Edit", new { id = category.Id });
             }
 
@@ -477,9 +461,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             try
             {
                 if (importexcelfile != null && importexcelfile.Length > 0)
-                {
                     await _importManager.ImportCategoriesFromXlsxAsync(importexcelfile.OpenReadStream());
-                }
                 else
                 {
                     _notificationService.ErrorNotification(await _localizationService.GetResourceAsync("Admin.Common.UploadFile"));

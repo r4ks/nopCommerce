@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Nop.Plugin.Widgets.BlankTable.Factories
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 {
     /// <summary>
     /// Represents the base model factory that implements a most common admin model factories methods

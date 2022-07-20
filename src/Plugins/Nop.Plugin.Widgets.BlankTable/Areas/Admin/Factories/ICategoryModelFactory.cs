@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
 
-namespace Nop.Plugin.Widgets.BlankTable.Factories
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 {
     /// <summary>
     /// Represents the category model factory

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 
-namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog
 {
     /// <summary>
     /// Represents a category model
@@ -17,9 +17,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public CategoryModel()
         {
             if (PageSize < 1)
-            {
                 PageSize = 5;
-            }
 
             Locales = new List<CategoryLocalizedModel>();
             AvailableCategories = new List<SelectListItem>();
@@ -36,7 +34,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 
         #endregion
         #region Labels
-        public static partial class Labels {
+        public static partial class Labels
+        {
             public const string Name = "Admin.Catalog.Categories.Fields.Name";
             public const string Description = "Admin.Catalog.Categories.Fields.Description";
             public const string SeName = "Admin.Catalog.Categories.Fields.SeName";
@@ -124,7 +123,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
 
         [NopResourceDisplayName(Labels.DisplayOrder)]
         public int DisplayOrder { get; set; }
-        
+
         public IList<CategoryLocalizedModel> Locales { get; set; }
 
         public string Breadcrumb { get; set; }
@@ -133,7 +132,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         [NopResourceDisplayName(Labels.SelectedCustomerRoleIds)]
         public IList<int> SelectedCustomerRoleIds { get; set; }
         public IList<SelectListItem> AvailableCustomerRoles { get; set; }
-        
+
         //store mapping
         [NopResourceDisplayName(Labels.SelectedStoreIds)]
         public IList<int> SelectedStoreIds { get; set; }
@@ -159,7 +158,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public string Name { get; set; }
 
         [NopResourceDisplayName(CategoryModel.Labels.Description)]
-        public string Description {get;set;}
+        public string Description { get; set; }
 
         [NopResourceDisplayName(CategoryModel.Labels.SeName)]
         public string SeName { get; set; }

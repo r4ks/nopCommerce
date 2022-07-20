@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Discounts;
-using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 using Nop.Services.Directory;
 using Nop.Services.Discounts;
@@ -16,8 +15,9 @@ using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Factories;
 using Nop.Web.Framework.Models.Extensions;
 using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
 
-namespace Nop.Plugin.Widgets.BlankTable.Factories
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 {
     /// <summary>
     /// Represents the category model factory implementation
@@ -132,7 +132,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
                 showHidden: true,
                 storeId: searchModel.SearchStoreId,
                 pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
-                overridePublished: searchModel.SearchPublishedId == 0 ? null : (bool?)(searchModel.SearchPublishedId == 1));
+                overridePublished: searchModel.SearchPublishedId == 0 ? null : searchModel.SearchPublishedId == 1);
 
             //prepare grid model
             var model = await new CategoryListModel().PrepareToGridAsync(searchModel, categories, () =>

@@ -9,7 +9,7 @@ using Nop.Services.Localization;
 using Nop.Services.Stores;
 using Nop.Web.Areas.Admin.Infrastructure.Cache;
 
-namespace Nop.Plugin.Widgets.BlankTable.Factories
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 {
     /// <summary>
     /// Represents the implementation of the base model factory that implements a most common admin model factories methods
@@ -92,13 +92,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             var result = new List<SelectListItem>();
             //clone the list to ensure that "selected" property is not set
             foreach (var item in listItems)
-            {
                 result.Add(new SelectListItem
                 {
                     Text = item.Text,
                     Value = item.Value
                 });
-            }
 
             return result;
         }
@@ -122,9 +120,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             //prepare available stores
             var availableStores = await _storeService.GetAllStoresAsync();
             foreach (var store in availableStores)
-            {
                 items.Add(new SelectListItem { Value = store.Id.ToString(), Text = store.Name });
-            }
 
             //insert special item for the default value
             await PrepareDefaultItemAsync(items, withSpecialDefaultItem, defaultItemText);
@@ -146,9 +142,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             //prepare available categories
             var availableCategoryItems = await GetCategoryListAsync();
             foreach (var categoryItem in availableCategoryItems)
-            {
                 items.Add(categoryItem);
-            }
 
             //insert special item for the default value
             await PrepareDefaultItemAsync(items, withSpecialDefaultItem, defaultItemText);

@@ -1,6 +1,6 @@
 ﻿using Nop.Web.Framework.Models;
 
-namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog
 {
     /// <summary>
     /// Represents a category list model

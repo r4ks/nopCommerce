@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
 
-namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog
 {
     /// <summary>
     /// Represents a category search model
@@ -11,7 +11,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
     public partial record CategorySearchModel : BaseSearchModel
     {
         #region Labels
-        public static class Labels {
+        public static class Labels
+        {
             public const string Title = "Admin.Catalog.Categories";
 
             public const string DisplayOrder = "Admin.Catalog.Categories.Fields.DisplayOrder";

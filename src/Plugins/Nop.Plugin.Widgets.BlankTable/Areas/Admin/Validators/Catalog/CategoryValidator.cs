@@ -1,18 +1,19 @@
 ﻿using FluentValidation;
 using Nop.Data.Mapping;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
 using Nop.Web.Areas.Admin.Validators;
 using Nop.Web.Framework.Validators;
 
-namespace Nop.Plugin.Widgets.BlankTable.Validators.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Catalog
 {
     public partial class CategoryValidator : BaseNopValidator<CategoryModel>
     {
         #region Labels
-        public static class Labels {
+        public static class Labels
+        {
             public const string NameRequired = "Admin.Catalog.Categories.Fields.Name.Required";
             public const string PageSizeOptionsShouldHaveUniqueItems = "Admin.Catalog.Categories.Fields.PageSizeOptions.ShouldHaveUniqueItems";
             public const string PageSizePositive = "Admin.Catalog.Categories.Fields.PageSize.Positive";
