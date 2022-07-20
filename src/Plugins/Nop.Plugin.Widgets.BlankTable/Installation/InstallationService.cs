@@ -54,7 +54,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
         private readonly IRepository<ActivityLogType> _activityLogTypeRepository;
         private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<CategoryTemplate> _categoryTemplateRepository;
         private readonly IRepository<Country> _countryRepository;
         private readonly IRepository<Currency> _currencyRepository;
         private readonly IRepository<Customer> _customerRepository;
@@ -82,7 +81,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             IRepository<ActivityLogType> activityLogTypeRepository,
             IRepository<Address> addressRepository,
             IRepository<Category> categoryRepository,
-            IRepository<CategoryTemplate> categoryTemplateRepository,
             IRepository<Country> countryRepository,
             IRepository<Currency> currencyRepository,
             IRepository<Customer> customerRepository,
@@ -106,7 +104,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             _activityLogTypeRepository = activityLogTypeRepository;
             _addressRepository = addressRepository;
             _categoryRepository = categoryRepository;
-            _categoryTemplateRepository = categoryTemplateRepository;
             _countryRepository = countryRepository;
             _currencyRepository = currencyRepository;
             _customerRepository = customerRepository;
@@ -1045,17 +1042,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var pictureService = EngineContext.Current.Resolve<IPictureService>();
             var sampleImagesPath = GetSamplesPath();
 
-            var categoryTemplateInGridAndLines = _categoryTemplateRepository
-                .Table.FirstOrDefault(pt => pt.Name == "Products in Grid or Lines");
-            if (categoryTemplateInGridAndLines == null)
-                throw new Exception("Category template cannot be loaded");
 
             //categories
             var allCategories = new List<Category>();
             var categoryComputers = new Category
             {
                 Name = "Computers",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1073,7 +1065,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryDesktops = new Category
             {
                 Name = "Desktops",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1096,7 +1087,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryNotebooks = new Category
             {
                 Name = "Notebooks",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1115,7 +1105,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categorySoftware = new Category
             {
                 Name = "Software",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1134,7 +1123,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryElectronics = new Category
             {
                 Name = "Electronics",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1153,7 +1141,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryCameraPhoto = new Category
             {
                 Name = "Camera & photo",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1176,7 +1163,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryCellPhones = new Category
             {
                 Name = "Cell phones",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1195,7 +1181,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryOthers = new Category
             {
                 Name = "Others",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1218,7 +1203,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryApparel = new Category
             {
                 Name = "Apparel",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1237,7 +1221,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryShoes = new Category
             {
                 Name = "Shoes",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1260,7 +1243,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryClothing = new Category
             {
                 Name = "Clothing",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1279,7 +1261,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryAccessories = new Category
             {
                 Name = "Accessories",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1302,7 +1283,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryDigitalDownloads = new Category
             {
                 Name = "Digital downloads",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1321,7 +1301,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryBooks = new Category
             {
                 Name = "Books",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 MetaKeywords = "Books, Dictionary, Textbooks",
                 MetaDescription = "Books category description",
                 PageSize = 6,
@@ -1345,7 +1324,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryJewelry = new Category
             {
                 Name = "Jewelry",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
@@ -1367,7 +1345,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             var categoryGiftCards = new Category
             {
                 Name = "Gift Cards",
-                CategoryTemplateId = categoryTemplateInGridAndLines.Id,
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",

@@ -354,7 +354,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
             bool searchSku = true,
             bool searchProductTags = false,
             int languageId = 0,
-            ProductSortingEnum orderBy = ProductSortingEnum.Position,
             bool showHidden = false,
             bool? overridePublished = null)
         {
@@ -479,7 +478,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
                 }
             }
 
-            return await productsQuery.OrderBy(_localizedPropertyRepository, await _workContext.GetWorkingLanguageAsync(), orderBy).ToPagedListAsync(pageIndex, pageSize);
+            return await productsQuery.OrderBy(_localizedPropertyRepository, await _workContext.GetWorkingLanguageAsync() ).ToPagedListAsync(pageIndex, pageSize);
         }
 
         /// <summary>

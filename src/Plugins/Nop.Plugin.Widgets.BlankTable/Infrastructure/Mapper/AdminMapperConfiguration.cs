@@ -5,7 +5,6 @@ using Nop.Core.Domain.Stores;
 using Nop.Core.Infrastructure.Mapper;
 using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
 using Nop.Plugin.Widgets.BlankTable.Models.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Models.Templates;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Models;
 
@@ -106,7 +105,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
 
             CreateMap<Category, CategoryModel>()
                 .ForMember(model => model.AvailableCategories, options => options.Ignore())
-                .ForMember(model => model.AvailableCategoryTemplates, options => options.Ignore())
                 .ForMember(model => model.Breadcrumb, options => options.Ignore())
                 .ForMember(model => model.CategoryProductSearchModel, options => options.Ignore())
                 .ForMember(model => model.SeName, options => options.Ignore())
@@ -115,9 +113,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
                 .ForMember(entity => entity.CreatedOnUtc, options => options.Ignore())
                 .ForMember(entity => entity.Deleted, options => options.Ignore())
                 .ForMember(entity => entity.UpdatedOnUtc, options => options.Ignore());
-
-            CreateMap<CategoryTemplate, CategoryTemplateModel>();
-            CreateMap<CategoryTemplateModel, CategoryTemplate>();
 
         }
 

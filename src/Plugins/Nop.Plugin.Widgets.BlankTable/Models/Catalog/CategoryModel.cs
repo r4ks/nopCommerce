@@ -22,7 +22,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
             }
 
             Locales = new List<CategoryLocalizedModel>();
-            AvailableCategoryTemplates = new List<SelectListItem>();
             AvailableCategories = new List<SelectListItem>();
             AvailableDiscounts = new List<SelectListItem>();
             SelectedDiscountIds = new List<int>();
@@ -41,7 +40,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         public static partial class Labels {
             public const string Name = "Admin.Catalog.Categories.Fields.Name";
             public const string Description = "Admin.Catalog.Categories.Fields.Description";
-            public const string CategoryTemplateId = "Admin.Catalog.Categories.Fields.CategoryTemplate";
             public const string MetaKeywords = "Admin.Catalog.Categories.Fields.MetaKeywords";
             public const string MetaDescription = "Admin.Catalog.Categories.Fields.MetaDescription";
             public const string MetaTitle = "Admin.Catalog.Categories.Fields.MetaTitle";
@@ -85,9 +83,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         [NopResourceDisplayName(Labels.Description)]
         public string Description { get; set; }
 
-        [NopResourceDisplayName(Labels.CategoryTemplateId)]
-        public int CategoryTemplateId { get; set; }
-        public IList<SelectListItem> AvailableCategoryTemplates { get; set; }
 
         [NopResourceDisplayName(Labels.MetaKeywords)]
         public string MetaKeywords { get; set; }

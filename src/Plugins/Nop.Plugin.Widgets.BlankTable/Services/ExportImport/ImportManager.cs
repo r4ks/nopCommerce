@@ -137,9 +137,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                     case "Description":
                         category.Description = property.StringValue;
                         break;
-                    case "CategoryTemplateId":
-                        category.CategoryTemplateId = property.IntValue;
-                        break;
                     case "MetaKeywords":
                         category.MetaKeywords = property.StringValue;
                         break;

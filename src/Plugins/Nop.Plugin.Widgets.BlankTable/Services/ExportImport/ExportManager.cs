@@ -97,7 +97,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
                 await xmlWriter.WriteStringAsync("Name", category.Name);
                 await xmlWriter.WriteStringAsync("Description", category.Description);
-                await xmlWriter.WriteStringAsync("CategoryTemplateId", category.CategoryTemplateId);
                 await xmlWriter.WriteStringAsync("MetaKeywords", category.MetaKeywords, await IgnoreExportCategoryPropertyAsync());
                 await xmlWriter.WriteStringAsync("MetaDescription", category.MetaDescription, await IgnoreExportCategoryPropertyAsync());
                 await xmlWriter.WriteStringAsync("MetaTitle", category.MetaTitle, await IgnoreExportCategoryPropertyAsync());
@@ -277,7 +276,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 new PropertyByName<Category>("Id", p => p.Id),
                 new PropertyByName<Category>("Name", p => p.Name),
                 new PropertyByName<Category>("Description", p => p.Description),
-                new PropertyByName<Category>("CategoryTemplateId", p => p.CategoryTemplateId),
                 new PropertyByName<Category>("MetaKeywords", p => p.MetaKeywords, await IgnoreExportCategoryPropertyAsync()),
                 new PropertyByName<Category>("MetaDescription", p => p.MetaDescription, await IgnoreExportCategoryPropertyAsync()),
                 new PropertyByName<Category>("MetaTitle", p => p.MetaTitle, await IgnoreExportCategoryPropertyAsync()),

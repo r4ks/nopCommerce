@@ -39,7 +39,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
         #region Fields
 
         private readonly ICategoryService _categoryService;
-        private readonly ICategoryTemplateService _categoryTemplateService;
         private readonly ICountryService _countryService;
         private readonly ICurrencyService _currencyService;
         private readonly ICustomerActivityService _customerActivityService;
@@ -67,7 +66,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
         #region Ctor
 
         public BaseAdminModelFactory(ICategoryService categoryService,
-            ICategoryTemplateService categoryTemplateService,
             ICountryService countryService,
             ICurrencyService currencyService,
             ICustomerActivityService customerActivityService,
@@ -91,7 +89,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             IVendorService vendorService)
         {
             _categoryService = categoryService;
-            _categoryTemplateService = categoryTemplateService;
             _countryService = countryService;
             _currencyService = currencyService;
             _customerActivityService = customerActivityService;
@@ -579,29 +576,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             foreach (var vendorItem in availableVendorItems)
             {
                 items.Add(vendorItem);
-            }
-
-            //insert special item for the default value
-            await PrepareDefaultItemAsync(items, withSpecialDefaultItem, defaultItemText);
-        }
-
-        /// <summary>
-        /// Prepare available category templates
-        /// </summary>
-        /// <param name="items">Category template items</param>
-        /// <param name="withSpecialDefaultItem">Whether to insert the first special item for the default value</param>
-        /// <param name="defaultItemText">Default item text; pass null to use default value of the default item text</param>
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task PrepareCategoryTemplatesAsync(IList<SelectListItem> items, bool withSpecialDefaultItem = true, string defaultItemText = null)
-        {
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
-
-            //prepare available category templates
-            var availableTemplates = await _categoryTemplateService.GetAllCategoryTemplatesAsync();
-            foreach (var template in availableTemplates)
-            {
-                items.Add(new SelectListItem { Value = template.Id.ToString(), Text = template.Name });
             }
 
             //insert special item for the default value

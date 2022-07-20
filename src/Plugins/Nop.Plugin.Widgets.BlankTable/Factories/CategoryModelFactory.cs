@@ -240,9 +240,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             if (!excludeProperties)
                 model.Locales = await _localizedModelFactory.PrepareLocalizedModelsAsync(localizedModelConfiguration);
 
-            //prepare available category templates
-            await _baseAdminModelFactory.PrepareCategoryTemplatesAsync(model.AvailableCategoryTemplates, false);
-
             //prepare available parent categories
             await _baseAdminModelFactory.PrepareCategoriesAsync(model.AvailableCategories,
                 defaultItemText: await _localizationService.GetResourceAsync(CategoryModel.Labels.None));
