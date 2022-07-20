@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Nop.Core;
 using Nop.Plugin.Widgets.BlankTable.Components;
 using Nop.Plugin.Widgets.BlankTable.Models;
+using Nop.Plugin.Widgets.BlankTable.Services.Security;
 using Nop.Services.Cms;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
+using Nop.Services.Security;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Infrastructure;
 using Nop.Web.Framework.Menu;
@@ -28,16 +30,18 @@ namespace Nop.Plugin.Widgets.BlankTable
         private readonly IWebHelper _webHelper;
         private readonly ISettingService _settingService;
         private readonly ILocalizationService _localizationService;
+        private readonly IPermissionService _permissionService;
 
         public bool HideInWidgetList => false;
 
-        public CustomPlugin(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IWebHelper webHelper, ISettingService settingService, ILocalizationService localizationService)
+        public CustomPlugin(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IWebHelper webHelper, ISettingService settingService, ILocalizationService localizationService, IPermissionService permissionService)
         {
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccessor = actionContextAccessor;
             _webHelper = webHelper;
             _settingService = settingService;
             _localizationService = localizationService;
+            _permissionService = permissionService;
         }
 
         public override async Task InstallAsync()
@@ -51,6 +55,7 @@ namespace Nop.Plugin.Widgets.BlankTable
             await _settingService.SaveSettingAsync(settings);
 
             await InstallLocalizedStrings();
+            await InstallPermissions();
             await base.InstallAsync();
         }
 
@@ -184,6 +189,21 @@ namespace Nop.Plugin.Widgets.BlankTable
                 [ConfigurationModel.Labels.ShippableProductRequiredHint] = "An option indicating whether shippable products are required in order to display this payment method during checkout."
             });
         }
-        #endregion
+
+        /// <summary>
+        /// Install Plugins Permissions
+        /// </summary>
+        /// <returns></returns>
+        private async Task InstallPermissions()
+        {
+            //register default permissions
+            var permissionProviders = new List<Type> { typeof(APermissionProvider) };
+                    foreach (var providerType in permissionProviders)
+                    {
+                        var provider = (IPermissionProvider)Activator.CreateInstance(providerType);
+            await _permissionService.InstallPermissionsAsync(provider);
+        }
     }
+    #endregion
+}
 }
