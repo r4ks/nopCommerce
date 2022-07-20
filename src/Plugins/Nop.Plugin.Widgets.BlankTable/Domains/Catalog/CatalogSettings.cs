@@ -465,11 +465,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool ExportImportUseDropdownlistsForAssociatedEntities { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the products should be exported/imported with a full category name including names of all its parents
-        /// </summary>
-        public bool ExportImportProductCategoryBreadcrumb { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the categories need to be exported/imported using name of category
         /// </summary>
         public bool ExportImportCategoriesUsingCategoryName { get; set; }

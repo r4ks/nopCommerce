@@ -147,13 +147,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         Task DeleteCategoriesAsync(IList<Category> categories);
 
         /// <summary>
-        /// Deletes a product category mapping
-        /// </summary>
-        /// <param name="productCategory">Product category</param>
-        /// <returns>A task that represents the asynchronous operation</returns>
-        Task DeleteProductCategoryAsync(ProductCategory productCategory);
-
-        /// <summary>
         /// Get a discount-category mapping record
         /// </summary>
         /// <param name="categoryId">Category identifier</param>
@@ -179,55 +172,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         Task DeleteDiscountCategoryMappingAsync(DiscountCategoryMapping discountCategoryMapping);
 
         /// <summary>
-        /// Gets product category mapping collection
-        /// </summary>
-        /// <param name="categoryId">Category identifier</param>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <param name="showHidden">A value indicating whether to show hidden records</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the product a category mapping collection
-        /// </returns>
-        Task<IPagedList<ProductCategory>> GetProductCategoriesByCategoryIdAsync(int categoryId,
-            int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);
-
-        /// <summary>
-        /// Gets a product category mapping collection
-        /// </summary>
-        /// <param name="productId">Product identifier</param>
-        /// <param name="showHidden">A value indicating whether to show hidden records</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the product category mapping collection
-        /// </returns>
-        Task<IList<ProductCategory>> GetProductCategoriesByProductIdAsync(int productId, bool showHidden = false);
-
-        /// <summary>
-        /// Gets a product category mapping 
-        /// </summary>
-        /// <param name="productCategoryId">Product category mapping identifier</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the product category mapping
-        /// </returns>
-        Task<ProductCategory> GetProductCategoryByIdAsync(int productCategoryId);
-
-        /// <summary>
-        /// Inserts a product category mapping
-        /// </summary>
-        /// <param name="productCategory">>Product category mapping</param>
-        /// <returns>A task that represents the asynchronous operation</returns>
-        Task InsertProductCategoryAsync(ProductCategory productCategory);
-
-        /// <summary>
-        /// Updates the product category mapping 
-        /// </summary>
-        /// <param name="productCategory">>Product category mapping</param>
-        /// <returns>A task that represents the asynchronous operation</returns>
-        Task UpdateProductCategoryAsync(ProductCategory productCategory);
-
-        /// <summary>
         /// Returns a list of names of not existing categories
         /// </summary>
         /// <param name="categoryIdsNames">The names and/or IDs of the categories to check</param>
@@ -236,16 +180,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// The task result contains the list of names and/or IDs not existing categories
         /// </returns>
         Task<string[]> GetNotExistingCategoriesAsync(string[] categoryIdsNames);
-
-        /// <summary>
-        /// Get category IDs for products
-        /// </summary>
-        /// <param name="productIds">Products IDs</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the category IDs for products
-        /// </returns>
-        Task<IDictionary<int, int[]>> GetProductCategoryIdsAsync(int[] productIds);
 
         /// <summary>
         /// Gets categories by identifier
@@ -257,14 +191,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// </returns>
         Task<IList<Category>> GetCategoriesByIdsAsync(int[] categoryIds);
 
-        /// <summary>
-        /// Returns a ProductCategory that has the specified values
-        /// </summary>
-        /// <param name="source">Source</param>
-        /// <param name="productId">Product identifier</param>
-        /// <param name="categoryId">Category identifier</param>
-        /// <returns>A ProductCategory that has the specified values; otherwise null</returns>
-        ProductCategory FindProductCategory(IList<ProductCategory> source, int productId, int categoryId);
 
         /// <summary>
         /// Get formatted category breadcrumb 

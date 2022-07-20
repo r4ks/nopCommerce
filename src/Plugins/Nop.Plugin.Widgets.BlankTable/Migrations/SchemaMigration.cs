@@ -21,8 +21,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Migrations
         public override void Up()
         {
             Create.TableFor<Category>();
-            Create.TableFor<Product>();
-            Create.TableFor<ProductCategory>();
         }
     }
 }

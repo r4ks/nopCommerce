@@ -25,7 +25,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Caching
             await RemoveByPrefixAsync(NopCatalogDefaults.CategoriesChildIdsPrefix, entity.ParentCategoryId);
             await RemoveByPrefixAsync(NopCatalogDefaults.CategoriesHomepagePrefix);
             await RemoveByPrefixAsync(NopCatalogDefaults.CategoryBreadcrumbPrefix);
-            await RemoveByPrefixAsync(NopCatalogDefaults.CategoryProductsNumberPrefix);
             await RemoveByPrefixAsync(NopDiscountDefaults.CategoryIdsPrefix);
 
             await RemoveAsync(NopDiscountDefaults.AppliedDiscountsCacheKey, nameof(Category), entity);

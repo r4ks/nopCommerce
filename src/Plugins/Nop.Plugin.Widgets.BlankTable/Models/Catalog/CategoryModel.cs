@@ -32,7 +32,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
             SelectedStoreIds = new List<int>();
             AvailableStores = new List<SelectListItem>();
 
-            CategoryProductSearchModel = new CategoryProductSearchModel();
         }
 
         #endregion
@@ -159,8 +158,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Models.Catalog
         [NopResourceDisplayName(Labels.SelectedDiscountIds)]
         public IList<int> SelectedDiscountIds { get; set; }
         public IList<SelectListItem> AvailableDiscounts { get; set; }
-
-        public CategoryProductSearchModel CategoryProductSearchModel { get; set; }
 
         public string PrimaryStoreCurrencyCode { get; set; }
 

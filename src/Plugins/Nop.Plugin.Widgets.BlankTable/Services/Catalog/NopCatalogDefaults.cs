@@ -126,37 +126,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// </remarks>
         public static CacheKey CategoriesAllCacheKey => new("Nop.category.all.{0}-{1}-{2}", NopEntityCacheDefaults<Category>.AllPrefix);
 
-        /// <summary>
-        /// Gets a key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : product ID
-        /// {1} : show hidden records?
-        /// {2} : current customer ID
-        /// {3} : store ID
-        /// </remarks>
-        public static CacheKey ProductCategoriesByProductCacheKey => new("Nop.productcategory.byproduct.{0}-{1}-{2}-{3}", ProductCategoriesByProductPrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        public static string ProductCategoriesByProductPrefix => "Nop.productcategory.byproduct.{0}";
-
-        /// <summary>
-        /// Key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : customer roles ID hash
-        /// {1} : current store ID
-        /// {2} : categories ID hash
-        /// </remarks>
-        public static CacheKey CategoryProductsNumberCacheKey => new("Nop.productcategory.products.number.{0}-{1}-{2}", CategoryProductsNumberPrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        public static string CategoryProductsNumberPrefix => "Nop.productcategory.products.number.";
-
         #endregion
 
         #region Manufacturers

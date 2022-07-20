@@ -97,16 +97,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
         protected virtual void CreateCatalogMaps()
         {
 
-            CreateMap<ProductCategory, CategoryProductModel>()
-                .ForMember(model => model.ProductName, options => options.Ignore());
-            CreateMap<CategoryProductModel, ProductCategory>()
-                .ForMember(entity => entity.CategoryId, options => options.Ignore())
-                .ForMember(entity => entity.ProductId, options => options.Ignore());
-
             CreateMap<Category, CategoryModel>()
                 .ForMember(model => model.AvailableCategories, options => options.Ignore())
                 .ForMember(model => model.Breadcrumb, options => options.Ignore())
-                .ForMember(model => model.CategoryProductSearchModel, options => options.Ignore())
                 .ForMember(model => model.SeName, options => options.Ignore())
                 .ForMember(model => model.PrimaryStoreCurrencyCode, options => options.Ignore());
             CreateMap<CategoryModel, Category>()

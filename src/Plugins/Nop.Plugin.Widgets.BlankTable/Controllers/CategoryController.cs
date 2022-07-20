@@ -47,7 +47,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
         private readonly INotificationService _notificationService;
         private readonly IPermissionService _permissionService;
         private readonly IPictureService _pictureService;
-        private readonly IProductService _productService;
         private readonly IStaticCacheManager _staticCacheManager;
         private readonly IStoreMappingService _storeMappingService;
         private readonly IStoreService _storeService;
@@ -71,7 +70,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             INotificationService notificationService,
             IPermissionService permissionService,
             IPictureService pictureService,
-            IProductService productService,
             IStaticCacheManager staticCacheManager,
             IStoreMappingService storeMappingService,
             IStoreService storeService,
@@ -91,7 +89,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             _notificationService = notificationService;
             _permissionService = permissionService;
             _pictureService = pictureService;
-            _productService = productService;
             _staticCacheManager = staticCacheManager;
             _storeMappingService = storeMappingService;
             _storeService = storeService;
@@ -517,111 +514,5 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
 
         #endregion
 
-        #region Products
-
-        [HttpPost]
-        public virtual async Task<IActionResult> ProductList(CategoryProductSearchModel searchModel)
-        {
-            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageCategories))
-                return await AccessDeniedDataTablesJson();
-
-            //try to get a category with the specified id
-            var category = await _categoryService.GetCategoryByIdAsync(searchModel.CategoryId)
-                ?? throw new ArgumentException("No category found with the specified id");
-
-            //prepare model
-            var model = await _categoryModelFactory.PrepareCategoryProductListModelAsync(searchModel, category);
-
-            return Json(model);
-        }
-
-        public virtual async Task<IActionResult> ProductUpdate(CategoryProductModel model)
-        {
-            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageCategories))
-                return AccessDeniedView();
-
-            //try to get a product category with the specified id
-            var productCategory = await _categoryService.GetProductCategoryByIdAsync(model.Id)
-                ?? throw new ArgumentException("No product category mapping found with the specified id");
-
-            //fill entity from product
-            productCategory = model.ToEntity(productCategory);
-            await _categoryService.UpdateProductCategoryAsync(productCategory);
-
-            return new NullJsonResult();
-        }
-
-        public virtual async Task<IActionResult> ProductDelete(int id)
-        {
-            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageCategories))
-                return AccessDeniedView();
-
-            //try to get a product category with the specified id
-            var productCategory = await _categoryService.GetProductCategoryByIdAsync(id)
-                ?? throw new ArgumentException("No product category mapping found with the specified id", nameof(id));
-
-            await _categoryService.DeleteProductCategoryAsync(productCategory);
-
-            return new NullJsonResult();
-        }
-
-        public virtual async Task<IActionResult> ProductAddPopup(int categoryId)
-        {
-            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageCategories))
-                return AccessDeniedView();
-
-            //prepare model
-            var model = await _categoryModelFactory.PrepareAddProductToCategorySearchModelAsync(new AddProductToCategorySearchModel());
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public virtual async Task<IActionResult> ProductAddPopupList(AddProductToCategorySearchModel searchModel)
-        {
-            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageCategories))
-                return await AccessDeniedDataTablesJson();
-
-            //prepare model
-            var model = await _categoryModelFactory.PrepareAddProductToCategoryListModelAsync(searchModel);
-
-            return Json(model);
-        }
-
-        [HttpPost]
-        [FormValueRequired("save")]
-        public virtual async Task<IActionResult> ProductAddPopup(AddProductToCategoryModel model)
-        {
-            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageCategories))
-                return AccessDeniedView();
-
-            //get selected products
-            var selectedProducts = await _productService.GetProductsByIdsAsync(model.SelectedProductIds.ToArray());
-            if (selectedProducts.Any())
-            {
-                var existingProductCategories = await _categoryService.GetProductCategoriesByCategoryIdAsync(model.CategoryId, showHidden: true);
-                foreach (var product in selectedProducts)
-                {
-                    //whether product category with such parameters already exists
-                    if (_categoryService.FindProductCategory(existingProductCategories, product.Id, model.CategoryId) != null)
-                        continue;
-
-                    //insert the new product category mapping
-                    await _categoryService.InsertProductCategoryAsync(new ProductCategory
-                    {
-                        CategoryId = model.CategoryId,
-                        ProductId = product.Id,
-                        IsFeaturedProduct = false,
-                        DisplayOrder = 1
-                    });
-                }
-            }
-
-            ViewBag.RefreshPage = true;
-
-            return View(new AddProductToCategorySearchModel());
-        }
-
-        #endregion
     }
 }

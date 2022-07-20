@@ -63,7 +63,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
         private readonly IRepository<Language> _languageRepository;
         private readonly IRepository<MeasureDimension> _measureDimensionRepository;
         private readonly IRepository<MeasureWeight> _measureWeightRepository;
-        private readonly IRepository<Product> _productRepository;
         private readonly IRepository<ProductAvailabilityRange> _productAvailabilityRangeRepository;
         private readonly IRepository<StateProvince> _stateProvinceRepository;
         private readonly IRepository<Store> _storeRepository;
@@ -90,7 +89,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             IRepository<Language> languageRepository,
             IRepository<MeasureDimension> measureDimensionRepository,
             IRepository<MeasureWeight> measureWeightRepository,
-            IRepository<Product> productRepository,
             IRepository<ProductAvailabilityRange> productAvailabilityRangeRepository,
             IRepository<StateProvince> stateProvinceRepository,
             IRepository<Store> storeRepository,
@@ -114,7 +112,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
             _measureDimensionRepository = measureDimensionRepository;
             _measureWeightRepository = measureWeightRepository;
             _productAvailabilityRangeRepository = productAvailabilityRangeRepository;
-            _productRepository = productRepository;
             _stateProvinceRepository = stateProvinceRepository;
             _storeRepository = storeRepository;
             _taxCategoryRepository = taxCategoryRepository;

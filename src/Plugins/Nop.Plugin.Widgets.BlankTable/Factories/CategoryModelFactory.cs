@@ -36,7 +36,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
         private readonly IDiscountSupportedModelFactory _discountSupportedModelFactory;
         private readonly ILocalizationService _localizationService;
         private readonly ILocalizedModelFactory _localizedModelFactory;
-        private readonly IProductService _productService;
         private readonly IStoreMappingSupportedModelFactory _storeMappingSupportedModelFactory;
         private readonly IUrlRecordService _urlRecordService;
 
@@ -54,7 +53,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             IDiscountSupportedModelFactory discountSupportedModelFactory,
             ILocalizationService localizationService,
             ILocalizedModelFactory localizedModelFactory,
-            IProductService productService,
             IStoreMappingSupportedModelFactory storeMappingSupportedModelFactory,
             IUrlRecordService urlRecordService)
         {
@@ -68,35 +66,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
             _discountSupportedModelFactory = discountSupportedModelFactory;
             _localizationService = localizationService;
             _localizedModelFactory = localizedModelFactory;
-            _productService = productService;
             _storeMappingSupportedModelFactory = storeMappingSupportedModelFactory;
             _urlRecordService = urlRecordService;
-        }
-
-        #endregion
-
-        #region Utilities
-
-        /// <summary>
-        /// Prepare category product search model
-        /// </summary>
-        /// <param name="searchModel">Category product search model</param>
-        /// <param name="category">Category</param>
-        /// <returns>Category product search model</returns>
-        protected virtual CategoryProductSearchModel PrepareCategoryProductSearchModel(CategoryProductSearchModel searchModel, Category category)
-        {
-            if (searchModel == null)
-                throw new ArgumentNullException(nameof(searchModel));
-
-            if (category == null)
-                throw new ArgumentNullException(nameof(category));
-
-            searchModel.CategoryId = category.Id;
-
-            //prepare page parameters
-            searchModel.SetGridPageSize();
-
-            return searchModel;
         }
 
         #endregion
@@ -205,9 +176,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
                     model.SeName = await _urlRecordService.GetSeNameAsync(category, 0, true, false);
                 }
 
-                //prepare nested search model
-                PrepareCategoryProductSearchModel(model.CategoryProductSearchModel, category);
-
                 //define localized model configuration action
                 localizedModelConfiguration = async (locale, languageId) =>
                 {
@@ -256,116 +224,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Factories
 
             return model;
         }
-
-        /// <summary>
-        /// Prepare paged category product list model
-        /// </summary>
-        /// <param name="searchModel">Category product search model</param>
-        /// <param name="category">Category</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the category product list model
-        /// </returns>
-        public virtual async Task<CategoryProductListModel> PrepareCategoryProductListModelAsync(CategoryProductSearchModel searchModel, Category category)
-        {
-            if (searchModel == null)
-                throw new ArgumentNullException(nameof(searchModel));
-
-            if (category == null)
-                throw new ArgumentNullException(nameof(category));
-
-            //get product categories
-            var productCategories = await _categoryService.GetProductCategoriesByCategoryIdAsync(category.Id,
-                showHidden: true,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
-
-            //prepare grid model
-            var model = await new CategoryProductListModel().PrepareToGridAsync(searchModel, productCategories, () =>
-            {
-                return productCategories.SelectAwait(async productCategory =>
-                {
-                    //fill in model values from the entity
-                    var categoryProductModel = productCategory.ToModel<CategoryProductModel>();
-
-                    //fill in additional values (not existing in the entity)
-                    categoryProductModel.ProductName = (await _productService.GetProductByIdAsync(productCategory.ProductId))?.Name;
-
-                    return categoryProductModel;
-                });
-            });
-
-            return model;
-        }
-
-        /// <summary>
-        /// Prepare product search model to add to the category
-        /// </summary>
-        /// <param name="searchModel">Product search model to add to the category</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the product search model to add to the category
-        /// </returns>
-        public virtual async Task<AddProductToCategorySearchModel> PrepareAddProductToCategorySearchModelAsync(AddProductToCategorySearchModel searchModel)
-        {
-            if (searchModel == null)
-                throw new ArgumentNullException(nameof(searchModel));
-
-            //prepare available categories
-            await _baseAdminModelFactory.PrepareCategoriesAsync(searchModel.AvailableCategories);
-
-            //prepare available manufacturers
-            await _baseAdminModelFactory.PrepareManufacturersAsync(searchModel.AvailableManufacturers);
-
-            //prepare available stores
-            await _baseAdminModelFactory.PrepareStoresAsync(searchModel.AvailableStores);
-
-            //prepare available vendors
-            await _baseAdminModelFactory.PrepareVendorsAsync(searchModel.AvailableVendors);
-
-            //prepare page parameters
-            searchModel.SetPopupGridPageSize();
-
-            return searchModel;
-        }
-
-        /// <summary>
-        /// Prepare paged product list model to add to the category
-        /// </summary>
-        /// <param name="searchModel">Product search model to add to the category</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the product list model to add to the category
-        /// </returns>
-        public virtual async Task<AddProductToCategoryListModel> PrepareAddProductToCategoryListModelAsync(AddProductToCategorySearchModel searchModel)
-        {
-            if (searchModel == null)
-                throw new ArgumentNullException(nameof(searchModel));
-
-            //get products
-            var products = await _productService.SearchProductsAsync(showHidden: true,
-                categoryIds: new List<int> { searchModel.SearchCategoryId },
-                manufacturerIds: new List<int> { searchModel.SearchManufacturerId },
-                storeId: searchModel.SearchStoreId,
-                vendorId: searchModel.SearchVendorId,
-                keywords: searchModel.SearchProductName,
-                pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize);
-
-            //prepare grid model
-            var model = await new AddProductToCategoryListModel().PrepareToGridAsync(searchModel, products, () =>
-            {
-                return products.SelectAwait(async product =>
-                {
-                    var productModel = product.ToModel<ProductModel>();
-
-                    productModel.SeName = await _urlRecordService.GetSeNameAsync(product, 0, true, false);
-
-                    return productModel;
-                });
-            });
-
-            return model;
-        }
-
         #endregion
     }
 }

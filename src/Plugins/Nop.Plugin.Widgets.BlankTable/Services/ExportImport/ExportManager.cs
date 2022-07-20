@@ -37,7 +37,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ILocalizationService _localizationService;
         private readonly IPictureService _pictureService;
-        private readonly IProductService _productService;
         private readonly IUrlRecordService _urlRecordService;
         private readonly IWorkContext _workContext;
 
@@ -56,7 +55,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             IGenericAttributeService genericAttributeService,
             ILocalizationService localizationService,
             IPictureService pictureService,
-            IProductService productService,
             IUrlRecordService urlRecordService,
             IWorkContext workContext
             )
@@ -71,7 +69,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             _genericAttributeService = genericAttributeService;
             _localizationService = localizationService;
             _pictureService = pictureService;
-            _productService = productService;
             _urlRecordService = urlRecordService;
             _workContext = workContext;
         }
@@ -119,21 +116,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 await xmlWriter.WriteStringAsync("UpdatedOnUtc", category.UpdatedOnUtc, await IgnoreExportCategoryPropertyAsync());
 
                 await xmlWriter.WriteStartElementAsync("Products");
-                var productCategories = await _categoryService.GetProductCategoriesByCategoryIdAsync(category.Id, showHidden: true);
-                foreach (var productCategory in productCategories)
-                {
-                    var product = await _productService.GetProductByIdAsync(productCategory.ProductId);
-                    if (product == null || product.Deleted)
-                        continue;
-
-                    await xmlWriter.WriteStartElementAsync("ProductCategory");
-                    await xmlWriter.WriteStringAsync("ProductCategoryId", productCategory.Id);
-                    await xmlWriter.WriteStringAsync("ProductId", productCategory.ProductId);
-                    await xmlWriter.WriteStringAsync("ProductName", product.Name);
-                    await xmlWriter.WriteStringAsync("IsFeaturedProduct", productCategory.IsFeaturedProduct);
-                    await xmlWriter.WriteStringAsync("DisplayOrder", productCategory.DisplayOrder);
-                    await xmlWriter.WriteEndElementAsync();
-                }
 
                 await xmlWriter.WriteEndElementAsync();
 
@@ -160,57 +142,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
             return await _pictureService.GetThumbLocalPathAsync(picture);
         }
-
-        /// <summary>
-        /// Returns the list of categories for a product separated by a ";"
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the list of categories
-        /// </returns>
-        protected virtual async Task<object> GetCategoriesAsync(Product product)
-        {
-            string categoryNames = null;
-            foreach (var pc in await _categoryService.GetProductCategoriesByProductIdAsync(product.Id, true))
-            {
-                if (_catalogSettings.ExportImportRelatedEntitiesByName)
-                {
-                    var category = await _categoryService.GetCategoryByIdAsync(pc.CategoryId);
-                    categoryNames += _catalogSettings.ExportImportProductCategoryBreadcrumb
-                        ? await _categoryService.GetFormattedBreadCrumbAsync(category)
-                        : category.Name;
-                }
-                else
-                {
-                    categoryNames += pc.CategoryId.ToString();
-                }
-
-                categoryNames += ";";
-            }
-
-            return categoryNames;
-        }
-
-        /// <summary>
-        /// Returns the image at specified index associated with the product
-        /// </summary>
-        /// <param name="product">Product</param>
-        /// <param name="pictureIndex">Picture index to get</param>
-        /// <returns>
-        /// A task that represents the asynchronous operation
-        /// The task result contains the image thumb local path
-        /// </returns>
-        protected virtual async Task<string> GetPictureAsync(Product product, short pictureIndex)
-        {
-            // we need only the picture at a specific index, no need to get more pictures than that
-            var recordsToReturn = pictureIndex + 1;
-            var pictures = await _pictureService.GetPicturesByProductIdAsync(product.Id, recordsToReturn);
-            
-            return pictures.Count > pictureIndex ? await _pictureService.GetThumbLocalPathAsync(pictures[pictureIndex]) : null;
-        }
-
-
 
         /// <returns>A task that represents the asynchronous operation</returns>
         protected virtual async Task<bool> IgnoreExportCategoryPropertyAsync()
