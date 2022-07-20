@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 {
@@ -11,20 +11,20 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     {
 
         /// <summary>
-        /// Export category list to XML
+        /// Export employee list to XML
         /// </summary>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the result in XML format
         /// </returns>
-        Task<string> ExportCategoriesToXmlAsync();
+        Task<string> ExportEmployeesToXmlAsync();
 
         /// <summary>
-        /// Export categories to XLSX
+        /// Export employees to XLSX
         /// </summary>
-        /// <param name="categories">Categories</param>
+        /// <param name="employees">Employees</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        Task<byte[]> ExportCategoriesToXlsxAsync(IList<Category> categories);
+        Task<byte[]> ExportEmployeesToXlsxAsync(IList<Employee> employees);
 
     }
 }

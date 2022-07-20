@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Discounts;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Services.Directory;
 using Nop.Services.Discounts;
 using Nop.Services.Localization;
@@ -14,25 +14,24 @@ using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Nop.Web.Framework.Extensions;
 using Nop.Web.Framework.Factories;
 using Nop.Web.Framework.Models.Extensions;
-using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Services.Hr;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr;
 
 namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 {
     /// <summary>
-    /// Represents the category model factory implementation
+    /// Represents the employee model factory implementation
     /// </summary>
-    public partial class CategoryModelFactory : ICategoryModelFactory
+    public partial class EmployeeModelFactory : IEmployeeModelFactory
     {
         #region Fields
 
-        private readonly CatalogSettings _catalogSettings;
+        private readonly EmployeeSettings _catalogSettings;
         private readonly CurrencySettings _currencySettings;
         private readonly ICurrencyService _currencyService;
         private readonly IAclSupportedModelFactory _aclSupportedModelFactory;
         private readonly IBaseAdminModelFactory _baseAdminModelFactory;
-        private readonly ICategoryService _categoryService;
-        private readonly IDiscountService _discountService;
+        private readonly IEmployeeService _categoryService;
         private readonly IDiscountSupportedModelFactory _discountSupportedModelFactory;
         private readonly ILocalizationService _localizationService;
         private readonly ILocalizedModelFactory _localizedModelFactory;
@@ -43,13 +42,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
         #region Ctor
 
-        public CategoryModelFactory(CatalogSettings catalogSettings,
+        public EmployeeModelFactory(EmployeeSettings catalogSettings,
             CurrencySettings currencySettings,
             ICurrencyService currencyService,
             IAclSupportedModelFactory aclSupportedModelFactory,
             IBaseAdminModelFactory baseAdminModelFactory,
-            ICategoryService categoryService,
-            IDiscountService discountService,
+            IEmployeeService categoryService,
             IDiscountSupportedModelFactory discountSupportedModelFactory,
             ILocalizationService localizationService,
             ILocalizedModelFactory localizedModelFactory,
@@ -62,7 +60,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             _aclSupportedModelFactory = aclSupportedModelFactory;
             _baseAdminModelFactory = baseAdminModelFactory;
             _categoryService = categoryService;
-            _discountService = discountService;
             _discountSupportedModelFactory = discountSupportedModelFactory;
             _localizationService = localizationService;
             _localizedModelFactory = localizedModelFactory;
@@ -75,14 +72,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         #region Methods
 
         /// <summary>
-        /// Prepare category search model
+        /// Prepare employee search model
         /// </summary>
-        /// <param name="searchModel">Category search model</param>
+        /// <param name="searchModel">Employee search model</param>
         /// <returns>
         /// A task that represents the asynchronous operation
-        /// The task result contains the category search model
+        /// The task result contains the employee search model
         /// </returns>
-        public virtual async Task<CategorySearchModel> PrepareCategorySearchModelAsync(CategorySearchModel searchModel)
+        public virtual async Task<EmployeeSearchModel> PrepareEmployeeSearchModelAsync(EmployeeSearchModel searchModel)
         {
             if (searchModel == null)
                 throw new ArgumentNullException(nameof(searchModel));
@@ -96,17 +93,17 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
             {
                 Value = "0",
-                Text = await _localizationService.GetResourceAsync(CategorySearchModel.Labels.All)
+                Text = await _localizationService.GetResourceAsync(EmployeeSearchModel.Labels.All)
             });
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
             {
                 Value = "1",
-                Text = await _localizationService.GetResourceAsync(CategorySearchModel.Labels.PublishedOnly)
+                Text = await _localizationService.GetResourceAsync(EmployeeSearchModel.Labels.PublishedOnly)
             });
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
             {
                 Value = "2",
-                Text = await _localizationService.GetResourceAsync(CategorySearchModel.Labels.UnpublishedOnly)
+                Text = await _localizationService.GetResourceAsync(EmployeeSearchModel.Labels.UnpublishedOnly)
             });
 
             //prepare page parameters
@@ -116,35 +113,35 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         }
 
         /// <summary>
-        /// Prepare paged category list model
+        /// Prepare paged employee list model
         /// </summary>
-        /// <param name="searchModel">Category search model</param>
+        /// <param name="searchModel">Employee search model</param>
         /// <returns>
         /// A task that represents the asynchronous operation
-        /// The task result contains the category list model
+        /// The task result contains the employee list model
         /// </returns>
-        public virtual async Task<CategoryListModel> PrepareCategoryListModelAsync(CategorySearchModel searchModel)
+        public virtual async Task<EmployeeListModel> PrepareEmployeeListModelAsync(EmployeeSearchModel searchModel)
         {
             if (searchModel == null)
                 throw new ArgumentNullException(nameof(searchModel));
-            //get categories
-            var categories = await _categoryService.GetAllCategoriesAsync(categoryName: searchModel.SearchCategoryName,
+            //get employees
+            var employees = await _categoryService.GetAllEmployeesAsync(categoryName: searchModel.SearchEmployeeName,
                 showHidden: true,
                 storeId: searchModel.SearchStoreId,
                 pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
                 overridePublished: searchModel.SearchPublishedId == 0 ? null : searchModel.SearchPublishedId == 1);
 
             //prepare grid model
-            var model = await new CategoryListModel().PrepareToGridAsync(searchModel, categories, () =>
+            var model = await new EmployeeListModel().PrepareToGridAsync(searchModel, employees, () =>
             {
-                return categories.SelectAwait(async category =>
+                return employees.SelectAwait(async employee =>
                 {
                     //fill in model values from the entity
-                    var categoryModel = category.ToModel<CategoryModel>();
+                    var categoryModel = employee.ToModel<EmployeeModel>();
 
                     //fill in additional values (not existing in the entity)
-                    categoryModel.Breadcrumb = await _categoryService.GetFormattedBreadCrumbAsync(category);
-                    categoryModel.SeName = await _urlRecordService.GetSeNameAsync(category, 0, true, false);
+                    categoryModel.Breadcrumb = await _categoryService.GetFormattedBreadCrumbAsync(employee);
+                    categoryModel.SeName = await _urlRecordService.GetSeNameAsync(employee, 0, true, false);
 
                     return categoryModel;
                 });
@@ -154,49 +151,49 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         }
 
         /// <summary>
-        /// Prepare category model
+        /// Prepare employee model
         /// </summary>
-        /// <param name="model">Category model</param>
-        /// <param name="category">Category</param>
+        /// <param name="model">Employee model</param>
+        /// <param name="employee">Employee</param>
         /// <param name="excludeProperties">Whether to exclude populating of some properties of model</param>
         /// <returns>
         /// A task that represents the asynchronous operation
-        /// The task result contains the category model
+        /// The task result contains the employee model
         /// </returns>
-        public virtual async Task<CategoryModel> PrepareCategoryModelAsync(CategoryModel model, Category category, bool excludeProperties = false)
+        public virtual async Task<EmployeeModel> PrepareEmployeeModelAsync(EmployeeModel model, Employee employee, bool excludeProperties = false)
         {
-            Func<CategoryLocalizedModel, int, Task> localizedModelConfiguration = null;
+            Func<EmployeeLocalizedModel, int, Task> localizedModelConfiguration = null;
 
-            if (category != null)
+            if (employee != null)
             {
                 //fill in model values from the entity
                 if (model == null)
                 {
-                    model = category.ToModel<CategoryModel>();
-                    model.SeName = await _urlRecordService.GetSeNameAsync(category, 0, true, false);
+                    model = employee.ToModel<EmployeeModel>();
+                    model.SeName = await _urlRecordService.GetSeNameAsync(employee, 0, true, false);
                 }
 
                 //define localized model configuration action
                 localizedModelConfiguration = async (locale, languageId) =>
                 {
-                    locale.Name = await _localizationService.GetLocalizedAsync(category, entity => entity.Name, languageId, false, false);
-                    locale.Description = await _localizationService.GetLocalizedAsync(category, entity => entity.Description, languageId, false, false);
-                    locale.SeName = await _urlRecordService.GetSeNameAsync(category, languageId, false, false);
+                    locale.Name = await _localizationService.GetLocalizedAsync(employee, entity => entity.Name, languageId, false, false);
+                    locale.Description = await _localizationService.GetLocalizedAsync(employee, entity => entity.Description, languageId, false, false);
+                    locale.SeName = await _urlRecordService.GetSeNameAsync(employee, languageId, false, false);
                 };
             }
 
             //set default values for the new model
-            if (category == null)
+            if (employee == null)
             {
-                model.PageSize = _catalogSettings.DefaultCategoryPageSize;
-                model.PageSizeOptions = _catalogSettings.DefaultCategoryPageSizeOptions;
+                model.PageSize = _catalogSettings.DefaultEmployeePageSize;
+                model.PageSizeOptions = _catalogSettings.DefaultEmployeePageSizeOptions;
                 model.Published = true;
                 model.IncludeInTopMenu = true;
                 model.AllowCustomersToSelectPageSize = true;
                 model.PriceRangeFiltering = true;
                 model.ManuallyPriceRange = true;
-                model.PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom;
-                model.PriceTo = NopCatalogDefaults.DefaultPriceRangeTo;
+                model.PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom;
+                model.PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo;
             }
 
             model.PrimaryStoreCurrencyCode = (await _currencyService.GetCurrencyByIdAsync(_currencySettings.PrimaryStoreCurrencyId)).CurrencyCode;
@@ -205,19 +202,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             if (!excludeProperties)
                 model.Locales = await _localizedModelFactory.PrepareLocalizedModelsAsync(localizedModelConfiguration);
 
-            //prepare available parent categories
-            await _baseAdminModelFactory.PrepareCategoriesAsync(model.AvailableCategories,
-                defaultItemText: await _localizationService.GetResourceAsync(CategoryModel.Labels.None));
-
-            //prepare model discounts
-            var availableDiscounts = await _discountService.GetAllDiscountsAsync(DiscountType.AssignedToCategories, showHidden: true);
-            await _discountSupportedModelFactory.PrepareModelDiscountsAsync(model, category, availableDiscounts, excludeProperties);
+            //prepare available parent employees
+            await _baseAdminModelFactory.PrepareEmployeesAsync(model.AvailableEmployees,
+                defaultItemText: await _localizationService.GetResourceAsync(EmployeeModel.Labels.None));
 
             //prepare model customer roles
-            await _aclSupportedModelFactory.PrepareModelCustomerRolesAsync(model, category, excludeProperties);
+            await _aclSupportedModelFactory.PrepareModelCustomerRolesAsync(model, employee, excludeProperties);
 
             //prepare model stores
-            await _storeMappingSupportedModelFactory.PrepareModelStoresAsync(model, category, excludeProperties);
+            await _storeMappingSupportedModelFactory.PrepareModelStoresAsync(model, employee, excludeProperties);
 
             return model;
         }

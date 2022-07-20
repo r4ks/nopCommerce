@@ -3,8 +3,8 @@ using Nop.Core.Configuration;
 using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Stores;
 using Nop.Core.Infrastructure.Mapper;
-using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Models;
 
@@ -97,12 +97,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
         protected virtual void CreateCatalogMaps()
         {
 
-            CreateMap<Category, CategoryModel>()
-                .ForMember(model => model.AvailableCategories, options => options.Ignore())
+            CreateMap<Employee, EmployeeModel>()
+                .ForMember(model => model.AvailableEmployees, options => options.Ignore())
                 .ForMember(model => model.Breadcrumb, options => options.Ignore())
                 .ForMember(model => model.SeName, options => options.Ignore())
                 .ForMember(model => model.PrimaryStoreCurrencyCode, options => options.Ignore());
-            CreateMap<CategoryModel, Category>()
+            CreateMap<EmployeeModel, Employee>()
                 .ForMember(entity => entity.CreatedOnUtc, options => options.Ignore())
                 .ForMember(entity => entity.Deleted, options => options.Ignore())
                 .ForMember(entity => entity.UpdatedOnUtc, options => options.Ignore());

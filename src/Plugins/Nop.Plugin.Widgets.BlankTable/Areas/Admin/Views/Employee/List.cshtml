@@ -1,20 +1,20 @@
-@model CategorySearchModel
+@model EmployeeSearchModel
 
 @{
     //page title
-    ViewBag.PageTitle = T(CategorySearchModel.Labels.Title).Text;
+    ViewBag.PageTitle = T(EmployeeSearchModel.Labels.Title).Text;
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName("Categories");
+    NopHtml.SetActiveMenuItemSystemName("Employees");
 }
 
 @{
-    const string hideSearchBlockAttributeName = "CategoryPage.HideSearchBlock";
+    const string hideSearchBlockAttributeName = "EmployeePage.HideSearchBlock";
     var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideSearchBlockAttributeName);
 }
 
 <div class="content-header clearfix">
     <h1 class="float-left">
-        @T(CategorySearchModel.Labels.Title)
+        @T(EmployeeSearchModel.Labels.Title)
     </h1>
     <div class="float-right">
         <a asp-action="Create" class="btn btn-primary">
@@ -49,7 +49,7 @@
             <i class="fas fa-upload"></i>
             @T(Common.Labels.Import)
         </button>
-        @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CategoryListButtons, additionalData = Model })
+        @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.EmployeeListButtons, additionalData = Model })
         <button type="button" id="delete-selected" class="btn btn-danger">
             <i class="far fa-trash-alt"></i>
             @T(Common.Labels.Selected)
@@ -75,10 +75,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <div class="col-md-4">
-                                            <nop-label asp-for="SearchCategoryName" />
+                                            <nop-label asp-for="SearchEmployeeName" />
                                         </div>
                                         <div class="col-md-8">
-                                            <nop-editor asp-for="SearchCategoryName" />
+                                            <nop-editor asp-for="SearchEmployeeName" />
                                         </div>
                                     </div>
                                     <div class="form-group row" @(Model.HideStoresList ? Html.Raw("style=\"display:none\"") : null)>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="text-center col-12">
-                                    <button type="button" id="search-categories" class="btn btn-primary btn-search"><i class="fas fa-search"></i>@T(Common.Labels.Search)</button>
+                                    <button type="button" id="search-employees" class="btn btn-primary btn-search"><i class="fas fa-search"></i>@T(Common.Labels.Search)</button>
                                 </div>
                             </div>
                         </div>
@@ -112,48 +112,48 @@
 
                 <div class="card card-default">
                     <div class="card-body">
-                        <nop-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.Categories", Docs.Categories + Utm.OnAdmin)" />
+                        <nop-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.Employees", Docs.Employees + Utm.OnAdmin)" />
 
                         @await Html.PartialAsync("Table", new DataTablesModel
                         {
-                            Name = "categories-grid",
-                            UrlRead = new DataUrl("List", "Category", null),
-                            SearchButtonId = "search-categories",
+                            Name = "employees-grid",
+                            UrlRead = new DataUrl("List", "Employee", null),
+                            SearchButtonId = "search-employees",
                             Length = Model.PageSize,
                             LengthMenu = Model.AvailablePageSizes,
                             Filters = new List<FilterParameter>
                             {
-                                new FilterParameter(nameof(Model.SearchCategoryName)),
+                                new FilterParameter(nameof(Model.SearchEmployeeName)),
                                 new FilterParameter(nameof(Model.SearchStoreId)),
                                 new FilterParameter(nameof(Model.SearchPublishedId))
                             },
                             ColumnCollection = new List<ColumnProperty>
                             {
-                                 new ColumnProperty(nameof(CategoryModel.Id))
+                                 new ColumnProperty(nameof(EmployeeModel.Id))
                                 {
                                     IsMasterCheckBox = true,
                                     Render = new RenderCheckBox("checkbox_categories"),
                                     ClassName =  NopColumnClassDefaults.CenterAll,
                                     Width = "50"
                                 },
-                                new ColumnProperty(nameof(CategoryModel.Breadcrumb))
+                                new ColumnProperty(nameof(EmployeeModel.Breadcrumb))
                                 {
-                                    Title = T(CategorySearchModel.Labels.Breadcrumb).Text
+                                    Title = T(EmployeeSearchModel.Labels.Breadcrumb).Text
                                 },
-                                new ColumnProperty(nameof(CategoryModel.Published))
+                                new ColumnProperty(nameof(EmployeeModel.Published))
                                 {
-                                    Title = T(CategorySearchModel.Labels.Published).Text,
+                                    Title = T(EmployeeSearchModel.Labels.Published).Text,
                                     Width = "100",
                                     ClassName = NopColumnClassDefaults.CenterAll,
                                     Render = new RenderBoolean()
                                 },
-                                new ColumnProperty(nameof(CategoryModel.DisplayOrder))
+                                new ColumnProperty(nameof(EmployeeModel.DisplayOrder))
                                 {
-                                    Title = T(CategorySearchModel.Labels.DisplayOrder).Text,
+                                    Title = T(EmployeeSearchModel.Labels.DisplayOrder).Text,
                                     Width = "150",
                                     ClassName =  NopColumnClassDefaults.CenterAll
                                 },
-                                new ColumnProperty(nameof(CategoryModel.Id))
+                                new ColumnProperty(nameof(EmployeeModel.Id))
                                 {
                                     Title = T(Common.Labels.Edit).Text,
                                     Width = "100",
@@ -173,7 +173,7 @@
                                     $.ajax({
                                         cache: false,
                                         type: "POST",
-                                        url: "@(Url.Action("DeleteSelected", "Category"))",
+                                        url: "@(Url.Action("DeleteSelected", "Employee"))",
                                         data: postData,
                                         error: function (jqXHR, textStatus, errorThrown) {
                                             showAlert('deleteSelectedFailed', errorThrown);
@@ -184,7 +184,7 @@
                                                 showAlert('nothingSelectedAlert', '@T(Common.Labels.NothingSelected)');
                                                 return;
                                             }
-                                            updateTable('#categories-grid');
+                                            updateTable('#employees-grid');
                                         }
                                     });
                                     $('#delete-selected-action-confirmation').modal('toggle');
@@ -201,7 +201,7 @@
     </div>
 </section>
 
-@*import categories form*@
+@*import employees form*@
 <div id="importexcel-window" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="importexcel-window-title">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -209,12 +209,12 @@
                 <h4 class="modal-title" id="importexcel-window-title">@T(Common.Labels.ImportFromExcel)</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
             </div>
-            <form asp-controller="Category" asp-action="ImportFromXlsx" method="post" enctype="multipart/form-data">
+            <form asp-controller="Employee" asp-action="ImportFromXlsx" method="post" enctype="multipart/form-data">
                 <div class="form-horizontal">
                     <div class="modal-body">
                         <ul class="common-list">
                             <li>
-                                <em>@T(CategorySearchModel.Labels.ImportFromExcelTip)</em>
+                                <em>@T(EmployeeSearchModel.Labels.ImportFromExcelTip)</em>
                             </li>
                             <li>
                                 <em>@T(Common.Labels.ManyRecordsWarning)</em>

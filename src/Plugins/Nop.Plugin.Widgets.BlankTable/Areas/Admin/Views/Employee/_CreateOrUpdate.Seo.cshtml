@@ -1,7 +1,7 @@
-﻿@model CategoryModel
+﻿@model EmployeeModel
 
 <div class="card-body">
-    @(await Html.LocalizedEditorAsync<CategoryModel, CategoryLocalizedModel>("category-info-localized",
+    @(await Html.LocalizedEditorAsync<EmployeeModel, EmployeeLocalizedModel>("employee-info-localized",
     @<div>
         <div class="form-group row">
             <div class="col-md-3">
@@ -17,7 +17,7 @@
 				$('#@Html.IdFor(model => model.Locales[item].SeName)').on('input change', function () {
 					var parameters = {
 					    entityId: '@Model.Id',
-					    entityName: 'Category',
+					    entityName: 'Employee',
 					    seName: $(this).val()
 					};
 					warningValidation('@Url.Action("UrlReservedWarning", "Common")', '@Html.NameFor(model => model.Locales[item].SeName)', parameters);
@@ -42,7 +42,7 @@
     			$('#@Html.IdFor(model => model.SeName)').on('input change', function () {
     				var parameters = {
     				    entityId: '@Model.Id',
-    				    entityName: 'Category',
+    				    entityName: 'Employee',
     				    seName: $(this).val()
     				};
     				warningValidation('@Url.Action("UrlReservedWarning", "Common")', '@Html.NameFor(model => model.SeName)', parameters);

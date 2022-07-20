@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help
 {
@@ -24,14 +24,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help
         /// <summary>
         /// Catalog settings
         /// </summary>
-        private readonly CatalogSettings _catalogSettings;
+        private readonly EmployeeSettings _catalogSettings;
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="properties">All access properties</param>
         /// <param name="catalogSettings">Catalog settings</param>
-        public PropertyManager(IEnumerable<PropertyByName<T>> properties, CatalogSettings catalogSettings)
+        public PropertyManager(IEnumerable<PropertyByName<T>> properties, EmployeeSettings catalogSettings)
         {
             _properties = new Dictionary<string, PropertyByName<T>>();
             _catalogSettings = catalogSettings;

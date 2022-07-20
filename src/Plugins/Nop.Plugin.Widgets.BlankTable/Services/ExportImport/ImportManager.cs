@@ -10,8 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Nop.Core;
 using Nop.Core.Domain.Media;
 using Nop.Core.Infrastructure;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
+using Nop.Plugin.Widgets.BlankTable.Services.Hr;
 using Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
@@ -28,8 +28,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     {
         #region Fields
 
-        private readonly CatalogSettings _catalogSettings;
-        private readonly ICategoryService _categoryService;
+        private readonly EmployeeSettings _catalogSettings;
+        private readonly IEmployeeService _categoryService;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILocalizationService _localizationService;
@@ -43,8 +43,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
         #region Ctor
 
-        public ImportManager(CatalogSettings catalogSettings,
-            ICategoryService categoryService,
+        public ImportManager(EmployeeSettings catalogSettings,
+            IEmployeeService categoryService,
             ICustomerActivityService customerActivityService,
             IHttpClientFactory httpClientFactory,
             ILocalizationService localizationService,
@@ -121,96 +121,96 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         }
 
         /// <returns>A task that represents the asynchronous operation</returns>
-        protected virtual async Task<(string seName, bool isParentCategoryExists)> UpdateCategoryByXlsxAsync(Category category, PropertyManager<Category> manager, Dictionary<string, ValueTask<Category>> allCategories, bool isNew)
+        protected virtual async Task<(string seName, bool isParentEmployeeExists)> UpdateEmployeeByXlsxAsync(Employee employee, PropertyManager<Employee> manager, Dictionary<string, ValueTask<Employee>> allEmployees, bool isNew)
         {
             var seName = string.Empty;
-            var isParentCategoryExists = true;
-            var isParentCategorySet = false;
+            var isParentEmployeeExists = true;
+            var isParentEmployeeSet = false;
 
             foreach (var property in manager.GetProperties)
             {
                 switch (property.PropertyName)
                 {
                     case "Name":
-                        category.Name = property.StringValue.Split(new[] { ">>" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim();
+                        employee.Name = property.StringValue.Split(new[] { ">>" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim();
                         break;
                     case "Description":
-                        category.Description = property.StringValue;
+                        employee.Description = property.StringValue;
                         break;
-                    case "ParentCategoryId":
-                        if (!isParentCategorySet)
+                    case "ParentEmployeeId":
+                        if (!isParentEmployeeSet)
                         {
-                            var parentCategory = await await allCategories.Values.FirstOrDefaultAwaitAsync(async c => (await c).Id == property.IntValue);
-                            isParentCategorySet = parentCategory != null;
+                            var parentEmployee = await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Id == property.IntValue);
+                            isParentEmployeeSet = parentEmployee != null;
 
-                            isParentCategoryExists = isParentCategorySet || property.IntValue == 0;
+                            isParentEmployeeExists = isParentEmployeeSet || property.IntValue == 0;
 
-                            category.ParentCategoryId = parentCategory?.Id ?? property.IntValue;
+                            employee.ParentEmployeeId = parentEmployee?.Id ?? property.IntValue;
                         }
 
                         break;
-                    case "ParentCategoryName":
-                        if (_catalogSettings.ExportImportCategoriesUsingCategoryName && !isParentCategorySet)
+                    case "ParentEmployeeName":
+                        if (_catalogSettings.ExportImportEmployeesUsingEmployeeName && !isParentEmployeeSet)
                         {
-                            var categoryName = manager.GetProperty("ParentCategoryName").StringValue;
+                            var categoryName = manager.GetProperty("ParentEmployeeName").StringValue;
                             if (!string.IsNullOrEmpty(categoryName))
                             {
-                                var parentCategory = allCategories.ContainsKey(categoryName)
-                                    //try find category by full name with all parent category names
-                                    ? await allCategories[categoryName]
-                                    //try find category by name
-                                    : await await allCategories.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(categoryName, StringComparison.InvariantCulture));
+                                var parentEmployee = allEmployees.ContainsKey(categoryName)
+                                    //try find employee by full name with all parent employee names
+                                    ? await allEmployees[categoryName]
+                                    //try find employee by name
+                                    : await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(categoryName, StringComparison.InvariantCulture));
 
-                                if (parentCategory != null)
+                                if (parentEmployee != null)
                                 {
-                                    category.ParentCategoryId = parentCategory.Id;
-                                    isParentCategorySet = true;
+                                    employee.ParentEmployeeId = parentEmployee.Id;
+                                    isParentEmployeeSet = true;
                                 }
                                 else
                                 {
-                                    isParentCategoryExists = false;
+                                    isParentEmployeeExists = false;
                                 }
                             }
                         }
 
                         break;
                     case "Picture":
-                        var picture = await LoadPictureAsync(manager.GetProperty("Picture").StringValue, category.Name, isNew ? null : (int?)category.PictureId);
+                        var picture = await LoadPictureAsync(manager.GetProperty("Picture").StringValue, employee.Name, isNew ? null : (int?)employee.PictureId);
                         if (picture != null)
-                            category.PictureId = picture.Id;
+                            employee.PictureId = picture.Id;
                         break;
                     case "PageSize":
-                        category.PageSize = property.IntValue;
+                        employee.PageSize = property.IntValue;
                         break;
                     case "AllowCustomersToSelectPageSize":
-                        category.AllowCustomersToSelectPageSize = property.BooleanValue;
+                        employee.AllowCustomersToSelectPageSize = property.BooleanValue;
                         break;
                     case "PageSizeOptions":
-                        category.PageSizeOptions = property.StringValue;
+                        employee.PageSizeOptions = property.StringValue;
                         break;
                     case "ShowOnHomepage":
-                        category.ShowOnHomepage = property.BooleanValue;
+                        employee.ShowOnHomepage = property.BooleanValue;
                         break;
                     case "PriceRangeFiltering":
-                        category.PriceRangeFiltering = property.BooleanValue;
+                        employee.PriceRangeFiltering = property.BooleanValue;
                         break;
                     case "PriceFrom":
-                        category.PriceFrom = property.DecimalValue;
+                        employee.PriceFrom = property.DecimalValue;
                         break;
                     case "PriceTo":
-                        category.PriceTo = property.DecimalValue;
+                        employee.PriceTo = property.DecimalValue;
                         break;
                     case "AutomaticallyCalculatePriceRange":
-                        category.ManuallyPriceRange = property.BooleanValue;
+                        employee.ManuallyPriceRange = property.BooleanValue;
                         break;
                     case "IncludeInTopMenu":
-                        category.IncludeInTopMenu = property.BooleanValue;
+                        employee.IncludeInTopMenu = property.BooleanValue;
                         break;
                     case "Published":
-                        category.Published = property.BooleanValue;
+                        employee.Published = property.BooleanValue;
                         break;
                     case "DisplayOrder":
-                        category.DisplayOrder = property.IntValue;
+                        employee.DisplayOrder = property.IntValue;
                         break;
                     case "SeName":
                         seName = property.StringValue;
@@ -218,71 +218,71 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 }
             }
 
-            category.UpdatedOnUtc = DateTime.UtcNow;
-            return (seName, isParentCategoryExists);
+            employee.UpdatedOnUtc = DateTime.UtcNow;
+            return (seName, isParentEmployeeExists);
         }
 
         /// <returns>A task that represents the asynchronous operation</returns>
-        protected virtual async Task<(Category category, bool isNew, string curentCategoryBreadCrumb)> GetCategoryFromXlsxAsync(PropertyManager<Category> manager, IXLWorksheet worksheet, int iRow, Dictionary<string, ValueTask<Category>> allCategories)
+        protected virtual async Task<(Employee employee, bool isNew, string curentEmployeeBreadCrumb)> GetEmployeeFromXlsxAsync(PropertyManager<Employee> manager, IXLWorksheet worksheet, int iRow, Dictionary<string, ValueTask<Employee>> allEmployees)
         {
             manager.ReadFromXlsx(worksheet, iRow);
 
-            //try get category from database by ID
-            var category = await await allCategories.Values.FirstOrDefaultAwaitAsync(async c => (await c).Id == manager.GetProperty("Id")?.IntValue);
+            //try get employee from database by ID
+            var employee = await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Id == manager.GetProperty("Id")?.IntValue);
 
-            if (_catalogSettings.ExportImportCategoriesUsingCategoryName && category == null)
+            if (_catalogSettings.ExportImportEmployeesUsingEmployeeName && employee == null)
             {
                 var categoryName = manager.GetProperty("Name").StringValue;
                 if (!string.IsNullOrEmpty(categoryName))
                 {
-                    category = allCategories.ContainsKey(categoryName)
-                        //try find category by full name with all parent category names
-                        ? await allCategories[categoryName]
-                        //try find category by name
-                        : await await allCategories.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(categoryName, StringComparison.InvariantCulture));
+                    employee = allEmployees.ContainsKey(categoryName)
+                        //try find employee by full name with all parent employee names
+                        ? await allEmployees[categoryName]
+                        //try find employee by name
+                        : await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(categoryName, StringComparison.InvariantCulture));
                 }
             }
 
-            var isNew = category == null;
+            var isNew = employee == null;
 
-            category ??= new Category();
+            employee ??= new Employee();
 
-            var curentCategoryBreadCrumb = string.Empty;
+            var curentEmployeeBreadCrumb = string.Empty;
 
             if (isNew)
             {
-                category.CreatedOnUtc = DateTime.UtcNow;
+                employee.CreatedOnUtc = DateTime.UtcNow;
                 //default values
-                category.PageSize = _catalogSettings.DefaultCategoryPageSize;
-                category.PageSizeOptions = _catalogSettings.DefaultCategoryPageSizeOptions;
-                category.Published = true;
-                category.IncludeInTopMenu = true;
-                category.AllowCustomersToSelectPageSize = true;
+                employee.PageSize = _catalogSettings.DefaultEmployeePageSize;
+                employee.PageSizeOptions = _catalogSettings.DefaultEmployeePageSizeOptions;
+                employee.Published = true;
+                employee.IncludeInTopMenu = true;
+                employee.AllowCustomersToSelectPageSize = true;
             }
             else
-                curentCategoryBreadCrumb = await _categoryService.GetFormattedBreadCrumbAsync(category);
+                curentEmployeeBreadCrumb = await _categoryService.GetFormattedBreadCrumbAsync(employee);
 
-            return (category, isNew, curentCategoryBreadCrumb);
+            return (employee, isNew, curentEmployeeBreadCrumb);
         }
 
         /// <returns>A task that represents the asynchronous operation</returns>
-        protected virtual async Task SaveCategoryAsync(bool isNew, Category category, Dictionary<string, ValueTask<Category>> allCategories, string curentCategoryBreadCrumb, bool setSeName, string seName)
+        protected virtual async Task SaveEmployeeAsync(bool isNew, Employee employee, Dictionary<string, ValueTask<Employee>> allEmployees, string curentEmployeeBreadCrumb, bool setSeName, string seName)
         {
             if (isNew)
-                await _categoryService.InsertCategoryAsync(category);
+                await _categoryService.InsertEmployeeAsync(employee);
             else
-                await _categoryService.UpdateCategoryAsync(category);
+                await _categoryService.UpdateEmployeeAsync(employee);
 
-            var categoryBreadCrumb = await _categoryService.GetFormattedBreadCrumbAsync(category);
-            if (!allCategories.ContainsKey(categoryBreadCrumb))
-                allCategories.Add(categoryBreadCrumb, new ValueTask<Category>(category));
-            if (!string.IsNullOrEmpty(curentCategoryBreadCrumb) && allCategories.ContainsKey(curentCategoryBreadCrumb) &&
-                categoryBreadCrumb != curentCategoryBreadCrumb)
-                allCategories.Remove(curentCategoryBreadCrumb);
+            var categoryBreadCrumb = await _categoryService.GetFormattedBreadCrumbAsync(employee);
+            if (!allEmployees.ContainsKey(categoryBreadCrumb))
+                allEmployees.Add(categoryBreadCrumb, new ValueTask<Employee>(employee));
+            if (!string.IsNullOrEmpty(curentEmployeeBreadCrumb) && allEmployees.ContainsKey(curentEmployeeBreadCrumb) &&
+                categoryBreadCrumb != curentEmployeeBreadCrumb)
+                allEmployees.Remove(curentEmployeeBreadCrumb);
 
             //search engine name
             if (setSeName)
-                await _urlRecordService.SaveSlugAsync(category, await _urlRecordService.ValidateSeNameAsync(category, seName, category.Name, true), 0);
+                await _urlRecordService.SaveSlugAsync(employee, await _urlRecordService.ValidateSeNameAsync(employee, seName, employee.Name, true), 0);
         }
 
         #endregion
@@ -321,11 +321,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         }
 
         /// <summary>
-        /// Import categories from XLSX file
+        /// Import employees from XLSX file
         /// </summary>
         /// <param name="stream">Stream</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task ImportCategoriesFromXlsxAsync(Stream stream)
+        public virtual async Task ImportEmployeesFromXlsxAsync(Stream stream)
         {
             using var workboox = new XLWorkbook(stream);
             // get the first worksheet in the workbook
@@ -334,16 +334,16 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 throw new NopException("No worksheet found");
 
             //the columns
-            var properties = GetPropertiesByExcelCells<Category>(worksheet);
+            var properties = GetPropertiesByExcelCells<Employee>(worksheet);
 
-            var manager = new PropertyManager<Category>(properties, _catalogSettings);
+            var manager = new PropertyManager<Employee>(properties, _catalogSettings);
 
             var iRow = 2;
             var setSeName = properties.Any(p => p.PropertyName == "SeName");
 
-            //performance optimization, load all categories in one SQL request
-            var allCategories = await (await _categoryService
-                .GetAllCategoriesAsync(showHidden: true))
+            //performance optimization, load all employees in one SQL request
+            var allEmployees = await (await _categoryService
+                .GetAllEmployeesAsync(showHidden: true))
                 .GroupByAwait(async c => await _categoryService.GetFormattedBreadCrumbAsync(c))
                 .ToDictionaryAsync(c => c.Key, c => c.FirstAsync());
 
@@ -358,20 +358,20 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 if (allColumnsAreEmpty)
                     break;
 
-                //get category by data in xlsx file if it possible, or create new category
-                var (category, isNew, currentCategoryBreadCrumb) = await GetCategoryFromXlsxAsync(manager, worksheet, iRow, allCategories);
+                //get employee by data in xlsx file if it possible, or create new employee
+                var (employee, isNew, currentEmployeeBreadCrumb) = await GetEmployeeFromXlsxAsync(manager, worksheet, iRow, allEmployees);
 
-                //update category by data in xlsx file
-                var (seName, isParentCategoryExists) = await UpdateCategoryByXlsxAsync(category, manager, allCategories, isNew);
+                //update employee by data in xlsx file
+                var (seName, isParentEmployeeExists) = await UpdateEmployeeByXlsxAsync(employee, manager, allEmployees, isNew);
 
-                if (isParentCategoryExists)
+                if (isParentEmployeeExists)
                 {
-                    //if parent category exists in database then save category into database
-                    await SaveCategoryAsync(isNew, category, allCategories, currentCategoryBreadCrumb, setSeName, seName);
+                    //if parent employee exists in database then save employee into database
+                    await SaveEmployeeAsync(isNew, employee, allEmployees, currentEmployeeBreadCrumb, setSeName, seName);
                 }
                 else
                 {
-                    //if parent category doesn't exists in database then try save category into database next time
+                    //if parent employee doesn't exists in database then try save employee into database next time
                     saveNextTime.Add(iRow);
                 }
 
@@ -384,19 +384,19 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             {
                 var remove = new List<int>();
 
-                //try to save unsaved categories
+                //try to save unsaved employees
                 foreach (var rowId in saveNextTime)
                 {
-                    //get category by data in xlsx file if it possible, or create new category
-                    var (category, isNew, currentCategoryBreadCrumb) = await GetCategoryFromXlsxAsync(manager, worksheet, rowId, allCategories);
-                    //update category by data in xlsx file
-                    var (seName, isParentCategoryExists) = await UpdateCategoryByXlsxAsync(category, manager, allCategories, isNew);
+                    //get employee by data in xlsx file if it possible, or create new employee
+                    var (employee, isNew, currentEmployeeBreadCrumb) = await GetEmployeeFromXlsxAsync(manager, worksheet, rowId, allEmployees);
+                    //update employee by data in xlsx file
+                    var (seName, isParentEmployeeExists) = await UpdateEmployeeByXlsxAsync(employee, manager, allEmployees, isNew);
 
-                    if (!isParentCategoryExists)
+                    if (!isParentEmployeeExists)
                         continue;
 
-                    //if parent category exists in database then save category into database
-                    await SaveCategoryAsync(isNew, category, allCategories, currentCategoryBreadCrumb, setSeName, seName);
+                    //if parent employee exists in database then save employee into database
+                    await SaveEmployeeAsync(isNew, employee, allEmployees, currentEmployeeBreadCrumb, setSeName, seName);
                     remove.Add(rowId);
                 }
 
@@ -406,8 +406,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             }
 
             //activity log
-            await _customerActivityService.InsertActivityAsync("ImportCategories",
-                string.Format(await _localizationService.GetResourceAsync("ActivityLog.ImportCategories"), iRow - 2 - saveNextTime.Count));
+            await _customerActivityService.InsertActivityAsync("ImportEmployees",
+                string.Format(await _localizationService.GetResourceAsync("ActivityLog.ImportEmployees"), iRow - 2 - saveNextTime.Count));
 
             if (!saveNextTime.Any())
                 return;
@@ -420,25 +420,25 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 categoriesName.Add(manager.GetProperty("Name").StringValue);
             }
 
-            throw new ArgumentException(string.Format(await _localizationService.GetResourceAsync("Admin.Catalog.Categories.Import.CategoriesArentImported"), string.Join(", ", categoriesName)));
+            throw new ArgumentException(string.Format(await _localizationService.GetResourceAsync("Admin.Catalog.Employees.Import.EmployeesArentImported"), string.Join(", ", categoriesName)));
         }
 
         #endregion
 
         #region Nested classes
 
-        public class CategoryKey
+        public class EmployeeKey
         {
             /// <returns>A task that represents the asynchronous operation</returns>
-            public static async Task<CategoryKey> CreateCategoryKeyAsync(Category category, ICategoryService categoryService, IList<Category> allCategories, IStoreMappingService storeMappingService)
+            public static async Task<EmployeeKey> CreateEmployeeKeyAsync(Employee employee, IEmployeeService categoryService, IList<Employee> allEmployees, IStoreMappingService storeMappingService)
             {
-                return new CategoryKey(await categoryService.GetFormattedBreadCrumbAsync(category, allCategories), category.LimitedToStores ? (await storeMappingService.GetStoresIdsWithAccessAsync(category)).ToList() : new List<int>())
+                return new EmployeeKey(await categoryService.GetFormattedBreadCrumbAsync(employee, allEmployees), employee.LimitedToStores ? (await storeMappingService.GetStoresIdsWithAccessAsync(employee)).ToList() : new List<int>())
                 {
-                    Category = category
+                    Employee = employee
                 };
             }
 
-            public CategoryKey(string key, List<int> storesIds = null)
+            public EmployeeKey(string key, List<int> storesIds = null)
             {
                 Key = key.Trim();
                 StoresIds = storesIds ?? new List<int>();
@@ -446,17 +446,17 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
             public List<int> StoresIds { get; }
 
-            public Category Category { get; private set; }
+            public Employee Employee { get; private set; }
 
             public string Key { get; }
 
-            public bool Equals(CategoryKey y)
+            public bool Equals(EmployeeKey y)
             {
                 if (y == null)
                     return false;
 
-                if (Category != null && y.Category != null)
-                    return Category.Id == y.Category.Id;
+                if (Employee != null && y.Employee != null)
+                    return Employee.Id == y.Employee.Id;
 
                 if ((StoresIds.Any() || y.StoresIds.Any())
                     && (StoresIds.All(id => !y.StoresIds.Contains(id)) || y.StoresIds.All(id => !StoresIds.Contains(id))))
@@ -478,7 +478,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
             public override bool Equals(object obj)
             {
-                var other = obj as CategoryKey;
+                var other = obj as EmployeeKey;
                 return other?.Equals(other) ?? false;
             }
         }

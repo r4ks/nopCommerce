@@ -7,12 +7,12 @@ using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Stores;
 
-namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Domains.Hr
 {
     /// <summary>
-    /// Represents a category
+    /// Represents a employee
     /// </summary>
-    public partial class Category : BaseEntity, ILocalizedEntity, ISlugSupported, IAclSupported, IStoreMappingSupported, IDiscountSupported<DiscountCategoryMapping>, ISoftDeletedEntity
+    public partial class Employee : BaseEntity, ILocalizedEntity, ISlugSupported, IAclSupported, IStoreMappingSupported, ISoftDeletedEntity
     {
         /// <summary>
         /// Gets or sets the name
@@ -25,9 +25,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the parent category identifier
+        /// Gets or sets the parent employee identifier
         /// </summary>
-        public int ParentCategoryId { get; set; }
+        public int ParentEmployeeId { get; set; }
 
         /// <summary>
         /// Gets or sets the picture identifier
@@ -50,12 +50,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public string PageSizeOptions { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to show the category on home page
+        /// Gets or sets a value indicating whether to show the employee on home page
         /// </summary>
         public bool ShowOnHomepage { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to include this category in the top menu
+        /// Gets or sets a value indicating whether to include this employee in the top menu
         /// </summary>
         public bool IncludeInTopMenu { get; set; }
         

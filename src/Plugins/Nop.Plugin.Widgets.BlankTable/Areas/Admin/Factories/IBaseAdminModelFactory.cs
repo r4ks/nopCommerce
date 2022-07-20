@@ -19,13 +19,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         Task PrepareStoresAsync(IList<SelectListItem> items, bool withSpecialDefaultItem = true, string defaultItemText = null);
 
         /// <summary>
-        /// Prepare available categories
+        /// Prepare available employees
         /// </summary>
-        /// <param name="items">Category items</param>
+        /// <param name="items">Employee items</param>
         /// <param name="withSpecialDefaultItem">Whether to insert the first special item for the default value</param>
         /// <param name="defaultItemText">Default item text; pass null to use default value of the default item text</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        Task PrepareCategoriesAsync(IList<SelectListItem> items, bool withSpecialDefaultItem = true, string defaultItemText = null);
+        Task PrepareEmployeesAsync(IList<SelectListItem> items, bool withSpecialDefaultItem = true, string defaultItemText = null);
 
     }
 }

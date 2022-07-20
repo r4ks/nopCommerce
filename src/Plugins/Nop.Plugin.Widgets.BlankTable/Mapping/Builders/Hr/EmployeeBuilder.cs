@@ -1,13 +1,13 @@
 ﻿using FluentMigrator.Builders.Create.Table;
 using Nop.Data.Mapping.Builders;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 
-namespace Nop.Plugin.Widgets.BlankTable.Mapping.Builders.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Mapping.Builders.Hr
 {
     /// <summary>
-    /// Represents a category entity builder
+    /// Represents a employee entity builder
     /// </summary>
-    public partial class CategoryBuilder : NopEntityBuilder<Category>
+    public partial class EmployeeBuilder : NopEntityBuilder<Employee>
     {
         #region Methods
 
@@ -18,8 +18,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Mapping.Builders.Catalog
         public override void MapEntity(CreateTableExpressionBuilder table)
         {
             table
-                .WithColumn(nameof(Category.Name)).AsString(400).NotNullable()
-                .WithColumn(nameof(Category.PageSizeOptions)).AsString(200).Nullable();
+                .WithColumn(nameof(Employee.Name)).AsString(400).NotNullable()
+                .WithColumn(nameof(Employee.PageSizeOptions)).AsString(200).Nullable();
         }
 
         #endregion

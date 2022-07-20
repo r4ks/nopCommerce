@@ -1,28 +1,28 @@
 ﻿using FluentValidation;
 using Nop.Data.Mapping;
-using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
 using Nop.Web.Areas.Admin.Validators;
 using Nop.Web.Framework.Validators;
 
-namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Hr
 {
-    public partial class CategoryValidator : BaseNopValidator<CategoryModel>
+    public partial class EmployeeValidator : BaseNopValidator<EmployeeModel>
     {
         #region Labels
         public static class Labels
         {
-            public const string NameRequired = "Admin.Catalog.Categories.Fields.Name.Required";
-            public const string PageSizeOptionsShouldHaveUniqueItems = "Admin.Catalog.Categories.Fields.PageSizeOptions.ShouldHaveUniqueItems";
-            public const string PageSizePositive = "Admin.Catalog.Categories.Fields.PageSize.Positive";
+            public const string NameRequired = "Admin.Catalog.Employees.Fields.Name.Required";
+            public const string PageSizeOptionsShouldHaveUniqueItems = "Admin.Catalog.Employees.Fields.PageSizeOptions.ShouldHaveUniqueItems";
+            public const string PageSizePositive = "Admin.Catalog.Employees.Fields.PageSize.Positive";
             public const string SeNameMaxLengthValidation = "Admin.SEO.SeName.MaxLengthValidation";
-            public const string PriceFromGreaterThanOrEqualZero = "Admin.Catalog.Categories.Fields.PriceFrom.GreaterThanOrEqualZero";
-            public const string PriceToGreaterThanZeroOrPriceFrom = "Admin.Catalog.Categories.Fields.PriceTo.GreaterThanZeroOrPriceFrom";
+            public const string PriceFromGreaterThanOrEqualZero = "Admin.Catalog.Employees.Fields.PriceFrom.GreaterThanOrEqualZero";
+            public const string PriceToGreaterThanZeroOrPriceFrom = "Admin.Catalog.Employees.Fields.PriceTo.GreaterThanZeroOrPriceFrom";
         }
         #endregion
-        public CategoryValidator(ILocalizationService localizationService, IMappingEntityAccessor mappingEntityAccessor)
+        public EmployeeValidator(ILocalizationService localizationService, IMappingEntityAccessor mappingEntityAccessor)
         {
             RuleFor(x => x.Name).NotEmpty().WithMessageAwait(localizationService.GetResourceAsync(Labels.NameRequired));
             RuleFor(x => x.PageSizeOptions).Must(ValidatorUtilities.PageSizeOptionsValidator).WithMessageAwait(localizationService.GetResourceAsync(Labels.PageSizeOptionsShouldHaveUniqueItems));
@@ -46,7 +46,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Catalog
                 .WithMessage(x => string.Format(localizationService.GetResourceAsync(Labels.PriceToGreaterThanZeroOrPriceFrom).Result, x.PriceFrom > decimal.Zero ? x.PriceFrom : decimal.Zero))
                 .When(x => x.PriceRangeFiltering && x.ManuallyPriceRange);
 
-            SetDatabaseValidationRules<Category>(mappingEntityAccessor);
+            SetDatabaseValidationRules<Employee>(mappingEntityAccessor);
         }
     }
 }

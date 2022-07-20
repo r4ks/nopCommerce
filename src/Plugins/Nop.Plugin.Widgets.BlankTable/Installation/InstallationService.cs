@@ -15,8 +15,8 @@ using Nop.Core.Domain.Seo;
 using Nop.Core.Infrastructure;
 using Nop.Core.Security;
 using Nop.Data;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
-using Nop.Plugin.Widgets.BlankTable.Services.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
+using Nop.Plugin.Widgets.BlankTable.Services.Hr;
 using Nop.Services.Configuration;
 using Nop.Services.Installation;
 using Nop.Services.Media;
@@ -33,7 +33,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         private readonly INopDataProvider _dataProvider;
         private readonly INopFileProvider _fileProvider;
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Employee> _categoryRepository;
         private readonly IRepository<UrlRecord> _urlRecordRepository;
 
         #endregion
@@ -42,7 +42,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         public InstallationService(INopDataProvider dataProvider,
             INopFileProvider fileProvider,
-            IRepository<Category> categoryRepository,
+            IRepository<Employee> categoryRepository,
             IRepository<UrlRecord> urlRecordRepository
             )
         {
@@ -164,7 +164,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
             var settingService = EngineContext.Current.Resolve<ISettingService>();
 
-            await settingService.SaveSettingAsync(new CatalogSettings
+            await settingService.SaveSettingAsync(new EmployeeSettings
             {
                 AllowViewUnpublishedProductPage = true,
                 DisplayDiscontinuedMessageForUnpublishedProducts = true,
@@ -179,9 +179,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 AllowProductViewModeChanging = true,
                 DefaultViewMode = "grid",
                 ShowProductsFromSubcategories = false,
-                ShowCategoryProductNumber = false,
-                ShowCategoryProductNumberIncludingSubcategories = false,
-                CategoryBreadcrumbEnabled = true,
+                ShowEmployeeProductNumber = false,
+                ShowEmployeeProductNumberIncludingSubcategories = false,
+                EmployeeBreadcrumbEnabled = true,
                 ShowShareButton = true,
                 PageShareCode =
                     "<!-- AddThis Button BEGIN --><div class=\"addthis_toolbox addthis_default_style \"><a class=\"addthis_button_preferred_1\"></a><a class=\"addthis_button_preferred_2\"></a><a class=\"addthis_button_preferred_3\"></a><a class=\"addthis_button_preferred_4\"></a><a class=\"addthis_button_compact\"></a><a class=\"addthis_counter addthis_bubble_style\"></a></div><script src=\"http://s7.addthis.com/js/250/addthis_widget.js#pubid=nopsolutions\"></script><!-- AddThis Button END -->",
@@ -215,8 +215,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 SearchPagePageSizeOptions = "6, 3, 9, 18",
                 SearchPagePriceRangeFiltering = true,
                 SearchPageManuallyPriceRange = true,
-                SearchPagePriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                SearchPagePriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                SearchPagePriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                SearchPagePriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 ProductsAlsoPurchasedEnabled = true,
                 ProductsAlsoPurchasedNumber = 4,
                 AjaxProcessAttributeChange = true,
@@ -236,8 +236,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 ProductsByTagPageSizeOptions = "6, 3, 9, 18",
                 ProductsByTagPriceRangeFiltering = true,
                 ProductsByTagManuallyPriceRange = true,
-                ProductsByTagPriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                ProductsByTagPriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                ProductsByTagPriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                ProductsByTagPriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 MaximumBackInStockSubscriptions = 200,
                 ManufacturersBlockItemsToDisplay = 2,
                 DisplayTaxShippingInfoFooter = isGermany,
@@ -246,8 +246,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 DisplayTaxShippingInfoShoppingCart = isGermany,
                 DisplayTaxShippingInfoWishlist = isGermany,
                 DisplayTaxShippingInfoOrderDetailsPage = isGermany,
-                DefaultCategoryPageSizeOptions = "6, 3, 9",
-                DefaultCategoryPageSize = 6,
+                DefaultEmployeePageSizeOptions = "6, 3, 9",
+                DefaultEmployeePageSize = 6,
                 DefaultManufacturerPageSizeOptions = "6, 3, 9",
                 DefaultManufacturerPageSize = 6,
                 ShowProductReviewsTabOnAccountPage = true,
@@ -265,7 +265,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 EnablePriceRangeFiltering = true,
                 EnableSpecificationAttributeFiltering = true,
                 DisplayFromPrices = false,
-                AllowCustomersToSearchWithCategoryName = true,
+                AllowCustomersToSearchWithEmployeeName = true,
                 AllowCustomersToSearchWithManufacturerName = true,
                 DisplayAllPicturesOnCatalogPages = false,
             });
@@ -278,16 +278,16 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         }
         /// <returns>A task that represents the asynchronous operation</returns>
-        protected virtual async Task InstallCategoriesAsync()
+        protected virtual async Task InstallEmployeesAsync()
         {
             //pictures
             var pictureService = EngineContext.Current.Resolve<IPictureService>();
             var sampleImagesPath = GetSamplesPath();
 
 
-            //categories
-            var allCategories = new List<Category>();
-            var categoryComputers = new Category
+            //employees
+            var allEmployees = new List<Employee>();
+            var categoryComputers = new Employee
             {
                 Name = "Computers",
                 PageSize = 6,
@@ -300,39 +300,39 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryComputers);
+            allEmployees.Add(categoryComputers);
 
             await InsertInstallationDataAsync(categoryComputers);
 
-            var categoryDesktops = new Category
+            var categoryDesktops = new Employee
             {
                 Name = "Desktops",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryComputers.Id,
+                ParentEmployeeId = categoryComputers.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_desktops.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Desktops"))).Id,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryDesktops);
+            allEmployees.Add(categoryDesktops);
 
             await InsertInstallationDataAsync(categoryDesktops);
 
-            var categoryNotebooks = new Category
+            var categoryNotebooks = new Employee
             {
                 Name = "Notebooks",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryComputers.Id,
+                ParentEmployeeId = categoryComputers.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_notebooks.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Notebooks"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
@@ -340,17 +340,17 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryNotebooks);
+            allEmployees.Add(categoryNotebooks);
 
             await InsertInstallationDataAsync(categoryNotebooks);
 
-            var categorySoftware = new Category
+            var categorySoftware = new Employee
             {
                 Name = "Software",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryComputers.Id,
+                ParentEmployeeId = categoryComputers.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_software.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Software"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
@@ -358,11 +358,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categorySoftware);
+            allEmployees.Add(categorySoftware);
 
             await InsertInstallationDataAsync(categorySoftware);
 
-            var categoryElectronics = new Category
+            var categoryElectronics = new Employee
             {
                 Name = "Electronics",
                 PageSize = 6,
@@ -376,39 +376,39 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryElectronics);
+            allEmployees.Add(categoryElectronics);
 
             await InsertInstallationDataAsync(categoryElectronics);
 
-            var categoryCameraPhoto = new Category
+            var categoryCameraPhoto = new Employee
             {
                 Name = "Camera & photo",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryElectronics.Id,
+                ParentEmployeeId = categoryElectronics.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_camera_photo.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Camera, photo"))).Id,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryCameraPhoto);
+            allEmployees.Add(categoryCameraPhoto);
 
             await InsertInstallationDataAsync(categoryCameraPhoto);
 
-            var categoryCellPhones = new Category
+            var categoryCellPhones = new Employee
             {
                 Name = "Cell phones",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryElectronics.Id,
+                ParentEmployeeId = categoryElectronics.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_cell_phones.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Cell phones"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
@@ -416,33 +416,33 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryCellPhones);
+            allEmployees.Add(categoryCellPhones);
 
             await InsertInstallationDataAsync(categoryCellPhones);
 
-            var categoryOthers = new Category
+            var categoryOthers = new Employee
             {
                 Name = "Others",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryElectronics.Id,
+                ParentEmployeeId = categoryElectronics.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_accessories.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Accessories"))).Id,
                 IncludeInTopMenu = true,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 Published = true,
                 DisplayOrder = 3,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryOthers);
+            allEmployees.Add(categoryOthers);
 
             await InsertInstallationDataAsync(categoryOthers);
 
-            var categoryApparel = new Category
+            var categoryApparel = new Employee
             {
                 Name = "Apparel",
                 PageSize = 6,
@@ -456,39 +456,39 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryApparel);
+            allEmployees.Add(categoryApparel);
 
             await InsertInstallationDataAsync(categoryApparel);
 
-            var categoryShoes = new Category
+            var categoryShoes = new Employee
             {
                 Name = "Shoes",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryApparel.Id,
+                ParentEmployeeId = categoryApparel.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_shoes.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Shoes"))).Id,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryShoes);
+            allEmployees.Add(categoryShoes);
 
             await InsertInstallationDataAsync(categoryShoes);
 
-            var categoryClothing = new Category
+            var categoryClothing = new Employee
             {
                 Name = "Clothing",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryApparel.Id,
+                ParentEmployeeId = categoryApparel.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_clothing.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Clothing"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
@@ -496,33 +496,33 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryClothing);
+            allEmployees.Add(categoryClothing);
 
             await InsertInstallationDataAsync(categoryClothing);
 
-            var categoryAccessories = new Category
+            var categoryAccessories = new Employee
             {
                 Name = "Accessories",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentCategoryId = categoryApparel.Id,
+                ParentEmployeeId = categoryApparel.Id,
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_apparel_accessories.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Apparel Accessories"))).Id,
                 IncludeInTopMenu = true,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 Published = true,
                 DisplayOrder = 3,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryAccessories);
+            allEmployees.Add(categoryAccessories);
 
             await InsertInstallationDataAsync(categoryAccessories);
 
-            var categoryDigitalDownloads = new Category
+            var categoryDigitalDownloads = new Employee
             {
                 Name = "Digital downloads",
                 PageSize = 6,
@@ -536,11 +536,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryDigitalDownloads);
+            allEmployees.Add(categoryDigitalDownloads);
 
             await InsertInstallationDataAsync(categoryDigitalDownloads);
 
-            var categoryBooks = new Category
+            var categoryBooks = new Employee
             {
                 Name = "Books",
                 PageSize = 6,
@@ -549,19 +549,19 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_book.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Book"))).Id,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 5,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryBooks);
+            allEmployees.Add(categoryBooks);
 
             await InsertInstallationDataAsync(categoryBooks);
 
-            var categoryJewelry = new Category
+            var categoryJewelry = new Employee
             {
                 Name = "Jewelry",
                 PageSize = 6,
@@ -570,19 +570,19 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_jewelry.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Jewelry"))).Id,
                 PriceRangeFiltering = true,
                 ManuallyPriceRange = true,
-                PriceFrom = NopCatalogDefaults.DefaultPriceRangeFrom,
-                PriceTo = NopCatalogDefaults.DefaultPriceRangeTo,
+                PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom,
+                PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 6,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryJewelry);
+            allEmployees.Add(categoryJewelry);
 
             await InsertInstallationDataAsync(categoryJewelry);
 
-            var categoryGiftCards = new Category
+            var categoryGiftCards = new Employee
             {
                 Name = "Gift Cards",
                 PageSize = 6,
@@ -595,19 +595,19 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allCategories.Add(categoryGiftCards);
+            allEmployees.Add(categoryGiftCards);
 
             await InsertInstallationDataAsync(categoryGiftCards);
 
             //search engine names
-            foreach (var category in allCategories)
+            foreach (var employee in allEmployees)
                 await InsertInstallationDataAsync(new UrlRecord
                 {
-                    EntityId = category.Id,
-                    EntityName = nameof(Category),
+                    EntityId = employee.Id,
+                    EntityName = nameof(Employee),
                     LanguageId = 0,
                     IsActive = true,
-                    Slug = await ValidateSeNameAsync(category, category.Name)
+                    Slug = await ValidateSeNameAsync(employee, employee.Name)
                 });
         }
 
@@ -638,7 +638,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual async Task InstallSampleDataAsync(string defaultUserEmail)
         {
-            await InstallCategoriesAsync();
+            await InstallEmployeesAsync();
 
             var settingService = EngineContext.Current.Resolve<ISettingService>();
 

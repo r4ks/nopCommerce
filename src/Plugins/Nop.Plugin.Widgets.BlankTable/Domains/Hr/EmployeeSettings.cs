@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Nop.Core.Configuration;
 
-namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Domains.Hr
 {
     /// <summary>
     /// Catalog settings
     /// </summary>
-    public class CatalogSettings : ISettings
+    public class EmployeeSettings : ISettings
     {
-        public CatalogSettings()
+        public EmployeeSettings()
         {
         }
 
@@ -74,24 +74,24 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public string DefaultViewMode { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a category details page should include products from subcategories
+        /// Gets or sets a value indicating whether a employee details page should include products from subcategories
         /// </summary>
         public bool ShowProductsFromSubcategories { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether number of products should be displayed beside each category
+        /// Gets or sets a value indicating whether number of products should be displayed beside each employee
         /// </summary>
-        public bool ShowCategoryProductNumber { get; set; }
+        public bool ShowEmployeeProductNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether we include subcategories (when 'ShowCategoryProductNumber' is 'true')
+        /// Gets or sets a value indicating whether we include subcategories (when 'ShowEmployeeProductNumber' is 'true')
         /// </summary>
-        public bool ShowCategoryProductNumberIncludingSubcategories { get; set; }
+        public bool ShowEmployeeProductNumberIncludingSubcategories { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether category breadcrumb is enabled
+        /// Gets or sets a value indicating whether employee breadcrumb is enabled
         /// </summary>
-        public bool CategoryBreadcrumbEnabled { get; set; }
+        public bool EmployeeBreadcrumbEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a 'Share button' is enabled
@@ -349,7 +349,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool IncludeFullDescriptionInCompareProducts { get; set; }
 
         /// <summary>
-        /// An option indicating whether products on category and manufacturer pages should include featured products as well
+        /// An option indicating whether products on employee and manufacturer pages should include featured products as well
         /// </summary>
         public bool IncludeFeaturedProductsInNormalLists { get; set; }
 
@@ -429,14 +429,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool DisplayTaxShippingInfoOrderDetailsPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value to use for Category page size options (for new categories)
+        /// Gets or sets the default value to use for Employee page size options (for new employees)
         /// </summary>
-        public string DefaultCategoryPageSizeOptions { get; set; }
+        public string DefaultEmployeePageSizeOptions { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value to use for Category page size (for new categories)
+        /// Gets or sets the default value to use for Employee page size (for new employees)
         /// </summary>
-        public int DefaultCategoryPageSize { get; set; }
+        public int DefaultEmployeePageSize { get; set; }
 
         /// <summary>
         /// Gets or sets the default value to use for Manufacturer page size options (for new manufacturers)
@@ -465,9 +465,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool ExportImportUseDropdownlistsForAssociatedEntities { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the categories need to be exported/imported using name of category
+        /// Gets or sets a value indicating whether the employees need to be exported/imported using name of employee
         /// </summary>
-        public bool ExportImportCategoriesUsingCategoryName { get; set; }
+        public bool ExportImportEmployeesUsingEmployeeName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the images can be downloaded from remote server
@@ -545,9 +545,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Catalog
         public bool AllowCustomersToSearchWithManufacturerName { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether customer can search with category name
+        /// Gets or sets a value indicating whether customer can search with employee name
         /// </summary>
-        public bool AllowCustomersToSearchWithCategoryName { get; set; }
+        public bool AllowCustomersToSearchWithEmployeeName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether all pictures will be displayed on catalog pages

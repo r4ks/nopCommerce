@@ -9,11 +9,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     public partial interface IImportManager
     {
         /// <summary>
-        /// Import categories from XLSX file
+        /// Import employees from XLSX file
         /// </summary>
         /// <param name="stream">Stream</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        Task ImportCategoriesFromXlsxAsync(Stream stream);
+        Task ImportEmployeesFromXlsxAsync(Stream stream);
 
     }
 }

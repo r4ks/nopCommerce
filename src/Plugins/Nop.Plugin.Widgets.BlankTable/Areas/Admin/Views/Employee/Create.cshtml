@@ -1,18 +1,18 @@
-@model CategoryModel
+@model EmployeeModel
 @{
     //page title
-    ViewBag.PageTitle = T(CategoryModel.Labels.AddNew).Text;
+    ViewBag.PageTitle = T(EmployeeModel.Labels.AddNew).Text;
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName("Categories");
+    NopHtml.SetActiveMenuItemSystemName("Employees");
 }
 
-<form asp-controller="Category" asp-action="Create" method="post" id="category-form">
+<form asp-controller="Employee" asp-action="Create" method="post" id="employee-form">
     <div class="content-header clearfix">
         <h1 class="float-left">
-            @T(CategoryModel.Labels.AddNew)
+            @T(EmployeeModel.Labels.AddNew)
             <small>
                 <i class="fas fa-arrow-circle-left"></i>
-                <a asp-action="List">@T(CategoryModel.Labels.BackToList)</a>
+                <a asp-action="List">@T(EmployeeModel.Labels.BackToList)</a>
             </small>
         </h1>
         <div class="float-right">
@@ -24,7 +24,7 @@
                 <i class="far fa-save"></i>
                 @T(Common.Labels.SaveContinue)
             </button>
-            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CategoryDetailsButtons, additionalData = Model })
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.EmployeeDetailsButtons, additionalData = Model })
         </div>
     </div>
     @await Html.PartialAsync("_CreateOrUpdate", Model)

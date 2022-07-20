@@ -1,7 +1,7 @@
-﻿@model CategoryModel
+﻿@model EmployeeModel
 
 <div class="card-body">
-    @(await Html.LocalizedEditorAsync<CategoryModel, CategoryLocalizedModel>("category-name-localized",
+    @(await Html.LocalizedEditorAsync<EmployeeModel, EmployeeLocalizedModel>("employee-name-localized",
         @<div>
             <div class="form-group row">
                 <div class="col-md-3">
@@ -47,11 +47,11 @@
 
     <div class="form-group row">
         <div class="col-md-3">
-            <nop-label asp-for="ParentCategoryId" />
+            <nop-label asp-for="ParentEmployeeId" />
         </div>
         <div class="col-md-9">
-            <nop-select asp-for="ParentCategoryId" asp-items="Model.AvailableCategories" />
-            <span asp-validation-for="ParentCategoryId"></span>
+            <nop-select asp-for="ParentEmployeeId" asp-items="Model.AvailableEmployees" />
+            <span asp-validation-for="ParentEmployeeId"></span>
         </div>
     </div>
     <div class="form-group advanced-setting row">

@@ -1,12 +1,12 @@
 ﻿using Nop.Core.Caching;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 
-namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
+namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
 {
     /// <summary>
     /// Represents default values related to catalog services
     /// </summary>
-    public static partial class NopCatalogDefaults
+    public static partial class NopEmployeeDefaults
     {
         #region Common
 
@@ -41,50 +41,50 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
 
         #region Caching defaults
 
-        #region Categories
+        #region Employees
 
         /// <summary>
         /// Gets a key for caching
         /// </summary>
         /// <remarks>
-        /// {0} : parent category ID
+        /// {0} : parent employee ID
         /// {1} : show hidden records?
         /// {2} : current customer ID
         /// {3} : store ID
         /// </remarks>
-        public static CacheKey CategoriesByParentCategoryCacheKey => new("Nop.category.byparent.{0}-{1}-{2}-{3}", CategoriesByParentCategoryPrefix);
+        public static CacheKey EmployeesByParentEmployeeCacheKey => new("Nop.employee.byparent.{0}-{1}-{2}-{3}", EmployeesByParentEmployeePrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
         /// <remarks>
-        /// {0} : parent category ID
+        /// {0} : parent employee ID
         /// </remarks>
-        public static string CategoriesByParentCategoryPrefix => "Nop.category.byparent.{0}";
+        public static string EmployeesByParentEmployeePrefix => "Nop.employee.byparent.{0}";
 
         /// <summary>
         /// Gets a key for caching
         /// </summary>
         /// <remarks>
-        /// {0} : parent category id
+        /// {0} : parent employee id
         /// {1} : roles of the current user
         /// {2} : current store ID
         /// {3} : show hidden records?
         /// </remarks>
-        public static CacheKey CategoriesChildIdsCacheKey => new("Nop.category.childids.{0}-{1}-{2}-{3}", CategoriesChildIdsPrefix);
+        public static CacheKey EmployeesChildIdsCacheKey => new("Nop.employee.childids.{0}-{1}-{2}-{3}", EmployeesChildIdsPrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
         /// <remarks>
-        /// {0} : parent category ID
+        /// {0} : parent employee ID
         /// </remarks>
-        public static string CategoriesChildIdsPrefix => "Nop.category.childids.{0}";
+        public static string EmployeesChildIdsPrefix => "Nop.employee.childids.{0}";
 
         /// <summary>
         /// Gets a key for caching
         /// </summary>
-        public static CacheKey CategoriesHomepageCacheKey => new("Nop.category.homepage.", CategoriesHomepagePrefix);
+        public static CacheKey EmployeesHomepageCacheKey => new("Nop.employee.homepage.", EmployeesHomepagePrefix);
 
         /// <summary>
         /// Gets a key for caching
@@ -93,28 +93,28 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// {0} : current store ID
         /// {1} : roles of the current user
         /// </remarks>
-        public static CacheKey CategoriesHomepageWithoutHiddenCacheKey => new("Nop.category.homepage.withouthidden-{0}-{1}", CategoriesHomepagePrefix);
+        public static CacheKey EmployeesHomepageWithoutHiddenCacheKey => new("Nop.employee.homepage.withouthidden-{0}-{1}", EmployeesHomepagePrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
-        public static string CategoriesHomepagePrefix => "Nop.category.homepage.";
+        public static string EmployeesHomepagePrefix => "Nop.employee.homepage.";
 
         /// <summary>
-        /// Key for caching of category breadcrumb
+        /// Key for caching of employee breadcrumb
         /// </summary>
         /// <remarks>
-        /// {0} : category id
+        /// {0} : employee id
         /// {1} : roles of the current user
         /// {2} : current store ID
         /// {3} : language ID
         /// </remarks>
-        public static CacheKey CategoryBreadcrumbCacheKey => new("Nop.category.breadcrumb.{0}-{1}-{2}-{3}", CategoryBreadcrumbPrefix);
+        public static CacheKey EmployeeBreadcrumbCacheKey => new("Nop.employee.breadcrumb.{0}-{1}-{2}-{3}", EmployeeBreadcrumbPrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
-        public static string CategoryBreadcrumbPrefix => "Nop.category.breadcrumb.";
+        public static string EmployeeBreadcrumbPrefix => "Nop.employee.breadcrumb.";
 
         /// <summary>
         /// Gets a key for caching
@@ -124,7 +124,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// {1} : roles of the current user
         /// {2} : show hidden records?
         /// </remarks>
-        public static CacheKey CategoriesAllCacheKey => new("Nop.category.all.{0}-{1}-{2}", NopEntityCacheDefaults<Category>.AllPrefix);
+        public static CacheKey EmployeesAllCacheKey => new("Nop.employee.all.{0}-{1}-{2}", NopEntityCacheDefaults<Employee>.AllPrefix);
 
         #endregion
 
@@ -153,14 +153,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         /// Gets a key for caching
         /// </summary>
         /// <remarks>
-        /// {0} : category ID
+        /// {0} : employee ID
         /// </remarks>
-        public static CacheKey ManufacturersByCategoryCacheKey => new("Nop.manufacturer.bycategory.{0}", ManufacturersByCategoryPrefix);
+        public static CacheKey ManufacturersByEmployeeCacheKey => new("Nop.manufacturer.bycategory.{0}", ManufacturersByEmployeePrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
-        public static string ManufacturersByCategoryPrefix => "Nop.manufacturer.bycategory.";
+        public static string ManufacturersByEmployeePrefix => "Nop.manufacturer.bycategory.";
 
         #endregion
 
@@ -197,15 +197,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         public static CacheKey ProductsHomepageCacheKey => new("Nop.product.homepage.");
 
         /// <summary>
-        /// Key for caching identifiers of category featured products
+        /// Key for caching identifiers of employee featured products
         /// </summary>
         /// <remarks>
-        /// {0} : category id
+        /// {0} : employee id
         /// {1} : customer role Ids
         /// {2} : current store ID
         /// </remarks>
-        public static CacheKey CategoryFeaturedProductsIdsKey => new("Nop.product.featured.bycategory.{0}-{1}-{2}", CategoryFeaturedProductsIdsPrefix, FeaturedProductIdsPrefix);
-        public static string CategoryFeaturedProductsIdsPrefix => "Nop.product.featured.bycategory.{0}";
+        public static CacheKey EmployeeFeaturedProductsIdsKey => new("Nop.product.featured.bycategory.{0}-{1}-{2}", EmployeeFeaturedProductsIdsPrefix, FeaturedProductIdsPrefix);
+        public static string EmployeeFeaturedProductsIdsPrefix => "Nop.product.featured.bycategory.{0}";
 
         /// <summary>
         /// Key for caching of a value indicating whether a manufacturer has featured products
@@ -346,12 +346,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Catalog
         public static CacheKey SpecificationAttributesWithOptionsCacheKey => new("Nop.specificationattribute.withoptions.");
 
         /// <summary>
-        /// Key for specification attribute options by category ID caching
+        /// Key for specification attribute options by employee ID caching
         /// </summary>
         /// <remarks>
-        /// {0} : category ID
+        /// {0} : employee ID
         /// </remarks>
-        public static CacheKey SpecificationAttributeOptionsByCategoryCacheKey => new("Nop.specificationattributeoption.bycategory.{0}", FilterableSpecificationAttributeOptionsPrefix);
+        public static CacheKey SpecificationAttributeOptionsByEmployeeCacheKey => new("Nop.specificationattributeoption.bycategory.{0}", FilterableSpecificationAttributeOptionsPrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache

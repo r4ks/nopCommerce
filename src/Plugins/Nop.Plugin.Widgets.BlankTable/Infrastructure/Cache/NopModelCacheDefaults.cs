@@ -10,13 +10,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
         public static CacheKey OfficialNewsModelKey => new("Nop.pres.admin.official.news");
         
         /// <summary>
-        /// Key for categories caching
+        /// Key for employees caching
         /// </summary>
         /// <remarks>
         /// {0} : show hidden records?
         /// </remarks>
-        public static CacheKey CategoriesListKey => new("Nop.pres.admin.categories.list-{0}", CategoriesListPrefixCacheKey);
-        public static string CategoriesListPrefixCacheKey => "Nop.pres.admin.categories.list";
+        public static CacheKey EmployeesListKey => new("Nop.pres.admin.employees.list-{0}", EmployeesListPrefixCacheKey);
+        public static string EmployeesListPrefixCacheKey => "Nop.pres.admin.employees.list";
 
         /// <summary>
         /// Key for manufacturers caching

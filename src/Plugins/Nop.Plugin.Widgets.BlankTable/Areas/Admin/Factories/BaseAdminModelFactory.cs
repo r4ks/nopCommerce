@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Caching;
-using Nop.Services.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache;
+using Nop.Plugin.Widgets.BlankTable.Services.Hr;
 using Nop.Services.Localization;
 using Nop.Services.Stores;
-using Nop.Web.Areas.Admin.Infrastructure.Cache;
 
 namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 {
@@ -18,7 +18,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
     {
         #region Fields
 
-        private readonly ICategoryService _categoryService;
+        private readonly IEmployeeService _categoryService;
 
         private readonly ILocalizationService _localizationService;
         private readonly IStaticCacheManager _staticCacheManager;
@@ -28,7 +28,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
         #region Ctor
 
-        public BaseAdminModelFactory(ICategoryService categoryService,
+        public BaseAdminModelFactory(IEmployeeService categoryService,
             ILocalizationService localizationService,
             IStaticCacheManager staticCacheManager,
             IStoreService storeService
@@ -69,22 +69,22 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         }
 
         /// <summary>
-        /// Get category list
+        /// Get employee list
         /// </summary>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>
         /// A task that represents the asynchronous operation
-        /// The task result contains the category list
+        /// The task result contains the employee list
         /// </returns>
-        protected virtual async Task<List<SelectListItem>> GetCategoryListAsync(bool showHidden = true)
+        protected virtual async Task<List<SelectListItem>> GetEmployeeListAsync(bool showHidden = true)
         {
-            var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(NopModelCacheDefaults.CategoriesListKey, showHidden);
+            var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(NopModelCacheDefaults.EmployeesListKey, showHidden);
             var listItems = await _staticCacheManager.GetAsync(cacheKey, async () =>
             {
-                var categories = await _categoryService.GetAllCategoriesAsync(showHidden: showHidden);
-                return await categories.SelectAwait(async c => new SelectListItem
+                var employees = await _categoryService.GetAllEmployeesAsync(showHidden: showHidden);
+                return await employees.SelectAwait(async c => new SelectListItem
                 {
-                    Text = await _categoryService.GetFormattedBreadCrumbAsync(c, categories),
+                    Text = await _categoryService.GetFormattedBreadCrumbAsync(c, employees),
                     Value = c.Id.ToString()
                 }).ToListAsync();
             });
@@ -128,20 +128,20 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
 
         /// <summary>
-        /// Prepare available categories
+        /// Prepare available employees
         /// </summary>
-        /// <param name="items">Category items</param>
+        /// <param name="items">Employee items</param>
         /// <param name="withSpecialDefaultItem">Whether to insert the first special item for the default value</param>
         /// <param name="defaultItemText">Default item text; pass null to use default value of the default item text</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task PrepareCategoriesAsync(IList<SelectListItem> items, bool withSpecialDefaultItem = true, string defaultItemText = null)
+        public virtual async Task PrepareEmployeesAsync(IList<SelectListItem> items, bool withSpecialDefaultItem = true, string defaultItemText = null)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
 
-            //prepare available categories
-            var availableCategoryItems = await GetCategoryListAsync();
-            foreach (var categoryItem in availableCategoryItems)
+            //prepare available employees
+            var availableEmployeeItems = await GetEmployeeListAsync();
+            foreach (var categoryItem in availableEmployeeItems)
                 items.Add(categoryItem);
 
             //insert special item for the default value

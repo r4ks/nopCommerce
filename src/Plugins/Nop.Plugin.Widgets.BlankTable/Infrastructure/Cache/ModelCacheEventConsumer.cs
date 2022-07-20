@@ -3,7 +3,7 @@ using Nop.Core.Caching;
 using Nop.Core.Domain.Configuration;
 using Nop.Core.Domain.Vendors;
 using Nop.Core.Events;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Services.Events;
 using Nop.Services.Plugins;
 
@@ -15,10 +15,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
     public partial class ModelCacheEventConsumer :
         //settings
         IConsumer<EntityUpdatedEvent<Setting>>,
-        //categories
-        IConsumer<EntityInsertedEvent<Category>>,
-        IConsumer<EntityUpdatedEvent<Category>>,
-        IConsumer<EntityDeletedEvent<Category>>,
+        //employees
+        IConsumer<EntityInsertedEvent<Employee>>,
+        IConsumer<EntityUpdatedEvent<Employee>>,
+        IConsumer<EntityDeletedEvent<Employee>>,
         //vendors
         IConsumer<EntityInsertedEvent<Vendor>>,
         IConsumer<EntityUpdatedEvent<Vendor>>,
@@ -50,21 +50,21 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
             await _staticCacheManager.RemoveAsync(NopModelCacheDefaults.OfficialNewsModelKey); //depends on AdminAreaSettings.HideAdvertisementsOnAdminArea
         }
 
-        //categories
+        //employees
         /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityInsertedEvent<Category> eventMessage)
+        public async Task HandleEventAsync(EntityInsertedEvent<Employee> eventMessage)
         {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.CategoriesListPrefixCacheKey);
+            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.EmployeesListPrefixCacheKey);
         }
         /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityUpdatedEvent<Category> eventMessage)
+        public async Task HandleEventAsync(EntityUpdatedEvent<Employee> eventMessage)
         {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.CategoriesListPrefixCacheKey);
+            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.EmployeesListPrefixCacheKey);
         }
         /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityDeletedEvent<Category> eventMessage)
+        public async Task HandleEventAsync(EntityDeletedEvent<Employee> eventMessage)
         {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.CategoriesListPrefixCacheKey);
+            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.EmployeesListPrefixCacheKey);
         }
 
         //vendors

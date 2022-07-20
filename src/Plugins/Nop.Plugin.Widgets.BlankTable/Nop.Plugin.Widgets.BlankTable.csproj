@@ -11,16 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Remove="logo.jpg" />
 	<None Remove="plugin.json" />
 	<None Remove="Views\BlankTable.cshtml" />
-    <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Remove="Views\Configure.cshtml" />
     <None Remove="Views\CustomWidget.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\_ViewImports.cshtml" />
     <Content Include="logo.jpg">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -55,7 +56,7 @@
 
   <ItemGroup>
     <Content Update="Areas\Admin\Views\_ViewImports.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

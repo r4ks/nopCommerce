@@ -1,25 +1,25 @@
-@model CategoryModel
+@model EmployeeModel
 
-@using  Nop.Plugin.Widgets.BlankTable.Domains.Catalog
+@using  Nop.Plugin.Widgets.BlankTable.DomainsHrg
 
 @{
     //page title
-    ViewBag.PageTitle = T(CategoryModel.Labels.EditCategoryDetails).Text;
+    ViewBag.PageTitle = T(EmployeeModel.Labels.EditEmployeeDetails).Text;
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName("Categories");
+    NopHtml.SetActiveMenuItemSystemName("Employees");
 }
 
-<form asp-controller="Category" asp-action="Edit" method="post" id="category-form">
+<form asp-controller="Employee" asp-action="Edit" method="post" id="employee-form">
     <div class="content-header clearfix">
         <h1 class="float-left">
-            @T(CategoryModel.Labels.EditCategoryDetails) - @Model.Name
+            @T(EmployeeModel.Labels.EditEmployeeDetails) - @Model.Name
             <small>
                 <i class="fas fa-arrow-circle-left"></i>
-                <a asp-action="List">@T(CategoryModel.Labels.BackToList)</a>
+                <a asp-action="List">@T(EmployeeModel.Labels.BackToList)</a>
             </small>
         </h1>
         <div class="float-right">
-            <button type="button" onclick="javascript:OpenWindow('@(Url.RouteUrl<Category>(new { SeName = Model.SeName }))', 800, 600, true); return false;" class="btn btn-info">
+            <button type="button" onclick="javascript:OpenWindow('@(Url.RouteUrl<Employee>(new { SeName = Model.SeName }))', 800, 600, true); return false;" class="btn btn-info">
                 <i class="far fa-eye"></i>
                 @T(Common.Labels.Preview)
             </button>
@@ -31,13 +31,13 @@
                 <i class="far fa-save"></i>
                 @T(Common.Labels.SaveContinue)
             </button>
-            <span id="category-delete" class="btn btn-danger">
+            <span id="employee-delete" class="btn btn-danger">
                 <i class="far fa-trash-alt"></i>
                 @T(Common.Labels.Delete)
             </span>
-            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CategoryDetailsButtons, additionalData = Model })
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.EmployeeDetailsButtons, additionalData = Model })
         </div>
     </div>
     @await Html.PartialAsync("_CreateOrUpdate", Model)
 </form>
-<nop-delete-confirmation asp-model-id="@Model.Id" asp-button-id="category-delete" />
+<nop-delete-confirmation asp-model-id="@Model.Id" asp-button-id="employee-delete" />

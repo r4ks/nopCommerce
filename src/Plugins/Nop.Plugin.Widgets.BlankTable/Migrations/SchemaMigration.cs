@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 using Nop.Data.Extensions;
 using Nop.Data.Migrations;
-using Nop.Plugin.Widgets.BlankTable.Domains.Catalog;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 
 namespace Nop.Plugin.Widgets.BlankTable.Migrations
 {
@@ -20,7 +20,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Migrations
         /// </summary>
         public override void Up()
         {
-            Create.TableFor<Category>();
+            Create.TableFor<Employee>();
         }
     }
 }
