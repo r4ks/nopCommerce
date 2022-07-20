@@ -1,0 +1,27 @@
+﻿@using Nop.Web.Framework.Models.DataTables
+
+@model CustomersByCountrySearchModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Html.PartialAsync("Table", new DataTablesModel
+{
+    Name = "customersDistributionByCountry-grid",
+    UrlRead = new DataUrl("GetCustomersCountByCountry", "BlankTable"),
+    Paging = false,
+    ColumnCollection = new List<ColumnProperty>
+    {
+        new ColumnProperty(nameof(CustomersDistributionModel.Country))
+        {
+            Title = "Country",
+            Width = "300"
+        },
+        new ColumnProperty(nameof(CustomersDistributionModel.NoOfCustomers))
+        {
+            Title = "Number Of Customers",
+            Width = "100"
+        }
+    }
+})
