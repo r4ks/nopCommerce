@@ -2,9 +2,18 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Nop.Web.Framework
 
+@inject IGenericAttributeService genericAttributeService
+@inject INopHtmlHelper NopHtml
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Nop.Web.Framework
+
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
 @using Nop.Web.Framework.UI
 @using Nop.Web.Framework.Extensions
 @using System.Text.Encodings.Web
 @using Nop.Services.Events
 @using Nop.Web.Framework.Events
+
+@using Common = Nop.Plugin.Widgets.BlankTable.BlankTableDefaults;
+@using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Catalog;
