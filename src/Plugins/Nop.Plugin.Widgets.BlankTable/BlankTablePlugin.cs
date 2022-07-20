@@ -75,7 +75,6 @@ namespace Nop.Plugin.Widgets.BlankTable
         public override string GetConfigurationPageUrl()
         {
             return _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext).RouteUrl(BlankTableDefaults.ConfigurationRouteName);
-            //return _webHelper.GetStoreLocation() + "Admin/WidgetsBlankTable/Configure";
         }
 
         /// <summary>

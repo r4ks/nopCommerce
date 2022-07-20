@@ -16,9 +16,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
         public void RegisterRoutes(IEndpointRouteBuilder endpointRouteBuilder)
         {
             endpointRouteBuilder.MapControllerRoute(
-                //"CustomersDistributionByCountry",
                 name: BlankTableDefaults.ConfigurationRouteName,
-                //"Plugins/Widgets.BlankTable/CustomerDistByCountry/",
                 pattern: "Admin/BlankTable/Configure",
                 new { Controller = "BlankTable", action = "GetCustomersCountByCountry" }
             );

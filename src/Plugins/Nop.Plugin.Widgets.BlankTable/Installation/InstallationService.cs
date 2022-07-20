@@ -14,7 +14,6 @@ using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Forums;
 using Nop.Core.Domain.Gdpr;
 using Nop.Core.Domain.Localization;
-using Nop.Core.Domain.Logging;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Messages;
 using Nop.Core.Domain.News;
@@ -23,9 +22,7 @@ using Nop.Core.Domain.Payments;
 using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Seo;
 using Nop.Core.Domain.Shipping;
-using Nop.Core.Domain.Stores;
 using Nop.Core.Domain.Tax;
-using Nop.Core.Domain.Topics;
 using Nop.Core.Domain.Vendors;
 using Nop.Core.Infrastructure;
 using Nop.Core.Security;
@@ -51,25 +48,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         private readonly INopDataProvider _dataProvider;
         private readonly INopFileProvider _fileProvider;
-        private readonly IRepository<ActivityLogType> _activityLogTypeRepository;
-        private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Country> _countryRepository;
         private readonly IRepository<Currency> _currencyRepository;
-        private readonly IRepository<Customer> _customerRepository;
-        private readonly IRepository<CustomerRole> _customerRoleRepository;
-        private readonly IRepository<DeliveryDate> _deliveryDateRepository;
         private readonly IRepository<EmailAccount> _emailAccountRepository;
         private readonly IRepository<Language> _languageRepository;
         private readonly IRepository<MeasureDimension> _measureDimensionRepository;
         private readonly IRepository<MeasureWeight> _measureWeightRepository;
-        private readonly IRepository<ProductAvailabilityRange> _productAvailabilityRangeRepository;
-        private readonly IRepository<StateProvince> _stateProvinceRepository;
-        private readonly IRepository<Store> _storeRepository;
-        private readonly IRepository<TaxCategory> _taxCategoryRepository;
-        private readonly IRepository<TopicTemplate> _topicTemplateRepository;
         private readonly IRepository<UrlRecord> _urlRecordRepository;
-        private readonly IWebHelper _webHelper;
 
         #endregion
 
@@ -77,47 +63,24 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         public InstallationService(INopDataProvider dataProvider,
             INopFileProvider fileProvider,
-            IRepository<ActivityLogType> activityLogTypeRepository,
-            IRepository<Address> addressRepository,
             IRepository<Category> categoryRepository,
             IRepository<Country> countryRepository,
-            IRepository<Currency> currencyRepository,
-            IRepository<Customer> customerRepository,
-            IRepository<CustomerRole> customerRoleRepository,
-            IRepository<DeliveryDate> deliveryDateRepository,
             IRepository<EmailAccount> emailAccountRepository,
             IRepository<Language> languageRepository,
             IRepository<MeasureDimension> measureDimensionRepository,
             IRepository<MeasureWeight> measureWeightRepository,
-            IRepository<ProductAvailabilityRange> productAvailabilityRangeRepository,
-            IRepository<StateProvince> stateProvinceRepository,
-            IRepository<Store> storeRepository,
-            IRepository<TaxCategory> taxCategoryRepository,
-            IRepository<TopicTemplate> topicTemplateRepository,
-            IRepository<UrlRecord> urlRecordRepository,
-            IWebHelper webHelper)
+            IRepository<UrlRecord> urlRecordRepository
+            )
         {
             _dataProvider = dataProvider;
             _fileProvider = fileProvider;
-            _activityLogTypeRepository = activityLogTypeRepository;
-            _addressRepository = addressRepository;
             _categoryRepository = categoryRepository;
             _countryRepository = countryRepository;
-            _currencyRepository = currencyRepository;
-            _customerRepository = customerRepository;
-            _customerRoleRepository = customerRoleRepository;
-            _deliveryDateRepository = deliveryDateRepository;
             _emailAccountRepository = emailAccountRepository;
             _languageRepository = languageRepository;
             _measureDimensionRepository = measureDimensionRepository;
             _measureWeightRepository = measureWeightRepository;
-            _productAvailabilityRangeRepository = productAvailabilityRangeRepository;
-            _stateProvinceRepository = stateProvinceRepository;
-            _storeRepository = storeRepository;
-            _taxCategoryRepository = taxCategoryRepository;
-            _topicTemplateRepository = topicTemplateRepository;
             _urlRecordRepository = urlRecordRepository;
-            _webHelper = webHelper;
         }
 
         #endregion
