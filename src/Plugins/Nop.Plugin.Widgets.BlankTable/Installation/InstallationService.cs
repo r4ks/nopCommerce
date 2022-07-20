@@ -36,10 +36,11 @@ using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Customers;
 using Nop.Services.Helpers;
+using Nop.Services.Installation;
 using Nop.Services.Media;
 using Nop.Services.Seo;
 
-namespace Nop.Services.Installation
+namespace Nop.Plugin.Widgets.BlankTable.Installation
 {
     /// <summary>
     /// Installation service
