@@ -12,6 +12,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
     public partial record EmployeeModel : BaseNopEntityModel, IAclSupportedModel, IDiscountSupportedModel,
         ILocalizedModel<EmployeeLocalizedModel>, IStoreMappingSupportedModel
     {
+        #region Views file path
+        public const string CREATE_VIEW = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Create.cshtml";
+        public const string CREATE_OR_UPDATE_VIEW = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/_CreateOrUpdate.cshtml";
+        public const string EditView = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Edit.cshtml";
+        #endregion
+
         #region Ctor
 
         public EmployeeModel()

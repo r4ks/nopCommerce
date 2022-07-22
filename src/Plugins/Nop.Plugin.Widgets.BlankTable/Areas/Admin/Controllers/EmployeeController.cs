@@ -184,7 +184,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             //prepare model
             var model = await _categoryModelFactory.PrepareEmployeeSearchModelAsync(new EmployeeSearchModel());
 
-            return View("/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/List.cshtml", model);
+            return View(EmployeeSearchModel.ListView, model);
             //return View(model);
         }
 
@@ -213,7 +213,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             var model = await _categoryModelFactory.PrepareEmployeeModelAsync(new EmployeeModel(), null);
 
             //return View(model);
-            return View("/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Create.cshtml", model);
+            return View(EmployeeModel.CREATE_VIEW, model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
@@ -280,7 +280,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             var model = await _categoryModelFactory.PrepareEmployeeModelAsync(null, employee);
 
             //return View(model);
-            return View("/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Edit.cshtml", model);
+            return View(EmployeeModel.EditView, model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]

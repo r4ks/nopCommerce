@@ -10,6 +10,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
     /// </summary>
     public partial record EmployeeSearchModel : BaseSearchModel
     {
+        public const string ListView = "/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/List.cshtml";
         #region Labels
         public static class Labels
         {

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <None Remove="Areas\Admin\Views\Employee\Create.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\Edit.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\List.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml" />
@@ -31,6 +32,9 @@
 
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Employee\Create.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\Edit.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\Employee\List.cshtml">
