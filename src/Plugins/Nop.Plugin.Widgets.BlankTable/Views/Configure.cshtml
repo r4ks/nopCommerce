@@ -42,32 +42,22 @@
                 ))
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <nop-override-store-checkbox asp-for="AdditionalFee_OverrideForStore" asp-input="AdditionalFee" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                        <nop-label asp-for="AdditionalFee" />
+                        <nop-override-store-checkbox asp-for="EnableDashboardWidget_OverrideForStore" asp-input="EnableDashboardWidget" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="EnableDashboardWidget" />
                     </div>
                     <div class="col-md-9">
-                        <nop-editor asp-for="AdditionalFee" />
-                        <span asp-validation-for="AdditionalFee"></span>
+                        <nop-editor asp-for="EnableDashboardWidget" />
+                        <span asp-validation-for="EnableDashboardWidget"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <nop-override-store-checkbox asp-for="AdditionalFeePercentage_OverrideForStore" asp-input="AdditionalFeePercentage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                        <nop-label asp-for="AdditionalFeePercentage" />
+                        <nop-override-store-checkbox asp-for="InstallSampleData_OverrideForStore" asp-input="InstallSampleData" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="InstallSampleData" />
                     </div>
                     <div class="col-md-9">
-                        <nop-editor asp-for="AdditionalFeePercentage" />
-                        <span asp-validation-for="AdditionalFeePercentage"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <nop-override-store-checkbox asp-for="ShippableProductRequired_OverrideForStore" asp-input="ShippableProductRequired" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
-                        <nop-label asp-for="ShippableProductRequired" />
-                    </div>
-                    <div class="col-md-9">
-                        <nop-editor asp-for="ShippableProductRequired" />
-                        <span asp-validation-for="ShippableProductRequired"></span>
+                        <nop-editor asp-for="InstallSampleData" />
+                        <span asp-validation-for="InstallSampleData"></span>
                     </div>
                 </div>
                 <div class="form-group row">

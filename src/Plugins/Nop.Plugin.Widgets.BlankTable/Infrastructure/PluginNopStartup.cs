@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
+using Nop.Plugin.Widgets.BlankTable.Installation;
 using Nop.Plugin.Widgets.BlankTable.Services;
 using Nop.Plugin.Widgets.BlankTable.Services.ExportImport;
 
@@ -30,6 +31,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
 
             services.AddScoped<IExportManager, ExportManager>();
             services.AddScoped<IImportManager, ImportManager>();
+            services.AddScoped<IExtraInstallationService, ExtraInstallationService>();
         }
 
         /// <summary>

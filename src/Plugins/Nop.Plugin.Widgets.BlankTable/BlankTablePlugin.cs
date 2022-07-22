@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Nop.Core;
 using Nop.Plugin.Widgets.BlankTable.Components;
+using Nop.Plugin.Widgets.BlankTable.Installation;
 using Nop.Plugin.Widgets.BlankTable.Models;
 using Nop.Plugin.Widgets.BlankTable.Services.Security;
 using Nop.Services.Cms;
+using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
@@ -15,6 +17,7 @@ using Nop.Web.Framework.Infrastructure;
 using Nop.Web.Framework.Menu;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,10 +34,11 @@ namespace Nop.Plugin.Widgets.BlankTable
         private readonly ISettingService _settingService;
         private readonly ILocalizationService _localizationService;
         private readonly IPermissionService _permissionService;
+        private readonly IExtraInstallationService _extraInstallationService;
 
         public bool HideInWidgetList => false;
 
-        public CustomPlugin(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IWebHelper webHelper, ISettingService settingService, ILocalizationService localizationService, IPermissionService permissionService)
+        public CustomPlugin(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, IWebHelper webHelper, ISettingService settingService, ILocalizationService localizationService, IPermissionService permissionService, IExtraInstallationService extraInstallationService)
         {
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccessor = actionContextAccessor;
@@ -42,10 +46,12 @@ namespace Nop.Plugin.Widgets.BlankTable
             _settingService = settingService;
             _localizationService = localizationService;
             _permissionService = permissionService;
+            _extraInstallationService = extraInstallationService;
         }
 
         public override async Task InstallAsync()
         {
+            var InstallSampleData = true;
             //settings
             var settings = new BlankTableSettings
             {
@@ -56,6 +62,16 @@ namespace Nop.Plugin.Widgets.BlankTable
 
             await InstallLocalizedStrings();
             await InstallPermissions();
+
+            var regionInfo = new RegionInfo(NopCommonDefaults.DefaultLanguageCulture);
+            var cultureInfo = new CultureInfo(NopCommonDefaults.DefaultLanguageCulture);
+
+            //now resolve installation service
+            await _extraInstallationService.InstallRequiredDataAsync(regionInfo, cultureInfo);
+
+            if (InstallSampleData)
+                await _extraInstallationService.InstallSampleDataAsync();
+
             await base.InstallAsync();
         }
 
@@ -178,15 +194,12 @@ namespace Nop.Plugin.Widgets.BlankTable
             //locales
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
             {
-                [ConfigurationModel.Labels.AdditionalFee] = "Additional fee",
-                [ConfigurationModel.Labels.AdditionalFeeHint] = "The additional fee.",
-                [ConfigurationModel.Labels.AdditionalFeePercentage] = "Additional fee. Use percentage",
-                [ConfigurationModel.Labels.AdditionalFeePercentageHint] = "Determines whether to apply a percentage additional fee to the order total. If not enabled, a fixed value is used.",
                 [ConfigurationModel.Labels.DescriptionText] = "Description",
-                [ConfigurationModel.Labels.DescriptionTextHint] = "Enter info that will be shown to customers during checkout",
+                [ConfigurationModel.Labels.DescriptionTextHint] = "Enter some description here",
                 [ConfigurationModel.Labels.PaymentMethodDescription] = "Pay by cheque or money order",
-                [ConfigurationModel.Labels.ShippableProductRequired] = "Shippable product required",
-                [ConfigurationModel.Labels.ShippableProductRequiredHint] = "An option indicating whether shippable products are required in order to display this payment method during checkout."
+                [ConfigurationModel.Labels.EnableDashboardWidget] = "Display Widget on Dashboard",
+                [ConfigurationModel.Labels.InstallSampleData] = "Display Widget on Dashboard",
+                [ConfigurationModel.Labels.EnableDashboardWidgetHint] = "Check to show the Widget on Dashboard."
             });
         }
 

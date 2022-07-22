@@ -13,18 +13,13 @@ namespace Nop.Plugin.Widgets.BlankTable
         public string DescriptionText { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to "additional fee" is specified as percentage. true - percentage, false - fixed value.
+        /// Gets or sets a value for showing or hiding the Plugin's dashboard widget.
         /// </summary>
-        public bool AdditionalFeePercentage { get; set; }
+        public bool EnableDashboardWidget { get; set; }
 
         /// <summary>
-        /// Gets or sets an additional fee
+        /// Gets or Sets a value to install sample data.
         /// </summary>
-        public decimal AdditionalFee { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether shippable products are required in order to display this payment method during checkout
-        /// </summary>
-        public bool ShippableProductRequired { get; set; }
+        public bool InstallSampleData { get; set; }
     }
 }

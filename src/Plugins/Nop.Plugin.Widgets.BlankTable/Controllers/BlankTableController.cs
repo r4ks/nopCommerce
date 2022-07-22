@@ -63,30 +63,28 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
 
             //load settings for a chosen store scope
             var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-            var checkMoneyOrderPaymentSettings = await _settingService.LoadSettingAsync<BlankTableSettings>(storeScope);
+            var blankTable = await _settingService.LoadSettingAsync<BlankTableSettings>(storeScope);
 
             var model = new ConfigurationModel
             {
-                DescriptionText = checkMoneyOrderPaymentSettings.DescriptionText
+                DescriptionText = blankTable.DescriptionText
             };
 
             //locales
             await AddLocalesAsync(_languageService, model.Locales, async (locale, languageId) =>
             {
                 locale.DescriptionText = await _localizationService
-                    .GetLocalizedSettingAsync(checkMoneyOrderPaymentSettings, x => x.DescriptionText, languageId, 0, false, false);
+                    .GetLocalizedSettingAsync(blankTable, x => x.DescriptionText, languageId, 0, false, false);
             });
-            model.AdditionalFee = checkMoneyOrderPaymentSettings.AdditionalFee;
-            model.AdditionalFeePercentage = checkMoneyOrderPaymentSettings.AdditionalFeePercentage;
-            model.ShippableProductRequired = checkMoneyOrderPaymentSettings.ShippableProductRequired;
+            model.EnableDashboardWidget = blankTable.EnableDashboardWidget;
+            model.InstallSampleData = blankTable.InstallSampleData;
 
             model.ActiveStoreScopeConfiguration = storeScope;
             if (storeScope > 0)
             {
-                model.DescriptionText_OverrideForStore = await _settingService.SettingExistsAsync(checkMoneyOrderPaymentSettings, x => x.DescriptionText, storeScope);
-                model.AdditionalFee_OverrideForStore = await _settingService.SettingExistsAsync(checkMoneyOrderPaymentSettings, x => x.AdditionalFee, storeScope);
-                model.AdditionalFeePercentage_OverrideForStore = await _settingService.SettingExistsAsync(checkMoneyOrderPaymentSettings, x => x.AdditionalFeePercentage, storeScope);
-                model.ShippableProductRequired_OverrideForStore = await _settingService.SettingExistsAsync(checkMoneyOrderPaymentSettings, x => x.ShippableProductRequired, storeScope);
+                model.DescriptionText_OverrideForStore = await _settingService.SettingExistsAsync(blankTable, x => x.DescriptionText, storeScope);
+                model.EnableDashboardWidget_OverrideForStore = await _settingService.SettingExistsAsync(blankTable, x => x.EnableDashboardWidget, storeScope);
+                model.InstallSampleData_OverrideForStore = await _settingService.SettingExistsAsync(blankTable, x => x.InstallSampleData, storeScope);
             }
 
             return View("~/Plugins/Widgets.BlankTable/Views/Configure.cshtml", model);
@@ -107,17 +105,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
 
             //save settings
             checkMoneyOrderPaymentSettings.DescriptionText = model.DescriptionText;
-            checkMoneyOrderPaymentSettings.AdditionalFee = model.AdditionalFee;
-            checkMoneyOrderPaymentSettings.AdditionalFeePercentage = model.AdditionalFeePercentage;
-            checkMoneyOrderPaymentSettings.ShippableProductRequired = model.ShippableProductRequired;
+            checkMoneyOrderPaymentSettings.EnableDashboardWidget = model.EnableDashboardWidget;
+            checkMoneyOrderPaymentSettings.InstallSampleData = model.InstallSampleData;
 
             /* We do not clear cache after each setting update.
              * This behavior can increase performance because cached settings will not be cleared 
              * and loaded from database after each update */
             await _settingService.SaveSettingOverridablePerStoreAsync(checkMoneyOrderPaymentSettings, x => x.DescriptionText, model.DescriptionText_OverrideForStore, storeScope, false);
-            await _settingService.SaveSettingOverridablePerStoreAsync(checkMoneyOrderPaymentSettings, x => x.AdditionalFee, model.AdditionalFee_OverrideForStore, storeScope, false);
-            await _settingService.SaveSettingOverridablePerStoreAsync(checkMoneyOrderPaymentSettings, x => x.AdditionalFeePercentage, model.AdditionalFeePercentage_OverrideForStore, storeScope, false);
-            await _settingService.SaveSettingOverridablePerStoreAsync(checkMoneyOrderPaymentSettings, x => x.ShippableProductRequired, model.ShippableProductRequired_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(checkMoneyOrderPaymentSettings, x => x.EnableDashboardWidget, model.EnableDashboardWidget_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(checkMoneyOrderPaymentSettings, x => x.InstallSampleData, model.InstallSampleData_OverrideForStore, storeScope, false);
 
             //now clear settings cache
             await _settingService.ClearCacheAsync();

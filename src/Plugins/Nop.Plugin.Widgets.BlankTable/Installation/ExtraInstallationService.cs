@@ -27,7 +27,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
     /// <summary>
     /// Installation service
     /// </summary>
-    public partial class InstallationService : IInstallationService
+    public partial class ExtraInstallationService : IExtraInstallationService
     {
         #region Fields
 
@@ -40,7 +40,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         #region Ctor
 
-        public InstallationService(INopDataProvider dataProvider,
+        public ExtraInstallationService(INopDataProvider dataProvider,
             INopFileProvider fileProvider,
             IRepository<Employee> categoryRepository,
             IRepository<UrlRecord> urlRecordRepository
@@ -619,14 +619,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
         /// <summary>
         /// Install required data
         /// </summary>
-        /// <param name="defaultUserEmail">Default user email</param>
-        /// <param name="defaultUserPassword">Default user password</param>
-        /// <param name="languagePackInfo">Language pack info</param>
         /// <param name="regionInfo">RegionInfo</param>
         /// <param name="cultureInfo">CultureInfo</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task InstallRequiredDataAsync(string defaultUserEmail, string defaultUserPassword,
-            (string languagePackDownloadLink, int languagePackProgress) languagePackInfo, RegionInfo regionInfo, CultureInfo cultureInfo)
+        public virtual async Task InstallRequiredDataAsync(RegionInfo regionInfo, CultureInfo cultureInfo)
         {
             await InstallSettingsAsync(regionInfo);
         }
@@ -634,9 +630,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
         /// <summary>
         /// Install sample data
         /// </summary>
-        /// <param name="defaultUserEmail">Default user email</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task InstallSampleDataAsync(string defaultUserEmail)
+        public virtual async Task InstallSampleDataAsync()
         {
             await InstallEmployeesAsync();
 
