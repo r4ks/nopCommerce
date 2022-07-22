@@ -407,7 +407,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
             //activity log
             await _customerActivityService.InsertActivityAsync("ImportEmployees",
-                string.Format(await _localizationService.GetResourceAsync("ActivityLog.ImportEmployees"), iRow - 2 - saveNextTime.Count));
+                string.Format(await _localizationService.GetResourceAsync(BlankTableDefaults.Labels.ImportEmployees), iRow - 2 - saveNextTime.Count));
 
             if (!saveNextTime.Any())
                 return;
@@ -420,7 +420,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 categoriesName.Add(manager.GetProperty("Name").StringValue);
             }
 
-            throw new ArgumentException(string.Format(await _localizationService.GetResourceAsync("Admin.Catalog.Employees.Import.EmployeesArentImported"), string.Join(", ", categoriesName)));
+            throw new ArgumentException(string.Format(await _localizationService.GetResourceAsync(BlankTableDefaults.Labels.EmployeesArentImported), string.Join(", ", categoriesName)));
         }
 
         #endregion

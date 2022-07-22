@@ -15,7 +15,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
         #region Views file path
         public const string CREATE_VIEW = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Create.cshtml";
         public const string CREATE_OR_UPDATE_VIEW = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/_CreateOrUpdate.cshtml";
-        public const string EditView = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Edit.cshtml";
+        public const string EDIT_VIEW = "~/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Edit.cshtml";
         #endregion
 
         #region Ctor
@@ -73,6 +73,18 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
             public const string Display = "Admin.Catalog.Employees.Display";
             public const string Mappings = "Admin.Catalog.Employees.Mappings";
             public const string Products = "Admin.Catalog.Employees.Products";
+
+            // Events
+            public const string AddedEvent = "Admin.Catalog.Employees.Added";
+            public const string UpdatedEvent = "Admin.Catalog.Employees.Updated";
+            public const string DeletedEvent = "Admin.Catalog.Employees.Deleted";
+            public const string ImportedEvent = "Admin.Catalog.Employees.Imported";
+
+            // Notifications
+            public const string LogAddNewEmployee = "ActivityLog.AddNewEmployee";
+            public const string LogEditEmployee = "ActivityLog.EditEmployee";
+            public const string LogDeleteEmployee = "ActivityLog.DeleteEmployee";
+            public const string LogUploadFile = "Admin.Common.UploadFile";
         }
         #endregion
 

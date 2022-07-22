@@ -184,7 +184,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             //prepare model
             var model = await _categoryModelFactory.PrepareEmployeeSearchModelAsync(new EmployeeSearchModel());
 
-            return View(EmployeeSearchModel.ListView, model);
+            return View(EmployeeSearchModel.LIST_VIEW, model);
             //return View(model);
         }
 
@@ -249,9 +249,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 
                 //activity log
                 await _customerActivityService.InsertActivityAsync("AddNewEmployee",
-                    string.Format(await _localizationService.GetResourceAsync("ActivityLog.AddNewEmployee"), employee.Name), employee);
+                    string.Format(await _localizationService.GetResourceAsync(EmployeeModel.Labels.LogAddNewEmployee), employee.Name), employee);
 
-                _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Catalog.Employees.Added"));
+                _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(EmployeeModel.Labels.AddedEvent));
 
                 if (!continueEditing)
                     return RedirectToAction("List");
@@ -280,7 +280,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             var model = await _categoryModelFactory.PrepareEmployeeModelAsync(null, employee);
 
             //return View(model);
-            return View(EmployeeModel.EditView, model);
+            return View(EmployeeModel.EDIT_VIEW, model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
@@ -337,9 +337,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 
                 //activity log
                 await _customerActivityService.InsertActivityAsync("EditEmployee",
-                    string.Format(await _localizationService.GetResourceAsync("ActivityLog.EditEmployee"), employee.Name), employee);
+                    string.Format(await _localizationService.GetResourceAsync(EmployeeModel.Labels.LogEditEmployee), employee.Name), employee);
 
-                _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Catalog.Employees.Updated"));
+                _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(EmployeeModel.Labels.UpdatedEvent));
 
                 if (!continueEditing)
                     return RedirectToAction("List");
@@ -369,9 +369,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 
             //activity log
             await _customerActivityService.InsertActivityAsync("DeleteEmployee",
-                string.Format(await _localizationService.GetResourceAsync("ActivityLog.DeleteEmployee"), employee.Name), employee);
+                string.Format(await _localizationService.GetResourceAsync(EmployeeModel.Labels.LogDeleteEmployee), employee.Name), employee);
 
-            _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Catalog.Employees.Deleted"));
+            _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(EmployeeModel.Labels.DeletedEvent));
 
             return RedirectToAction("List");
         }
@@ -447,11 +447,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                     await _importManager.ImportEmployeesFromXlsxAsync(importexcelfile.OpenReadStream());
                 else
                 {
-                    _notificationService.ErrorNotification(await _localizationService.GetResourceAsync("Admin.Common.UploadFile"));
+                    _notificationService.ErrorNotification(await _localizationService.GetResourceAsync(EmployeeModel.Labels.LogUploadFile));
                     return RedirectToAction("List");
                 }
 
-                _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Catalog.Employees.Imported"));
+                _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(EmployeeModel.Labels.ImportedEvent));
 
                 return RedirectToAction("List");
             }

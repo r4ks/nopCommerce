@@ -12,6 +12,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings
     /// </summary>
     public partial record EmployeeSettingsModel : BaseNopModel, ISettingsModel
     {
+        #region Labels
+        public static class Labels
+        {
+
+        }
+        #endregion
+
         #region Ctor
 
         public EmployeeSettingsModel()

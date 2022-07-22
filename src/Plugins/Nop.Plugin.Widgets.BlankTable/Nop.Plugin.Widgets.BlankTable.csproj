@@ -20,6 +20,15 @@
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\Catalog.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.AdditionalSections.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.CatalogPages.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.CompareProducts.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.ExportImport.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.Performance.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.ProductReviews.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.Search.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Catalog.Share.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Remove="logo.jpg" />
@@ -53,6 +62,41 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\Catalog.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\_Catalog.AdditionalSections.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\_Catalog.CatalogPages.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\_Catalog.ExportImport.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\_Catalog.Performance.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\_Catalog.Search.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Setting\_Catalog.Share.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\_ViewImports.cshtml" />

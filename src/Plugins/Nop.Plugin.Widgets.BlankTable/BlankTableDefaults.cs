@@ -17,6 +17,7 @@ namespace Nop.Plugin.Widgets.BlankTable
 
         // Common Labels
         public static class Labels {
+            public const string All = "Admin.Common.All";
             public const string AddNew = "Admin.Common.AddNew";
             public const string Export = "Admin.Common.Export";
             public const string ExportToXml = "Admin.Common.ExportToXml";
@@ -41,6 +42,10 @@ namespace Nop.Plugin.Widgets.BlankTable
             public const string OYear = "Admin.SalesReport.OrderStatistics.Year";
             public const string OMonth = "Admin.SalesReport.OrderStatistics.Month";
             public const string OWeek = "Admin.SalesReport.OrderStatistics.Week";
+
+            public const string Saved = "Admin.Plugins.Saved";
+            public const string ImportEmployees = "ActivityLog.ImportEmployees";
+            public const string EmployeesArentImported = "Admin.Catalog.Employees.Import.EmployeesArentImported";
         }
     }
 }

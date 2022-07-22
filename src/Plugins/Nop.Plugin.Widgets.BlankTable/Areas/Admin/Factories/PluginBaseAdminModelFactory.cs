@@ -63,7 +63,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
                 return;
 
             //prepare item text
-            defaultItemText ??= await _localizationService.GetResourceAsync("Admin.Common.All");
+            defaultItemText ??= await _localizationService.GetResourceAsync(BlankTableDefaults.Labels.All);
 
             //insert this default item at first
             items.Insert(0, new SelectListItem { Text = defaultItemText, Value = defaultItemValue });

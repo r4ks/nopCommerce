@@ -125,7 +125,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
                     x => x.DescriptionText, localized.LanguageId, localized.DescriptionText);
             }
 
-            _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));
+            _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(BlankTableDefaults.Labels.Saved));
 
             return await ConfigureAsync();
         }
