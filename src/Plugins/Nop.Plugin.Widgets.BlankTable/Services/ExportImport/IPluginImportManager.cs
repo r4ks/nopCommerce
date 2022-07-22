@@ -6,7 +6,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     /// <summary>
     /// Import manager interface
     /// </summary>
-    public partial interface IImportManager
+    public partial interface IPluginImportManager
     {
         /// <summary>
         /// Import employees from XLSX file

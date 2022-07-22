@@ -33,12 +33,12 @@
             </div>
 
             <nop-cards id="employee-cards">
-                <nop-card asp-name="employee-info" asp-icon="fas fa-info" asp-title="@T(Model.Labels.Info)" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</nop-card>
-                <nop-card asp-name="employee-display" asp-icon="fas fa-tv" asp-title="@T(Model.Labels.Display)" asp-hide-block-attribute-name="@hideDisplayBlockAttributeName" asp-hide="@hideDisplayBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Display", Model)</nop-card>
-                <nop-card asp-name="employee-mappings" asp-icon="fas fa-bookmark" asp-title="@T(Model.Labels.Mappings)" asp-hide-block-attribute-name="@hideMappingsBlockAttributeName" asp-hide="@hideMappingsBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Mappings", Model)</nop-card>
+                <nop-card asp-name="employee-info" asp-icon="fas fa-info" asp-title="@T(EmployeeModel.Labels.Info)" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</nop-card>
+                <nop-card asp-name="employee-display" asp-icon="fas fa-tv" asp-title="@T(EmployeeModel.Labels.Display)" asp-hide-block-attribute-name="@hideDisplayBlockAttributeName" asp-hide="@hideDisplayBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Display", Model)</nop-card>
+                <nop-card asp-name="employee-mappings" asp-icon="fas fa-bookmark" asp-title="@T(EmployeeModel.Labels.Mappings)" asp-hide-block-attribute-name="@hideMappingsBlockAttributeName" asp-hide="@hideMappingsBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Mappings", Model)</nop-card>
                 <nop-card asp-name="employee-seo" asp-icon="fas fa-search-plus" asp-title="@T(Common.Labels.SEO)" asp-hide-block-attribute-name="@hideSeoBlockAttributeName" asp-hide="@hideSeoBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Seo", Model)</nop-card>
 
-                @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.EmployeeDetailsBlock, additionalData = Model })
+                @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeDetailsBlock, additionalData = Model })
             </nop-cards>
         </div>
     </div>

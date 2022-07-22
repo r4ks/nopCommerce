@@ -30,9 +30,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         private readonly CurrencySettings _currencySettings;
         private readonly ICurrencyService _currencyService;
         private readonly IAclSupportedModelFactory _aclSupportedModelFactory;
-        private readonly IBaseAdminModelFactory _baseAdminModelFactory;
+        private readonly IPluginBaseAdminModelFactory _baseAdminModelFactory;
         private readonly IEmployeeService _categoryService;
-        private readonly IDiscountSupportedModelFactory _discountSupportedModelFactory;
         private readonly ILocalizationService _localizationService;
         private readonly ILocalizedModelFactory _localizedModelFactory;
         private readonly IStoreMappingSupportedModelFactory _storeMappingSupportedModelFactory;
@@ -46,9 +45,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             CurrencySettings currencySettings,
             ICurrencyService currencyService,
             IAclSupportedModelFactory aclSupportedModelFactory,
-            IBaseAdminModelFactory baseAdminModelFactory,
+            IPluginBaseAdminModelFactory baseAdminModelFactory,
             IEmployeeService categoryService,
-            IDiscountSupportedModelFactory discountSupportedModelFactory,
             ILocalizationService localizationService,
             ILocalizedModelFactory localizedModelFactory,
             IStoreMappingSupportedModelFactory storeMappingSupportedModelFactory,
@@ -60,13 +58,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             _aclSupportedModelFactory = aclSupportedModelFactory;
             _baseAdminModelFactory = baseAdminModelFactory;
             _categoryService = categoryService;
-            _discountSupportedModelFactory = discountSupportedModelFactory;
             _localizationService = localizationService;
             _localizedModelFactory = localizedModelFactory;
             _storeMappingSupportedModelFactory = storeMappingSupportedModelFactory;
             _urlRecordService = urlRecordService;
         }
 
+        public EmployeeModelFactory() { }
         #endregion
 
         #region Methods

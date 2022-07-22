@@ -5,35 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using Nop.Core;
-using Nop.Core.Domain.Forums;
 using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Plugin.Widgets.BlankTable.Services.Hr;
 using Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help;
 using Nop.Services.Common;
 using Nop.Services.ExportImport;
-using Nop.Services.Helpers;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Media;
 using Nop.Services.Seo;
-using Nop.Services.Shipping.Date;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 {
     /// <summary>
     /// Export manager
     /// </summary>
-    public partial class ExportManager : IExportManager
+    public partial class PluginExportManager : IPluginExportManager
     {
         #region Fields
 
         private readonly EmployeeSettings _catalogSettings;
         private readonly ICustomerActivityService _customerActivityService;
-        private readonly DateTimeSettings _dateTimeSettings;
-        private readonly ForumSettings _forumSettings;
         private readonly IEmployeeService _categoryService;
-        private readonly IDateRangeService _dateRangeService;
-        private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ILocalizationService _localizationService;
         private readonly IPictureService _pictureService;
@@ -44,14 +37,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
         #region Ctor
 
-        public ExportManager(
+        public PluginExportManager(
             EmployeeSettings catalogSettings,
             ICustomerActivityService customerActivityService,
-            DateTimeSettings dateTimeSettings,
-            ForumSettings forumSettings,
             IEmployeeService categoryService,
-            IDateRangeService dateRangeService,
-            IDateTimeHelper dateTimeHelper,
             IGenericAttributeService genericAttributeService,
             ILocalizationService localizationService,
             IPictureService pictureService,
@@ -61,11 +50,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         {
             _catalogSettings = catalogSettings;
             _customerActivityService = customerActivityService;
-            _dateTimeSettings = dateTimeSettings;
-            _forumSettings = forumSettings;
             _categoryService = categoryService;
-            _dateRangeService = dateRangeService;
-            _dateTimeHelper = dateTimeHelper;
             _genericAttributeService = genericAttributeService;
             _localizationService = localizationService;
             _pictureService = pictureService;

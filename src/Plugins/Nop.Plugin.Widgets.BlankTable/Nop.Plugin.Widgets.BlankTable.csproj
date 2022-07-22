@@ -12,7 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Areas\Admin\Views\Employee\Create.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\List.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml" />
+    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Remove="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Remove="logo.jpg" />
 	<None Remove="plugin.json" />
 	<None Remove="Views\BlankTable.cshtml" />
@@ -22,7 +30,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Employee\Create.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\List.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="logo.jpg">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

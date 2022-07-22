@@ -24,7 +24,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     /// <summary>
     /// Import manager
     /// </summary>
-    public partial class ImportManager : IImportManager
+    public partial class PluginImportManager : IPluginImportManager
     {
         #region Fields
 
@@ -43,7 +43,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
         #region Ctor
 
-        public ImportManager(EmployeeSettings catalogSettings,
+        public PluginImportManager(EmployeeSettings catalogSettings,
             IEmployeeService categoryService,
             ICustomerActivityService customerActivityService,
             IHttpClientFactory httpClientFactory,

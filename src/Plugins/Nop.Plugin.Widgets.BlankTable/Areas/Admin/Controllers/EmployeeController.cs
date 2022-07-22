@@ -40,9 +40,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         private readonly IEmployeeService _categoryService;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly ICustomerService _customerService;
-        private readonly IDiscountService _discountService;
-        private readonly IExportManager _exportManager;
-        private readonly IImportManager _importManager;
+        private readonly IPluginExportManager _exportManager;
+        private readonly IPluginImportManager _importManager;
         private readonly ILocalizationService _localizationService;
         private readonly ILocalizedEntityService _localizedEntityService;
         private readonly INotificationService _notificationService;
@@ -63,9 +62,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             IEmployeeService categoryService,
             ICustomerActivityService customerActivityService,
             ICustomerService customerService,
-            IDiscountService discountService,
-            IExportManager exportManager,
-            IImportManager importManager,
+            IPluginExportManager exportManager,
+            IPluginImportManager importManager,
             ILocalizationService localizationService,
             ILocalizedEntityService localizedEntityService,
             INotificationService notificationService,
@@ -82,7 +80,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             _categoryService = categoryService;
             _customerActivityService = customerActivityService;
             _customerService = customerService;
-            _discountService = discountService;
             _exportManager = exportManager;
             _importManager = importManager;
             _localizationService = localizationService;
@@ -187,7 +184,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             //prepare model
             var model = await _categoryModelFactory.PrepareEmployeeSearchModelAsync(new EmployeeSearchModel());
 
-            return View(model);
+            return View("/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/List.cshtml", model);
+            //return View(model);
         }
 
         [HttpPost]
@@ -214,7 +212,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             //prepare model
             var model = await _categoryModelFactory.PrepareEmployeeModelAsync(new EmployeeModel(), null);
 
-            return View(model);
+            //return View(model);
+            return View("/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Create.cshtml", model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
@@ -280,7 +279,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             //prepare model
             var model = await _categoryModelFactory.PrepareEmployeeModelAsync(null, employee);
 
-            return View(model);
+            //return View(model);
+            return View("/Plugins/Widgets.BlankTable/Areas/Admin/Views/Employee/Edit.cshtml", model);
         }
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]

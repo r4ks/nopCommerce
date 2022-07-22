@@ -7,7 +7,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
     /// <summary>
     /// Represents the base model factory that implements a most common admin model factories methods
     /// </summary>
-    public partial interface IBaseAdminModelFactory
+    public partial interface IPluginBaseAdminModelFactory
     {
         /// <summary>
         /// Prepare available stores

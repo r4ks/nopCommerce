@@ -7,7 +7,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     /// <summary>
     /// Export manager interface
     /// </summary>
-    public partial interface IExportManager
+    public partial interface IPluginExportManager
     {
 
         /// <summary>

@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories;
 using Nop.Plugin.Widgets.BlankTable.Installation;
 using Nop.Plugin.Widgets.BlankTable.Services;
 using Nop.Plugin.Widgets.BlankTable.Services.ExportImport;
+using Nop.Plugin.Widgets.BlankTable.Services.Hr;
 
 namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
 {
@@ -29,9 +31,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
             //register services and interfaces
             services.AddScoped<ICustomersByCountryService, CustomersByCountryService>();
 
-            services.AddScoped<IExportManager, ExportManager>();
-            services.AddScoped<IImportManager, ImportManager>();
+            services.AddScoped<IPluginBaseAdminModelFactory, PluginBaseAdminModelFactory>();
+            services.AddScoped<IEmployeeModelFactory,EmployeeModelFactory> ();
+            services.AddScoped<IPluginExportManager, PluginExportManager>();
+            services.AddScoped<IPluginImportManager, PluginImportManager>();
             services.AddScoped<IExtraInstallationService, ExtraInstallationService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
 
         /// <summary>

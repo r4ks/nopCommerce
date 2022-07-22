@@ -1,6 +1,6 @@
 @model EmployeeModel
 
-@using  Nop.Plugin.Widgets.BlankTable.DomainsHrg
+@using  Nop.Plugin.Widgets.BlankTable.Domains.Hr
 
 @{
     //page title
@@ -35,7 +35,7 @@
                 <i class="far fa-trash-alt"></i>
                 @T(Common.Labels.Delete)
             </span>
-            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.EmployeeDetailsButtons, additionalData = Model })
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeDetailsButtons, additionalData = Model })
         </div>
     </div>
     @await Html.PartialAsync("_CreateOrUpdate", Model)

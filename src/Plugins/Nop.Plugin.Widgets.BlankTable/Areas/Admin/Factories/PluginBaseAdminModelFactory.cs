@@ -14,7 +14,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
     /// <summary>
     /// Represents the implementation of the base model factory that implements a most common admin model factories methods
     /// </summary>
-    public partial class BaseAdminModelFactory : IBaseAdminModelFactory
+    public partial class PluginBaseAdminModelFactory : IPluginBaseAdminModelFactory
     {
         #region Fields
 
@@ -28,7 +28,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
         #region Ctor
 
-        public BaseAdminModelFactory(IEmployeeService categoryService,
+        public PluginBaseAdminModelFactory(IEmployeeService categoryService,
             ILocalizationService localizationService,
             IStaticCacheManager staticCacheManager,
             IStoreService storeService
@@ -40,6 +40,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             _storeService = storeService;
         }
 
+        public PluginBaseAdminModelFactory() { }
         #endregion
 
         #region Utilities

@@ -105,8 +105,6 @@ namespace Nop.Plugin.Widgets.BlankTable
         /// <returns></returns>
         public async Task ManageSiteMapAsync(SiteMapNode rootNode)
         {
-            var showMenuInsidePluginsMenu = false; // on side menu
-
             var menuItem = new SiteMapNode()
             {
                 SystemName = "Widgets.BlankTable",
@@ -114,6 +112,16 @@ namespace Nop.Plugin.Widgets.BlankTable
                 ControllerName = "BlankTable",
                 ActionName = "BlankTable",
                 IconClass = "far fa-dot-circle",
+                Visible = true,
+                RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
+            };
+            var employeeListMenuItem = new SiteMapNode()
+            {
+                SystemName = "Widgets.BlankTable.EmployeeListMenuItem",
+                Title = "Employee List",
+                ControllerName = "Employee",
+                ActionName = "List",
+                IconClass = "fas fa-male",
                 Visible = true,
                 RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
             };
@@ -133,20 +141,6 @@ namespace Nop.Plugin.Widgets.BlankTable
                 Visible = true,
             };
 
-            if(showMenuInsidePluginsMenu)
-            {
-                var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Third party plugins");
-
-                if (pluginNode != null)
-                {
-                    mainNode.ChildNodes.Add(menuItem);
-                    pluginNode.ChildNodes.Add(mainNode);
-                }
-                else
-                    rootNode.ChildNodes.Add(menuItem);
-            }
-            else
-            {
                 rootNode.ChildNodes.Add(mainNode);
 
                 var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "BlankTable.MainNode");
@@ -154,15 +148,10 @@ namespace Nop.Plugin.Widgets.BlankTable
                 if (pluginNode != null)
                 {
                     pluginNode.ChildNodes.Add(menuItem);
+                    pluginNode.ChildNodes.Add(employeeListMenuItem);
                 }
                 else
                     rootNode.ChildNodes.Add(menuItem);
-            }
-
-
-
-
-            //return Task.CompletedTask;
         }
 
         /// <summary>
