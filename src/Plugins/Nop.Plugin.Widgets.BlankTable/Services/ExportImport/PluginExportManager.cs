@@ -38,7 +38,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         #region Ctor
 
         public PluginExportManager(
-            EmployeeSettings catalogSettings,
+            EmployeeSettings employeeSettings,
             ICustomerActivityService customerActivityService,
             IEmployeeService categoryService,
             IGenericAttributeService genericAttributeService,
@@ -48,7 +48,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             IWorkContext workContext
             )
         {
-            _catalogSettings = catalogSettings;
+            _catalogSettings = employeeSettings;
             _customerActivityService = customerActivityService;
             _categoryService = categoryService;
             _genericAttributeService = genericAttributeService;
@@ -85,10 +85,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 await xmlWriter.WriteStringAsync("PageSize", employee.PageSize, await IgnoreExportEmployeePropertyAsync());
                 await xmlWriter.WriteStringAsync("AllowCustomersToSelectPageSize", employee.AllowCustomersToSelectPageSize, await IgnoreExportEmployeePropertyAsync());
                 await xmlWriter.WriteStringAsync("PageSizeOptions", employee.PageSizeOptions, await IgnoreExportEmployeePropertyAsync());
-                await xmlWriter.WriteStringAsync("PriceRangeFiltering", employee.PriceRangeFiltering, await IgnoreExportEmployeePropertyAsync());
-                await xmlWriter.WriteStringAsync("PriceFrom", employee.PriceFrom, await IgnoreExportEmployeePropertyAsync());
-                await xmlWriter.WriteStringAsync("PriceTo", employee.PriceTo, await IgnoreExportEmployeePropertyAsync());
-                await xmlWriter.WriteStringAsync("ManuallyPriceRange", employee.ManuallyPriceRange, await IgnoreExportEmployeePropertyAsync());
                 await xmlWriter.WriteStringAsync("ShowOnHomepage", employee.ShowOnHomepage, await IgnoreExportEmployeePropertyAsync());
                 await xmlWriter.WriteStringAsync("IncludeInTopMenu", employee.IncludeInTopMenu, await IgnoreExportEmployeePropertyAsync());
                 await xmlWriter.WriteStringAsync("Published", employee.Published, await IgnoreExportEmployeePropertyAsync());
@@ -199,10 +195,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 }, !_catalogSettings.ExportImportEmployeesUsingEmployeeName),
                 new PropertyByName<Employee>("Picture", async p => await GetPicturesAsync(p.PictureId)),
                 new PropertyByName<Employee>("PageSize", p => p.PageSize, await IgnoreExportEmployeePropertyAsync()),
-                new PropertyByName<Employee>("PriceRangeFiltering", p => p.PriceRangeFiltering, await IgnoreExportEmployeePropertyAsync()),
-                new PropertyByName<Employee>("PriceFrom", p => p.PriceFrom, await IgnoreExportEmployeePropertyAsync()),
-                new PropertyByName<Employee>("PriceTo", p => p.PriceTo, await IgnoreExportEmployeePropertyAsync()),
-                new PropertyByName<Employee>("ManuallyPriceRange", p => p.ManuallyPriceRange, await IgnoreExportEmployeePropertyAsync()),
                 new PropertyByName<Employee>("AllowCustomersToSelectPageSize", p => p.AllowCustomersToSelectPageSize, await IgnoreExportEmployeePropertyAsync()),
                 new PropertyByName<Employee>("PageSizeOptions", p => p.PageSizeOptions, await IgnoreExportEmployeePropertyAsync()),
                 new PropertyByName<Employee>("ShowOnHomepage", p => p.ShowOnHomepage, await IgnoreExportEmployeePropertyAsync()),

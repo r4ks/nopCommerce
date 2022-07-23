@@ -8,36 +8,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
     /// </summary>
     public static partial class NopEmployeeDefaults
     {
-        #region Common
-
-        /// <summary>
-        /// Gets a default price range 'from'
-        /// </summary>
-        public static decimal DefaultPriceRangeFrom => 0;
-
-        /// <summary>
-        /// Gets a default price range 'to'
-        /// </summary>
-        public static decimal DefaultPriceRangeTo => 10000;
-
-        #endregion
-
-        #region Products
-
-        /// <summary>
-        /// Gets a template of product name on copying
-        /// </summary>
-        /// <remarks>
-        /// {0} : product name
-        /// </remarks>
-        public static string ProductCopyNameTemplate => "Copy of {0}";
-
-        /// <summary>
-        /// Gets default prefix for product
-        /// </summary>
-        public static string ProductAttributePrefix => "product_attribute_";
-
-        #endregion
 
         #region Caching defaults
 
@@ -128,42 +98,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
 
         #endregion
 
-        #region Manufacturers
-
-        /// <summary>
-        /// Gets a key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : product ID
-        /// {1} : show hidden records?
-        /// {2} : current customer ID
-        /// {3} : store ID
-        /// </remarks>
-        public static CacheKey ProductManufacturersByProductCacheKey => new("Nop.productmanufacturer.byproduct.{0}-{1}-{2}-{3}", ProductManufacturersByProductPrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        /// <remarks>
-        /// {0} : product ID
-        /// </remarks>
-        public static string ProductManufacturersByProductPrefix => "Nop.productmanufacturer.byproduct.{0}";
-
-        /// <summary>
-        /// Gets a key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : employee ID
-        /// </remarks>
-        public static CacheKey ManufacturersByEmployeeCacheKey => new("Nop.manufacturer.bycategory.{0}", ManufacturersByEmployeePrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        public static string ManufacturersByEmployeePrefix => "Nop.manufacturer.bycategory.";
-
-        #endregion
-
         #region Products
 
         /// <summary>
@@ -184,14 +118,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         public static string RelatedProductsPrefix => "Nop.relatedproduct.byproduct.{0}";
 
         /// <summary>
-        /// Key for "related" product identifiers displayed on the product details page
-        /// </summary>
-        /// <remarks>
-        /// {0} : current product id
-        /// </remarks>
-        public static CacheKey TierPricesByProductCacheKey => new("Nop.tierprice.byproduct.{0}");
-
-        /// <summary>
         /// Gets a key for caching
         /// </summary>
         public static CacheKey ProductsHomepageCacheKey => new("Nop.product.homepage.");
@@ -207,59 +133,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         public static CacheKey EmployeeFeaturedProductsIdsKey => new("Nop.product.featured.bycategory.{0}-{1}-{2}", EmployeeFeaturedProductsIdsPrefix, FeaturedProductIdsPrefix);
         public static string EmployeeFeaturedProductsIdsPrefix => "Nop.product.featured.bycategory.{0}";
 
-        /// <summary>
-        /// Key for caching of a value indicating whether a manufacturer has featured products
-        /// </summary>
-        /// <remarks>
-        /// {0} : manufacturer id
-        /// {1} : customer role Ids
-        /// {2} : current store ID
-        /// </remarks>
-        public static CacheKey ManufacturerFeaturedProductIdsKey => new("Nop.product.featured.bymanufacturer.{0}-{1}-{2}", ManufacturerFeaturedProductIdsPrefix, FeaturedProductIdsPrefix);
-        public static string ManufacturerFeaturedProductIdsPrefix => "Nop.product.featured.bymanufacturer.{0}";
-
         public static string FeaturedProductIdsPrefix => "Nop.product.featured.";
-
-        /// <summary>
-        /// Gets a key for product prices
-        /// </summary>
-        /// <remarks>
-        /// {0} : product id
-        /// {1} : overridden product price
-        /// {2} : additional charge
-        /// {3} : include discounts (true, false)
-        /// {4} : quantity
-        /// {5} : roles of the current user
-        /// {6} : current store ID
-        /// </remarks>
-        public static CacheKey ProductPriceCacheKey => new("Nop.totals.productprice.{0}-{1}-{2}-{3}-{4}-{5}-{6}", ProductPricePrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        /// <remarks>
-        /// {0} : product id
-        /// </remarks>
-        public static string ProductPricePrefix => "Nop.totals.productprice.{0}";
-
-        /// <summary>
-        /// Gets a key for product multiple prices
-        /// </summary>
-        /// <remarks>
-        /// {0} : product id
-        /// {1} : customer role ids
-        /// {2} : store id
-        /// </remarks>
-        public static CacheKey ProductMultiplePriceCacheKey => new("Nop.totals.productprice.multiple.{0}-{1}-{2}", ProductMultiplePricePrefix);
-
-        /// <summary>
-        /// Gets a key pattern to clear cache
-        /// </summary>
-        /// <remarks>
-        /// {0} : product id
-        /// </remarks>
-        public static string ProductMultiplePricePrefix => "Nop.totals.productprice.multiple.{0}";
-
         #endregion
 
         #region Product attributes
@@ -298,31 +172,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
 
         #endregion
 
-        #region Review type
-
-        /// <summary>
-        /// Key for caching product review and review type mapping
-        /// </summary>
-        /// <remarks>
-        /// {0} : product review ID
-        /// </remarks>
-        public static CacheKey ProductReviewTypeMappingByReviewTypeCacheKey => new("Nop.productreviewreviewtypemapping.byreviewtype.{0}");
-
-        #endregion
-
         #region Specification attributes
-
-        /// <summary>
-        /// Gets a key for caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : product ID
-        /// {1} : specification attribute option ID
-        /// {2} : allow filtering
-        /// {3} : show on product page
-        /// {4} : specification attribute group ID
-        /// </remarks>
-        public static CacheKey ProductSpecificationAttributeByProductCacheKey => new("Nop.productspecificationattribute.byproduct.{0}-{1}-{2}-{3}-{4}", ProductSpecificationAttributeByProductPrefix, ProductSpecificationAttributeAllByProductPrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache

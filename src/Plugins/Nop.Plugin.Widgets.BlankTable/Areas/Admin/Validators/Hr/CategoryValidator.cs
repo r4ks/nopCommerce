@@ -18,8 +18,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Hr
             public const string PageSizeOptionsShouldHaveUniqueItems = "Admin.Catalog.Employees.Fields.PageSizeOptions.ShouldHaveUniqueItems";
             public const string PageSizePositive = "Admin.Catalog.Employees.Fields.PageSize.Positive";
             public const string SeNameMaxLengthValidation = "Admin.SEO.SeName.MaxLengthValidation";
-            public const string PriceFromGreaterThanOrEqualZero = "Admin.Catalog.Employees.Fields.PriceFrom.GreaterThanOrEqualZero";
-            public const string PriceToGreaterThanZeroOrPriceFrom = "Admin.Catalog.Employees.Fields.PriceTo.GreaterThanZeroOrPriceFrom";
         }
         #endregion
         public EmployeeValidator(ILocalizationService localizationService, IMappingEntityAccessor mappingEntityAccessor)
@@ -35,16 +33,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Hr
             }).WithMessageAwait(localizationService.GetResourceAsync(Labels.PageSizePositive));
             RuleFor(x => x.SeName).Length(0, NopSeoDefaults.SearchEngineNameLength)
                 .WithMessageAwait(localizationService.GetResourceAsync(Labels.SeNameMaxLengthValidation), NopSeoDefaults.SearchEngineNameLength);
-
-            RuleFor(x => x.PriceFrom)
-                .GreaterThanOrEqualTo(0)
-                .WithMessageAwait(localizationService.GetResourceAsync(Labels.PriceFromGreaterThanOrEqualZero))
-                .When(x => x.PriceRangeFiltering && x.ManuallyPriceRange);
-
-            RuleFor(x => x.PriceTo)
-                .GreaterThan(x => x.PriceFrom > decimal.Zero ? x.PriceFrom : decimal.Zero)
-                .WithMessage(x => string.Format(localizationService.GetResourceAsync(Labels.PriceToGreaterThanZeroOrPriceFrom).Result, x.PriceFrom > decimal.Zero ? x.PriceFrom : decimal.Zero))
-                .When(x => x.PriceRangeFiltering && x.ManuallyPriceRange);
 
             SetDatabaseValidationRules<Employee>(mappingEntityAccessor);
         }

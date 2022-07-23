@@ -14,8 +14,6 @@
     const string hideSeoBlockAttributeName = "EmployeePage.HideSEOBlock";
     var hideSeoBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSeoBlockAttributeName, defaultValue: true);
 
-    const string hideProductsBlockAttributeName = "EmployeePage.HideProductsBlock";
-    var hideProductsBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideProductsBlockAttributeName, defaultValue: true);
 }
 
 <div asp-validation-summary="All"></div>

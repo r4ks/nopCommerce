@@ -37,6 +37,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
             services.AddScoped<IPluginImportManager, PluginImportManager>();
             services.AddScoped<IExtraInstallationService, ExtraInstallationService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IEmployeeSettingModelFactory,EmployeeSettingModelFactory>();
         }
 
         /// <summary>

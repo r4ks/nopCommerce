@@ -77,11 +77,6 @@
             public static string Main => "https://docs.nopcommerce.com/";
 
             /// <summary>
-            /// Gets a URL of the Products docs page
-            /// </summary>
-            public static string Products => "https://docs.nopcommerce.com/running-your-store/catalog/products/index.html";
-
-            /// <summary>
             /// Gets a URL of the Categories docs page
             /// </summary>
             public static string Categories => "https://docs.nopcommerce.com/running-your-store/catalog/categories.html";
@@ -90,26 +85,6 @@
             /// Gets a URL of the Employees docs page
             /// </summary>
             public static string Employees => "https://docs.nopcommerce.com/running-your-store/catalog/categories.html";
-
-            /// <summary>
-            /// Gets a URL of the manufacturers docs page
-            /// </summary>
-            public static string Manufacturers => "https://docs.nopcommerce.com/running-your-store/catalog/manufacturers.html";
-
-            /// <summary>
-            /// Gets a URL of the product reviews docs page
-            /// </summary>
-            public static string ProductReviews => "https://docs.nopcommerce.com/running-your-store/catalog/products/product-reviews.html";
-
-            /// <summary>
-            /// Gets a URL of the product tags docs page
-            /// </summary>
-            public static string ProductTags => "https://docs.nopcommerce.com/running-your-store/catalog/products/product-tags.html";
-
-            /// <summary>
-            /// Gets a URL of the product attributes docs page
-            /// </summary>
-            public static string ProductAttributes => "https://docs.nopcommerce.com/running-your-store/catalog/products/product-attributes.html";
 
             /// <summary>
             /// Gets a URL of the specification attributes docs page
@@ -182,11 +157,6 @@
             public static string Gdpr => "https://docs.nopcommerce.com/getting-started/advanced-configuration/gdpr-settings.html";
 
             /// <summary>
-            /// Gets a URL of the discounts docs page
-            /// </summary>
-            public static string Discounts => "https://docs.nopcommerce.com/running-your-store/promotional-tools/discounts.html";
-
-            /// <summary>
             /// Gets a URL of the affiliates docs page
             /// </summary>
             public static string Affiliates => "https://docs.nopcommerce.com/running-your-store/promotional-tools/affiliates.html";
@@ -210,11 +180,6 @@
             /// Gets a URL of the news docs page
             /// </summary>
             public static string News => "https://docs.nopcommerce.com/running-your-store/content-management/news.html";
-
-            /// <summary>
-            /// Gets a URL of the blog docs page
-            /// </summary>
-            public static string Blog => "https://docs.nopcommerce.com/running-your-store/content-management/blog.html";
 
             /// <summary>
             /// Gets a URL of the polls docs page

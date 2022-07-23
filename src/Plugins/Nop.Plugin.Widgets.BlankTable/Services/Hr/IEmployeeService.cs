@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nop.Core;
-using Nop.Core.Domain.Customers;
-using Nop.Core.Domain.Discounts;
 using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 
 namespace Nop.Plugin.Widgets.BlankTable.Services.Hr

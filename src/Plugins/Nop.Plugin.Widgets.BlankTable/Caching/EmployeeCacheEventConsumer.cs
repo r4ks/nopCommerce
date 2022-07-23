@@ -2,7 +2,6 @@
 using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Plugin.Widgets.BlankTable.Services.Hr;
 using Nop.Services.Caching;
-using Nop.Services.Discounts;
 
 namespace Nop.Plugin.Widgets.BlankTable.Caching
 {
@@ -25,8 +24,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Caching
             await RemoveByPrefixAsync(NopEmployeeDefaults.EmployeesChildIdsPrefix, entity.ParentEmployeeId);
             await RemoveByPrefixAsync(NopEmployeeDefaults.EmployeesHomepagePrefix);
             await RemoveByPrefixAsync(NopEmployeeDefaults.EmployeeBreadcrumbPrefix);
-
-            await RemoveAsync(NopDiscountDefaults.AppliedDiscountsCacheKey, nameof(Employee), entity);
 
             await base.ClearCacheAsync(entity, entityEventType);
         }

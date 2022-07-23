@@ -20,15 +20,13 @@
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml" />
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\Catalog.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.AdditionalSections.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.CatalogPages.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.CompareProducts.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.ExportImport.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.Performance.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.ProductReviews.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.Search.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Catalog.Share.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\Employee.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.CatalogPages.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.Performance.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.Search.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.Share.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Remove="logo.jpg" />
@@ -64,37 +62,37 @@
     <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\Catalog.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\Employee.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Catalog.AdditionalSections.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Catalog.CatalogPages.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.CatalogPages.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Catalog.ExportImport.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Catalog.Performance.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.Performance.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Catalog.Search.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.Search.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Catalog.Share.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.Share.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

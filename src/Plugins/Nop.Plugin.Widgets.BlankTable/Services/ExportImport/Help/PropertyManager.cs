@@ -30,11 +30,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help
         /// Ctor
         /// </summary>
         /// <param name="properties">All access properties</param>
-        /// <param name="catalogSettings">Catalog settings</param>
-        public PropertyManager(IEnumerable<PropertyByName<T>> properties, EmployeeSettings catalogSettings)
+        /// <param name="employeeSettings">Catalog settings</param>
+        public PropertyManager(IEnumerable<PropertyByName<T>> properties, EmployeeSettings employeeSettings)
         {
             _properties = new Dictionary<string, PropertyByName<T>>();
-            _catalogSettings = catalogSettings;
+            _catalogSettings = employeeSettings;
 
             var poz = 1;
             foreach (var propertyByName in properties.Where(p => !p.Ignore))

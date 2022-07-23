@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core.Domain.Directory;
-using Nop.Core.Domain.Discounts;
 using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Services.Directory;
-using Nop.Services.Discounts;
 using Nop.Services.Localization;
 using Nop.Services.Seo;
 using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
@@ -41,7 +39,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
         #region Ctor
 
-        public EmployeeModelFactory(EmployeeSettings catalogSettings,
+        public EmployeeModelFactory(EmployeeSettings employeeSettings,
             CurrencySettings currencySettings,
             ICurrencyService currencyService,
             IAclSupportedModelFactory aclSupportedModelFactory,
@@ -52,7 +50,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             IStoreMappingSupportedModelFactory storeMappingSupportedModelFactory,
             IUrlRecordService urlRecordService)
         {
-            _catalogSettings = catalogSettings;
+            _catalogSettings = employeeSettings;
             _currencySettings = currencySettings;
             _currencyService = currencyService;
             _aclSupportedModelFactory = aclSupportedModelFactory;
@@ -188,10 +186,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
                 model.Published = true;
                 model.IncludeInTopMenu = true;
                 model.AllowCustomersToSelectPageSize = true;
-                model.PriceRangeFiltering = true;
-                model.ManuallyPriceRange = true;
-                model.PriceFrom = NopEmployeeDefaults.DefaultPriceRangeFrom;
-                model.PriceTo = NopEmployeeDefaults.DefaultPriceRangeTo;
             }
 
             model.PrimaryStoreCurrencyCode = (await _currencyService.GetCurrencyByIdAsync(_currencySettings.PrimaryStoreCurrencyId)).CurrencyCode;

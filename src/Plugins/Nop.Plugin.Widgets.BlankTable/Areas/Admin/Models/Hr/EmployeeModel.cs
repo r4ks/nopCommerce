@@ -9,7 +9,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
     /// <summary>
     /// Represents a employee model
     /// </summary>
-    public partial record EmployeeModel : BaseNopEntityModel, IAclSupportedModel, IDiscountSupportedModel,
+    public partial record EmployeeModel : BaseNopEntityModel, IAclSupportedModel,
         ILocalizedModel<EmployeeLocalizedModel>, IStoreMappingSupportedModel
     {
         #region Views file path
@@ -27,8 +27,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
 
             Locales = new List<EmployeeLocalizedModel>();
             AvailableEmployees = new List<SelectListItem>();
-            AvailableDiscounts = new List<SelectListItem>();
-            SelectedDiscountIds = new List<int>();
 
             SelectedCustomerRoleIds = new List<int>();
             AvailableCustomerRoles = new List<SelectListItem>();
@@ -50,10 +48,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
             public const string PageSize = "Admin.Catalog.Employees.Fields.PageSize";
             public const string AllowCustomersToSelectPageSize = "Admin.Catalog.Employees.Fields.AllowCustomersToSelectPageSize";
             public const string PageSizeOptions = "Admin.Catalog.Employees.Fields.PageSizeOptions";
-            public const string PriceRangeFiltering = "Admin.Catalog.Employees.Fields.PriceRangeFiltering";
-            public const string PriceFrom = "Admin.Catalog.Employees.Fields.PriceFrom";
-            public const string PriceTo = "Admin.Catalog.Employees.Fields.PriceTo";
-            public const string ManuallyPriceRange = "Admin.Catalog.Employees.Fields.ManuallyPriceRange";
             public const string ShowOnHomepage = "Admin.Catalog.Employees.Fields.ShowOnHomepage";
             public const string IncludeInTopMenu = "Admin.Catalog.Employees.Fields.IncludeInTopMenu";
             public const string Published = "Admin.Catalog.Employees.Fields.Published";
@@ -61,11 +55,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
             public const string DisplayOrder = "Admin.Catalog.Employees.Fields.DisplayOrder";
             public const string SelectedCustomerRoleIds = "Admin.Catalog.Employees.Fields.AclCustomerRoles";
             public const string SelectedStoreIds = "Admin.Catalog.Employees.Fields.LimitedToStores";
-            public const string SelectedDiscountIds = "Admin.Catalog.Employees.Fields.Discounts";
             public const string None = "Admin.Catalog.Employees.Fields.Parent.None";
 
             //View Labels:
-            public const string NoDiscounts = "Admin.Catalog.Employees.Fields.Discounts.NoDiscounts";
             public const string EditEmployeeDetails = "Admin.Catalog.Employees.EditEmployeeDetails";
             public const string BackToList = "Admin.Catalog.Employees.BackToList";
             public const string AddNew = "Admin.Catalog.Employees.AddNew";
@@ -115,18 +107,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
         [NopResourceDisplayName(Labels.PageSizeOptions)]
         public string PageSizeOptions { get; set; }
 
-        [NopResourceDisplayName(Labels.PriceRangeFiltering)]
-        public bool PriceRangeFiltering { get; set; }
-
-        [NopResourceDisplayName(Labels.PriceFrom)]
-        public decimal PriceFrom { get; set; }
-
-        [NopResourceDisplayName(Labels.PriceTo)]
-        public decimal PriceTo { get; set; }
-
-        [NopResourceDisplayName(Labels.ManuallyPriceRange)]
-        public bool ManuallyPriceRange { get; set; }
-
         [NopResourceDisplayName(Labels.ShowOnHomepage)]
         public bool ShowOnHomepage { get; set; }
 
@@ -157,11 +137,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
         public IList<SelectListItem> AvailableStores { get; set; }
 
         public IList<SelectListItem> AvailableEmployees { get; set; }
-
-        //discounts
-        [NopResourceDisplayName(Labels.SelectedDiscountIds)]
-        public IList<int> SelectedDiscountIds { get; set; }
-        public IList<SelectListItem> AvailableDiscounts { get; set; }
 
         public string PrimaryStoreCurrencyCode { get; set; }
 

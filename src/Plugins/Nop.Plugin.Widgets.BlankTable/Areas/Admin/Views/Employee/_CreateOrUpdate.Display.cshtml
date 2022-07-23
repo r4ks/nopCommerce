@@ -57,46 +57,6 @@
             </div>
         </div>
     </nop-nested-setting>
-    <div class="form-group row advanced-setting">
-        <div class="col-md-3">
-            <nop-label asp-for="PriceRangeFiltering" />
-        </div>
-        <div class="col-md-9">
-            <nop-editor asp-for="PriceRangeFiltering" />
-            <span asp-validation-for="PriceRangeFiltering"></span>
-        </div>
-    </div>
-    <nop-nested-setting asp-for="PriceRangeFiltering">
-        <div class="form-group row advanced-setting">
-            <div class="col-md-3">
-                <nop-label asp-for="ManuallyPriceRange" />
-            </div>
-            <div class="col-md-9">
-                <nop-editor asp-for="ManuallyPriceRange" />
-                <span asp-validation-for="ManuallyPriceRange"></span>
-            </div>
-        </div>
-        <nop-nested-setting asp-for="ManuallyPriceRange">
-            <div class="form-group row advanced-setting">
-                <div class="col-md-3">
-                    <nop-label asp-for="PriceFrom" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="PriceFrom" asp-postfix="@Model.PrimaryStoreCurrencyCode" />
-                    <span asp-validation-for="PriceFrom"></span>
-                </div>
-            </div>
-            <div class="form-group row advanced-setting">
-                <div class="col-md-3">
-                    <nop-label asp-for="PriceTo" />
-                </div>
-                <div class="col-md-9">
-                    <nop-editor asp-for="PriceTo" asp-postfix="@Model.PrimaryStoreCurrencyCode" />
-                    <span asp-validation-for="PriceTo"></span>
-                </div>
-            </div>
-        </nop-nested-setting>
-    </nop-nested-setting>
     <div class="form-group row">
         <div class="col-md-3">
             <nop-label asp-for="DisplayOrder" />

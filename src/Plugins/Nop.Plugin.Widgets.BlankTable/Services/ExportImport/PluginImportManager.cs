@@ -43,7 +43,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
         #region Ctor
 
-        public PluginImportManager(EmployeeSettings catalogSettings,
+        public PluginImportManager(EmployeeSettings employeeSettings,
             IEmployeeService categoryService,
             ICustomerActivityService customerActivityService,
             IHttpClientFactory httpClientFactory,
@@ -55,7 +55,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             IUrlRecordService urlRecordService
             )
         {
-            _catalogSettings = catalogSettings;
+            _catalogSettings = employeeSettings;
             _categoryService = categoryService;
             _customerActivityService = customerActivityService;
             _httpClientFactory = httpClientFactory;
@@ -190,18 +190,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                         break;
                     case "ShowOnHomepage":
                         employee.ShowOnHomepage = property.BooleanValue;
-                        break;
-                    case "PriceRangeFiltering":
-                        employee.PriceRangeFiltering = property.BooleanValue;
-                        break;
-                    case "PriceFrom":
-                        employee.PriceFrom = property.DecimalValue;
-                        break;
-                    case "PriceTo":
-                        employee.PriceTo = property.DecimalValue;
-                        break;
-                    case "AutomaticallyCalculatePriceRange":
-                        employee.ManuallyPriceRange = property.BooleanValue;
                         break;
                     case "IncludeInTopMenu":
                         employee.IncludeInTopMenu = property.BooleanValue;

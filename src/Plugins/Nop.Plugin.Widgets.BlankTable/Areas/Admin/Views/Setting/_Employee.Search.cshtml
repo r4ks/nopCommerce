@@ -1,0 +1,57 @@
+@model EmployeeSettingsModel
+
+<div class="card-body">
+
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="SearchPageAllowCustomersToSelectPageSize_OverrideForStore" asp-input="SearchPageAllowCustomersToSelectPageSize" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="SearchPageAllowCustomersToSelectPageSize" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="SearchPageAllowCustomersToSelectPageSize" />
+            <span asp-validation-for="SearchPageAllowCustomersToSelectPageSize"></span>
+        </div>
+    </div>
+    <nop-nested-setting asp-for="SearchPageAllowCustomersToSelectPageSize" disable-auto-generation="true">
+
+        <div class="form-group row advanced-setting" id="pnlSearchPagePageSizeOptions">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="SearchPagePageSizeOptions_OverrideForStore" asp-input="SearchPagePageSizeOptions" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="SearchPagePageSizeOptions" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="SearchPagePageSizeOptions" />
+                <span asp-validation-for="SearchPagePageSizeOptions"></span>
+            </div>
+        </div>
+    </nop-nested-setting>
+
+     <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="AllowCustomersToSearchWithEmployeeName_OverrideForStore" asp-input="AllowCustomersToSearchWithEmployeeName" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="AllowCustomersToSearchWithEmployeeName" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="AllowCustomersToSearchWithEmployeeName" />
+            <span asp-validation-for="AllowCustomersToSearchWithEmployeeName"></span>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.SearchPageAllowCustomersToSelectPageSize)").click(toggleSearchPagePageSize);
+
+        toggleSearchPagePageSize();
+    });
+
+    function toggleSearchPagePageSize() {
+        if ($('#@Html.IdFor(model => model.SearchPageAllowCustomersToSelectPageSize)').is(':checked')) {
+            $('#pnlSearchPageProductsPerPage').hideElement();
+            $('#pnlSearchPagePageSizeOptions').showElement();
+        } else {
+            $('#pnlSearchPageProductsPerPage').showElement();
+            $('#pnlSearchPagePageSizeOptions').hideElement();
+        }
+    }
+
+</script>
