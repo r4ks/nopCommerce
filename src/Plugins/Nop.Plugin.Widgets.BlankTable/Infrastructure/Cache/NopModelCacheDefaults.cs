@@ -18,13 +18,5 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
         public static CacheKey EmployeesListKey => new("Nop.pres.admin.employees.list-{0}", EmployeesListPrefixCacheKey);
         public static string EmployeesListPrefixCacheKey => "Nop.pres.admin.employees.list";
 
-        /// <summary>
-        /// Key for vendors caching
-        /// </summary>
-        /// <remarks>
-        /// {0} : show hidden records?
-        /// </remarks>
-        public static CacheKey VendorsListKey => new("Nop.pres.admin.vendors.list-{0}", VendorsListPrefixCacheKey);
-        public static string VendorsListPrefixCacheKey => "Nop.pres.admin.vendors.list";
     }
 }

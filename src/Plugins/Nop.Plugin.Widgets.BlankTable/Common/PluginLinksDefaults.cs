@@ -142,11 +142,6 @@
             public static string OnlineCustomers => "https://docs.nopcommerce.com/running-your-store/customer-management/online-customers.html";
 
             /// <summary>
-            /// Gets a URL of the vendor management docs page
-            /// </summary>
-            public static string VendorManagement => "https://docs.nopcommerce.com/running-your-store/vendor-management.html";
-
-            /// <summary>
             /// Gets a URL of the activity log docs page
             /// </summary>
             public static string ActivityLog => "https://docs.nopcommerce.com/running-your-store/customer-management/activity-log.html";

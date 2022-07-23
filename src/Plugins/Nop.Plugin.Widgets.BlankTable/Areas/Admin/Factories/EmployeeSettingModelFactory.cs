@@ -108,12 +108,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             model.PrimaryStoreCurrencyCode = (await _currencyService.GetCurrencyByIdAsync(_currencySettings.PrimaryStoreCurrencyId))?.CurrencyCode;
             model.AvailableViewModes.Add(new SelectListItem
             {
-                Text = await _localizationService.GetResourceAsync("Admin.Catalog.ViewMode.Grid"),
+                Text = await _localizationService.GetResourceAsync(EmployeeSettingsModel.Labels.Grid),
                 Value = "grid"
             });
             model.AvailableViewModes.Add(new SelectListItem
             {
-                Text = await _localizationService.GetResourceAsync("Admin.Catalog.ViewMode.List"),
+                Text = await _localizationService.GetResourceAsync(EmployeeSettingsModel.Labels.List),
                 Value = "list"
             });
 

@@ -156,10 +156,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Controllers
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageOrders))
                 return Content(string.Empty);
 
-            //a vendor doesn't have access to this report
-            if (await _workContext.GetCurrentVendorAsync() != null)
-                return Content(string.Empty);
-
             var result = new List<object>();
 
             var nowDt = await _dateTimeHelper.ConvertToUserTimeAsync(DateTime.Now);

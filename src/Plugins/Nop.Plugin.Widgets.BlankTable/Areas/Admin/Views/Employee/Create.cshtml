@@ -27,8 +27,5 @@
             @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeDetailsButtons, additionalData = Model })
         </div>
     </div>
-    @*
-        @await Html.PartialAsync("_CreateOrUpdate", Model)
-    *@
     @await Html.PartialAsync(EmployeeModel.CREATE_OR_UPDATE_VIEW, Model)
 </form>

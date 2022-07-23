@@ -381,7 +381,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             if (selectedIds == null || selectedIds.Count == 0)
                 return NoContent();
 
-            await _categoryService.DeleteEmployeesAsync(await (await _categoryService.GetEmployeesByIdsAsync(selectedIds.ToArray())).WhereAwait(async p => await _workContext.GetCurrentVendorAsync() == null).ToListAsync());
+            await _categoryService.DeleteEmployeesAsync(await (await _categoryService.GetEmployeesByIdsAsync(selectedIds.ToArray())).ToListAsync());
 
             return Json(new { Result = true });
         }
@@ -431,10 +431,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         public virtual async Task<IActionResult> ImportFromXlsx(IFormFile importexcelfile)
         {
             if (!await _permissionService.AuthorizeAsync(APermissionProvider.ManageEmployees))
-                return AccessDeniedView();
-
-            //a vendor cannot import employees
-            if (await _workContext.GetCurrentVendorAsync() != null)
                 return AccessDeniedView();
 
             try

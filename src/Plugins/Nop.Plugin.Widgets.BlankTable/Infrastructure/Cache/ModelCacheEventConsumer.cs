@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Nop.Core.Caching;
 using Nop.Core.Domain.Configuration;
-using Nop.Core.Domain.Vendors;
 using Nop.Core.Events;
 using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Services.Events;
@@ -19,10 +18,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
         IConsumer<EntityInsertedEvent<Employee>>,
         IConsumer<EntityUpdatedEvent<Employee>>,
         IConsumer<EntityDeletedEvent<Employee>>,
-        //vendors
-        IConsumer<EntityInsertedEvent<Vendor>>,
-        IConsumer<EntityUpdatedEvent<Vendor>>,
-        IConsumer<EntityDeletedEvent<Vendor>>,
 
         IConsumer<PluginUpdatedEvent>
     {
@@ -65,23 +60,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Cache
         public async Task HandleEventAsync(EntityDeletedEvent<Employee> eventMessage)
         {
             await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.EmployeesListPrefixCacheKey);
-        }
-
-        //vendors
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityInsertedEvent<Vendor> eventMessage)
-        {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.VendorsListPrefixCacheKey);
-        }
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityUpdatedEvent<Vendor> eventMessage)
-        {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.VendorsListPrefixCacheKey);
-        }
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task HandleEventAsync(EntityDeletedEvent<Vendor> eventMessage)
-        {
-            await _staticCacheManager.RemoveByPrefixAsync(NopModelCacheDefaults.VendorsListPrefixCacheKey);
         }
 
         /// <summary>

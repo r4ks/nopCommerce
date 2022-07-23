@@ -38,9 +38,6 @@
             @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeDetailsButtons, additionalData = Model })
         </div>
     </div>
-    @*
-        @await Html.PartialAsync("_CreateOrUpdate", Model)
-    *@
     @await Html.PartialAsync(EmployeeModel._CreateOrUpdateView, Model)
 </form>
 <nop-delete-confirmation asp-model-id="@Model.Id" asp-button-id="employee-delete" />
