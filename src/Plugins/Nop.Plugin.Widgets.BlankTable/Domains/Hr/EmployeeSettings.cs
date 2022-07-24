@@ -4,7 +4,7 @@ using Nop.Core.Configuration;
 namespace Nop.Plugin.Widgets.BlankTable.Domains.Hr
 {
     /// <summary>
-    /// Catalog settings
+    /// Hr settings
     /// </summary>
     public class EmployeeSettings : ISettings
     {
@@ -89,9 +89,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Hr
         public bool ExportImportEmployeesUsingEmployeeName { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the products should be exported/imported with a full category name including names of all its parents
+        /// Gets or sets a value indicating whether the products should be exported/imported with a full employee name including names of all its parents
         /// </summary>
-        public bool ExportImportProductCategoryBreadcrumb { get; set; }
+        public bool ExportImportProductEmployeeBreadcrumb { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the images can be downloaded from remote server
@@ -119,7 +119,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Hr
         public bool UseAjaxLoadMenu { get; set; }
 
         /// <summary>
-        /// Get or set a value indicating whether the specification attribute filtering is enabled on catalog pages
+        /// Get or set a value indicating whether the specification attribute filtering is enabled on hr pages
         /// </summary>
         public bool EnableSpecificationAttributeFiltering { get; set; }
 
@@ -129,9 +129,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Domains.Hr
         public bool AllowCustomersToSearchWithEmployeeName { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether all pictures will be displayed on catalog pages
+        /// Gets or sets a value indicating whether all pictures will be displayed on hr pages
         /// </summary>
-        public bool DisplayAllPicturesOnCatalogPages { get; set; }
+        public bool DisplayAllPicturesOnHrPages { get; set; }
 
     }
 }

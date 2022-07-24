@@ -29,7 +29,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
             });
 
             //register services and interfaces
-            services.AddScoped<ICustomersByCountryService, CustomersByCountryService>();
 
             services.AddScoped<IPluginBaseAdminModelFactory, PluginBaseAdminModelFactory>();
             services.AddScoped<IEmployeeModelFactory,EmployeeModelFactory> ();

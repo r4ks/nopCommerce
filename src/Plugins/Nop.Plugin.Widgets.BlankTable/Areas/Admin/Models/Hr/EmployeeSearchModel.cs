@@ -14,20 +14,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
         #region Labels
         public static class Labels
         {
-            public const string Title = "Admin.Catalog.Employees";
 
-            public const string DisplayOrder = "Admin.Catalog.Employees.Fields.DisplayOrder";
-            public const string Published = "Admin.Catalog.Employees.Fields.Published";
-            public const string Breadcrumb = "Admin.Catalog.Employees.Fields.Name";
+            public const string SearchEmployeeName = "Admin.Hr.Employees.List.SearchEmployeeName";
+            public const string SearchStoreId = "Admin.Hr.Employees.List.SearchStore";
+            public const string ImportFromExcelTip = "Admin.Hr.Employees.List.ImportFromExcelTip";
 
-            public const string SearchEmployeeName = "Admin.Catalog.Employees.List.SearchEmployeeName";
-            public const string SearchStoreId = "Admin.Catalog.Employees.List.SearchStore";
-            public const string ImportFromExcelTip = "Admin.Catalog.Employees.List.ImportFromExcelTip";
-
-            public const string SearchPublishedId = "Admin.Catalog.Employees.List.SearchPublished";
-            public const string All = "Admin.Catalog.Employees.List.SearchPublished.All";
-            public const string PublishedOnly = "Admin.Catalog.Employees.List.SearchPublished.PublishedOnly";
-            public const string UnpublishedOnly = "Admin.Catalog.Employees.List.SearchPublished.UnpublishedOnly";
+            public const string SearchPublishedId = "Admin.Hr.Employees.List.SearchPublished";
+            public const string All = "Admin.Hr.Employees.List.SearchPublished.All";
+            public const string PublishedOnly = "Admin.Hr.Employees.List.SearchPublished.PublishedOnly";
+            public const string UnpublishedOnly = "Admin.Hr.Employees.List.SearchPublished.UnpublishedOnly";
         }
 
         #endregion

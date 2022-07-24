@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Nop.Core;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings;
+using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Validators.Hr;
 using Nop.Plugin.Widgets.BlankTable.Components;
+using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 using Nop.Plugin.Widgets.BlankTable.Installation;
-using Nop.Plugin.Widgets.BlankTable.Models;
 using Nop.Plugin.Widgets.BlankTable.Services.Security;
 using Nop.Services.Cms;
 using Nop.Services.Common;
@@ -53,21 +56,14 @@ namespace Nop.Plugin.Widgets.BlankTable
         {
             var InstallSampleData = true;
             //settings
-            var settings = new BlankTableSettings
-            {
-                DescriptionText = "<p>Mail Personal or Business Check, Cashier's Check or money order to:</p><p><br /><b>NOP SOLUTIONS</b> <br /><b>your address here,</b> <br /><b>New York, NY 10001 </b> <br /><b>USA</b></p><p>Notice that if you pay by Personal or Business Check, your order may be held for up to 10 days after we receive your check to allow enough time for the check to clear.  If you want us to ship faster upon receipt of your payment, then we recommend your send a money order or Cashier's check.</p><p>P.S. You can edit this text from admin panel.</p>"
-            };
-
-            await _settingService.SaveSettingAsync(settings);
+            var regionInfo = new RegionInfo(NopCommonDefaults.DefaultLanguageCulture);
+            var cultureInfo = new CultureInfo(NopCommonDefaults.DefaultLanguageCulture);
+            await _extraInstallationService.InstallRequiredDataAsync(regionInfo, cultureInfo);
 
             await InstallLocalizedStrings();
             await InstallPermissions();
 
-            var regionInfo = new RegionInfo(NopCommonDefaults.DefaultLanguageCulture);
-            var cultureInfo = new CultureInfo(NopCommonDefaults.DefaultLanguageCulture);
 
-            //now resolve installation service
-            await _extraInstallationService.InstallRequiredDataAsync(regionInfo, cultureInfo);
 
             if (InstallSampleData)
                 await _extraInstallationService.InstallSampleDataAsync();
@@ -78,10 +74,10 @@ namespace Nop.Plugin.Widgets.BlankTable
         public override async Task UninstallAsync()
         {
             //settings
-            await _settingService.DeleteSettingAsync<BlankTableSettings>();
+            await _settingService.DeleteSettingAsync<EmployeeSettings>();
 
             // locales
-            await _localizationService.DeleteLocaleResourcesAsync(ConfigurationModel.Labels.Prefix);
+            await _localizationService.DeleteLocaleResourcesAsync("Admin.Hr.Employees");
             await base.UninstallAsync();
         }
 
@@ -105,16 +101,6 @@ namespace Nop.Plugin.Widgets.BlankTable
         /// <returns></returns>
         public async Task ManageSiteMapAsync(SiteMapNode rootNode)
         {
-            var menuItem = new SiteMapNode()
-            {
-                SystemName = "Widgets.BlankTable",
-                Title = "New Blank Title",
-                ControllerName = "BlankTable",
-                ActionName = "BlankTable",
-                IconClass = "far fa-dot-circle",
-                Visible = true,
-                RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
-            };
             var employeeListMenuItem = new SiteMapNode()
             {
                 SystemName = "Widgets.BlankTable.EmployeeListMenuItem",
@@ -147,11 +133,10 @@ namespace Nop.Plugin.Widgets.BlankTable
 
                 if (pluginNode != null)
                 {
-                    pluginNode.ChildNodes.Add(menuItem);
                     pluginNode.ChildNodes.Add(employeeListMenuItem);
                 }
                 else
-                    rootNode.ChildNodes.Add(menuItem);
+                    rootNode.ChildNodes.Add(employeeListMenuItem);
         }
 
         /// <summary>
@@ -183,12 +168,87 @@ namespace Nop.Plugin.Widgets.BlankTable
             //locales
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
             {
-                [ConfigurationModel.Labels.DescriptionText] = "Description",
-                [ConfigurationModel.Labels.DescriptionTextHint] = "Enter some description here",
-                [ConfigurationModel.Labels.PaymentMethodDescription] = "Pay by cheque or money order",
-                [ConfigurationModel.Labels.EnableDashboardWidget] = "Display Widget on Dashboard",
-                [ConfigurationModel.Labels.InstallSampleData] = "Display Widget on Dashboard",
-                [ConfigurationModel.Labels.EnableDashboardWidgetHint] = "Check to show the Widget on Dashboard."
+                [EmployeeModel.Labels.Name] = "Name",
+                [EmployeeModel.Labels.Description] = "Description",
+                [EmployeeModel.Labels.SeName] = "Search engine friendly page name",
+                [EmployeeModel.Labels.ParentEmployeeId] = "Parent employee",
+                [EmployeeModel.Labels.PictureId] = "Picture",
+                [EmployeeModel.Labels.PageSize] = "Page size",
+                [EmployeeModel.Labels.AllowCustomersToSelectPageSize] = "Allow customers to select page size",
+                [EmployeeModel.Labels.PageSizeOptions] = "Page size options",
+                [EmployeeModel.Labels.ShowOnHomepage] = "Show on home page",
+                [EmployeeModel.Labels.IncludeInTopMenu] = "Include in top menu",
+                [EmployeeModel.Labels.Published] = "Published",
+                [EmployeeModel.Labels.Deleted] = "Deleted",
+                [EmployeeModel.Labels.DisplayOrder] = "Display order",
+                [EmployeeModel.Labels.SelectedCustomerRoleIds] = "Limited to customer roles",
+                [EmployeeModel.Labels.SelectedStoreIds] = "Limited to stores",
+                [EmployeeModel.Labels.None] = "[None]",
+                [EmployeeModel.Labels.EditEmployeeDetails] = "Edit employee details",
+                [EmployeeModel.Labels.BackToList] = "back to employee list",
+                [EmployeeModel.Labels.AddNew] = "Add a new employee",
+                [EmployeeModel.Labels.Info] = "Employee info",
+                [EmployeeModel.Labels.Display] = "Display",
+                [EmployeeModel.Labels.Mappings] = "Mappings",
+                [EmployeeModel.Labels.Products] = "Products",
+                [EmployeeModel.Labels.AddedEvent] = "The new employee has been added successfully.",
+                [EmployeeModel.Labels.UpdatedEvent] = "The employee has been updated successfully.",
+                [EmployeeModel.Labels.DeletedEvent] = "The employee has been deleted successfully.",
+                [EmployeeModel.Labels.ImportedEvent] = "Categories have been imported successfully.",
+                [EmployeeModel.Labels.LogAddNewEmployee] = "Added a new employee ('{0}')",
+                [EmployeeModel.Labels.LogEditEmployee] = "Edited a employee ('{0}')",
+                [EmployeeModel.Labels.LogDeleteEmployee] = "Deleted a employee ('{0}')",
+
+                [EmployeeModel.Labels.Title] = "Categories",
+
+                [EmployeeSearchModel.Labels.SearchEmployeeName] = "Employee name",
+                [EmployeeSearchModel.Labels.SearchStoreId] = "Store",
+                [EmployeeSearchModel.Labels.ImportFromExcelTip] = "Imported categories are distinguished by ID. If the ID already exists, then its corresponding employee will be updated. You should not specify ID (leave 0) for new categories.",
+                [EmployeeSearchModel.Labels.SearchPublishedId] = "Published",
+                [EmployeeSearchModel.Labels.All] = "All",
+                [EmployeeSearchModel.Labels.PublishedOnly] = "Published only",
+                [EmployeeSearchModel.Labels.UnpublishedOnly] = "Unpublished only",
+
+                [EmployeeSettingsModel.Labels.Title] = "Hr settings",
+                [EmployeeSettingsModel.Labels.EditSettings] = "Edited settings",
+                [EmployeeSettingsModel.Labels.Updated] = "The settings have been updated successfully.",
+                [EmployeeSettingsModel.Labels.Grid] = "Grid",
+                [EmployeeSettingsModel.Labels.List] = "List",
+                [EmployeeSettingsModel.Labels.DefaultViewMode] = "Default view mode",
+                [EmployeeSettingsModel.Labels.ShowShareButton] = "Show a share button",
+                [EmployeeSettingsModel.Labels.PageShareCode] = "Share button code",
+                [EmployeeSettingsModel.Labels.EmailAFriendEnabled] = "'Email a friend' enabled",
+                [EmployeeSettingsModel.Labels.AllowAnonymousUsersToEmailAFriend] = "Allow anonymous users to email a friend",
+                [EmployeeSettingsModel.Labels.SearchPageAllowCustomersToSelectPageSize] = "Search page. Allow customers to select page size",
+                [EmployeeSettingsModel.Labels.SearchPagePageSizeOptions] = "Search page. Page size options",
+                [EmployeeSettingsModel.Labels.ExportImportEmployeesUsingEmployeeName] = "Export/Import categories using name of employee",
+                [EmployeeSettingsModel.Labels.ExportImportAllowDownloadImages] = "Export/Import products. Allow download images",
+                [EmployeeSettingsModel.Labels.ExportImportRelatedEntitiesByName] = "Export/Import related entities using name",
+                [EmployeeSettingsModel.Labels.EmployeeBreadcrumbEnabled] = "Employee breadcrumb enabled",
+                [EmployeeSettingsModel.Labels.IgnoreAcl] = "Ignore ACL rules (sitewide)",
+                [EmployeeSettingsModel.Labels.IgnoreStoreLimitations] = "Ignore \"limit per store\" rules (sitewide)",
+                [EmployeeSettingsModel.Labels.DisplayDatePreOrderAvailability] = "Display the date for a pre-order availability",
+                [EmployeeSettingsModel.Labels.EnableSpecificationAttributeFiltering] = "Enable specification attribute filtering",
+                [EmployeeSettingsModel.Labels.DisplayAllPicturesOnHrPages] = "Display all pictures on hr pages",
+                [EmployeeSettingsModel.Labels.AllowCustomersToSearchWithEmployeeName] = "Allow customers to search with employee name",
+                [EmployeeSettingsModel.Labels.Search] = "Search",
+                [EmployeeSettingsModel.Labels.Performance] = "Performance",
+                [EmployeeSettingsModel.Labels.Share] = "Share",
+                [EmployeeSettingsModel.Labels.AdditionalSections] = "Additional sections",
+                [EmployeeSettingsModel.Labels.HrPages] = "Hr pages",
+                [EmployeeSettingsModel.Labels.ExportImport] = "Export/Import",
+
+                [EmployeeValidator.Labels.NameRequired] = "Please provide a name.",
+                [EmployeeValidator.Labels.PageSizeOptionsShouldHaveUniqueItems] = "Page size options should not have duplicate items.",
+                [EmployeeValidator.Labels.PageSizePositive] = "Page size should have a positive value.",
+                [EmployeeValidator.Labels.SeNameMaxLengthValidation] = "Max length of search name is {0} chars",
+
+                [BlankTableDefaults.Labels.OrderStatistics] = "Orders",
+                [BlankTableDefaults.Labels.OYear] = "Year",
+                [BlankTableDefaults.Labels.OMonth] = "Month",
+                [BlankTableDefaults.Labels.OWeek] = "Week",
+                [BlankTableDefaults.Labels.ImportEmployees] = "{0} categories were imported",
+                [BlankTableDefaults.Labels.EmployeesArentImported] = "Categories with the following names aren't imported - {0}",
             });
         }
 

@@ -52,7 +52,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         #endregion
 
         #region Methods
-        public virtual async Task<IActionResult> Catalog()
+        public virtual async Task<IActionResult> Hr()
         {
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageSettings))
                 return AccessDeniedView();
@@ -64,7 +64,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Catalog(EmployeeSettingsModel model)
+        public virtual async Task<IActionResult> Hr(EmployeeSettingsModel model)
         {
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageSettings))
                 return AccessDeniedView();
@@ -90,9 +90,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.ExportImportAllowDownloadImages, model.ExportImportAllowDownloadImages_OverrideForStore, storeScope, false);
                 await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.ExportImportRelatedEntitiesByName, model.ExportImportRelatedEntitiesByName_OverrideForStore, storeScope, false);
                 await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.DisplayDatePreOrderAvailability, model.DisplayDatePreOrderAvailability_OverrideForStore, storeScope, false);
-                await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.EmployeeBreadcrumbEnabled, model.CategoryBreadcrumbEnabled_OverrideForStore, storeScope, false);
+                await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.EmployeeBreadcrumbEnabled, model.EmployeeBreadcrumbEnabled_OverrideForStore, storeScope, false);
                 await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.EnableSpecificationAttributeFiltering, model.EnableSpecificationAttributeFiltering_OverrideForStore, storeScope, false);
-                await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.DisplayAllPicturesOnCatalogPages, model.DisplayAllPicturesOnCatalogPages_OverrideForStore, storeScope, false);
+                await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.DisplayAllPicturesOnHrPages, model.DisplayAllPicturesOnHrPages_OverrideForStore, storeScope, false);
                 await _settingService.SaveSettingOverridablePerStoreAsync(employeeSettings, x => x.AllowCustomersToSearchWithEmployeeName, model.AllowCustomersToSearchWithEmployeeName_OverrideForStore, storeScope, false);
 
                 //now settings not overridable per store
@@ -106,7 +106,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 
                 _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(EmployeeSettingsModel.Labels.Updated));
 
-                return RedirectToAction("Catalog");
+                return RedirectToAction("Hr");
             }
 
             //prepare model

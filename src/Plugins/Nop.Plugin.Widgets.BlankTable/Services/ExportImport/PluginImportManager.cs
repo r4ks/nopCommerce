@@ -28,8 +28,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     {
         #region Fields
 
-        private readonly EmployeeSettings _catalogSettings;
-        private readonly IEmployeeService _categoryService;
+        private readonly EmployeeSettings _hrSettings;
+        private readonly IEmployeeService _employeeService;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILocalizationService _localizationService;
@@ -44,7 +44,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         #region Ctor
 
         public PluginImportManager(EmployeeSettings employeeSettings,
-            IEmployeeService categoryService,
+            IEmployeeService employeeService,
             ICustomerActivityService customerActivityService,
             IHttpClientFactory httpClientFactory,
             ILocalizationService localizationService,
@@ -55,8 +55,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             IUrlRecordService urlRecordService
             )
         {
-            _catalogSettings = employeeSettings;
-            _categoryService = categoryService;
+            _hrSettings = employeeSettings;
+            _employeeService = employeeService;
             _customerActivityService = customerActivityService;
             _httpClientFactory = httpClientFactory;
             _fileProvider = fileProvider;
@@ -150,16 +150,16 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
 
                         break;
                     case "ParentEmployeeName":
-                        if (_catalogSettings.ExportImportEmployeesUsingEmployeeName && !isParentEmployeeSet)
+                        if (_hrSettings.ExportImportEmployeesUsingEmployeeName && !isParentEmployeeSet)
                         {
-                            var categoryName = manager.GetProperty("ParentEmployeeName").StringValue;
-                            if (!string.IsNullOrEmpty(categoryName))
+                            var employeeName = manager.GetProperty("ParentEmployeeName").StringValue;
+                            if (!string.IsNullOrEmpty(employeeName))
                             {
-                                var parentEmployee = allEmployees.ContainsKey(categoryName)
+                                var parentEmployee = allEmployees.ContainsKey(employeeName)
                                     //try find employee by full name with all parent employee names
-                                    ? await allEmployees[categoryName]
+                                    ? await allEmployees[employeeName]
                                     //try find employee by name
-                                    : await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(categoryName, StringComparison.InvariantCulture));
+                                    : await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(employeeName, StringComparison.InvariantCulture));
 
                                 if (parentEmployee != null)
                                 {
@@ -218,16 +218,16 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             //try get employee from database by ID
             var employee = await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Id == manager.GetProperty("Id")?.IntValue);
 
-            if (_catalogSettings.ExportImportEmployeesUsingEmployeeName && employee == null)
+            if (_hrSettings.ExportImportEmployeesUsingEmployeeName && employee == null)
             {
-                var categoryName = manager.GetProperty("Name").StringValue;
-                if (!string.IsNullOrEmpty(categoryName))
+                var employeeName = manager.GetProperty("Name").StringValue;
+                if (!string.IsNullOrEmpty(employeeName))
                 {
-                    employee = allEmployees.ContainsKey(categoryName)
+                    employee = allEmployees.ContainsKey(employeeName)
                         //try find employee by full name with all parent employee names
-                        ? await allEmployees[categoryName]
+                        ? await allEmployees[employeeName]
                         //try find employee by name
-                        : await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(categoryName, StringComparison.InvariantCulture));
+                        : await await allEmployees.Values.FirstOrDefaultAwaitAsync(async c => (await c).Name.Equals(employeeName, StringComparison.InvariantCulture));
                 }
             }
 
@@ -241,14 +241,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             {
                 employee.CreatedOnUtc = DateTime.UtcNow;
                 //default values
-                employee.PageSize = _catalogSettings.DefaultEmployeePageSize;
-                employee.PageSizeOptions = _catalogSettings.DefaultEmployeePageSizeOptions;
+                employee.PageSize = _hrSettings.DefaultEmployeePageSize;
+                employee.PageSizeOptions = _hrSettings.DefaultEmployeePageSizeOptions;
                 employee.Published = true;
                 employee.IncludeInTopMenu = true;
                 employee.AllowCustomersToSelectPageSize = true;
             }
             else
-                curentEmployeeBreadCrumb = await _categoryService.GetFormattedBreadCrumbAsync(employee);
+                curentEmployeeBreadCrumb = await _employeeService.GetFormattedBreadCrumbAsync(employee);
 
             return (employee, isNew, curentEmployeeBreadCrumb);
         }
@@ -257,15 +257,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         protected virtual async Task SaveEmployeeAsync(bool isNew, Employee employee, Dictionary<string, ValueTask<Employee>> allEmployees, string curentEmployeeBreadCrumb, bool setSeName, string seName)
         {
             if (isNew)
-                await _categoryService.InsertEmployeeAsync(employee);
+                await _employeeService.InsertEmployeeAsync(employee);
             else
-                await _categoryService.UpdateEmployeeAsync(employee);
+                await _employeeService.UpdateEmployeeAsync(employee);
 
-            var categoryBreadCrumb = await _categoryService.GetFormattedBreadCrumbAsync(employee);
-            if (!allEmployees.ContainsKey(categoryBreadCrumb))
-                allEmployees.Add(categoryBreadCrumb, new ValueTask<Employee>(employee));
+            var employeeBreadCrumb = await _employeeService.GetFormattedBreadCrumbAsync(employee);
+            if (!allEmployees.ContainsKey(employeeBreadCrumb))
+                allEmployees.Add(employeeBreadCrumb, new ValueTask<Employee>(employee));
             if (!string.IsNullOrEmpty(curentEmployeeBreadCrumb) && allEmployees.ContainsKey(curentEmployeeBreadCrumb) &&
-                categoryBreadCrumb != curentEmployeeBreadCrumb)
+                employeeBreadCrumb != curentEmployeeBreadCrumb)
                 allEmployees.Remove(curentEmployeeBreadCrumb);
 
             //search engine name
@@ -324,15 +324,15 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             //the columns
             var properties = GetPropertiesByExcelCells<Employee>(worksheet);
 
-            var manager = new PropertyManager<Employee>(properties, _catalogSettings);
+            var manager = new PropertyManager<Employee>(properties, _hrSettings);
 
             var iRow = 2;
             var setSeName = properties.Any(p => p.PropertyName == "SeName");
 
             //performance optimization, load all employees in one SQL request
-            var allEmployees = await (await _categoryService
+            var allEmployees = await (await _employeeService
                 .GetAllEmployeesAsync(showHidden: true))
-                .GroupByAwait(async c => await _categoryService.GetFormattedBreadCrumbAsync(c))
+                .GroupByAwait(async c => await _employeeService.GetFormattedBreadCrumbAsync(c))
                 .ToDictionaryAsync(c => c.Key, c => c.FirstAsync());
 
             var saveNextTime = new List<int>();
@@ -418,9 +418,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         public class EmployeeKey
         {
             /// <returns>A task that represents the asynchronous operation</returns>
-            public static async Task<EmployeeKey> CreateEmployeeKeyAsync(Employee employee, IEmployeeService categoryService, IList<Employee> allEmployees, IStoreMappingService storeMappingService)
+            public static async Task<EmployeeKey> CreateEmployeeKeyAsync(Employee employee, IEmployeeService employeeService, IList<Employee> allEmployees, IStoreMappingService storeMappingService)
             {
-                return new EmployeeKey(await categoryService.GetFormattedBreadCrumbAsync(employee, allEmployees), employee.LimitedToStores ? (await storeMappingService.GetStoresIdsWithAccessAsync(employee)).ToList() : new List<int>())
+                return new EmployeeKey(await employeeService.GetFormattedBreadCrumbAsync(employee, allEmployees), employee.LimitedToStores ? (await storeMappingService.GetStoresIdsWithAccessAsync(employee)).ToList() : new List<int>())
                 {
                     Employee = employee
                 };

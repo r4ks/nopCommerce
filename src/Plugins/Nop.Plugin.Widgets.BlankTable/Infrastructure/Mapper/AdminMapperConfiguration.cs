@@ -21,7 +21,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
         public AdminMapperConfiguration()
         {
             //create specific maps
-            CreateCatalogMaps();
+            CreateHrMaps();
 
 
             //add some generic mapping rules
@@ -87,9 +87,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
 
         #region Utilities
         /// <summary>
-        /// Create catalog maps 
+        /// Create hr maps 
         /// </summary>
-        protected virtual void CreateCatalogMaps()
+        protected virtual void CreateHrMaps()
         {
             CreateMap<EmployeeSettings, EmployeeSettingsModel>()
                 .ForMember(model => model.AllowAnonymousUsersToEmailAFriend_OverrideForStore, options => options.Ignore())
@@ -107,7 +107,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure.Mapper
                 .ForMember(model => model.EnableSpecificationAttributeFiltering_OverrideForStore, mo => mo.Ignore())
                 .ForMember(model => model.SortOptionSearchModel, options => options.Ignore())
                 .ForMember(model => model.PrimaryStoreCurrencyCode, options => options.Ignore())
-                .ForMember(model => model.DisplayAllPicturesOnCatalogPages_OverrideForStore, options => options.Ignore());
+                .ForMember(model => model.DisplayAllPicturesOnHrPages_OverrideForStore, options => options.Ignore());
             CreateMap<EmployeeSettingsModel, EmployeeSettings>()
                 .ForMember(settings => settings.AjaxProcessAttributeChange, options => options.Ignore())
                 .ForMember(settings => settings.CountDisplayedYearsDatePicker, options => options.Ignore())

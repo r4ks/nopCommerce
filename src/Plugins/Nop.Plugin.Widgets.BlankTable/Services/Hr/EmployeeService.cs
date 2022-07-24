@@ -23,7 +23,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         private readonly IAclService _aclService;
         private readonly ICustomerService _customerService;
         private readonly ILocalizationService _localizationService;
-        private readonly IRepository<Employee> _categoryRepository;
+        private readonly IRepository<Employee> _employeeRepository;
         private readonly IStaticCacheManager _staticCacheManager;
         private readonly IStoreContext _storeContext;
         private readonly IStoreMappingService _storeMappingService;
@@ -37,7 +37,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
             IAclService aclService,
             ICustomerService customerService,
             ILocalizationService localizationService,
-            IRepository<Employee> categoryRepository,
+            IRepository<Employee> employeeRepository,
             IStaticCacheManager staticCacheManager,
             IStoreContext storeContext,
             IStoreMappingService storeMappingService,
@@ -46,7 +46,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
             _aclService = aclService;
             _customerService = customerService;
             _localizationService = localizationService;
-            _categoryRepository = categoryRepository;
+            _employeeRepository = employeeRepository;
             _staticCacheManager = staticCacheManager;
             _storeContext = storeContext;
             _storeMappingService = storeMappingService;
@@ -103,14 +103,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual async Task DeleteEmployeeAsync(Employee employee)
         {
-            await _categoryRepository.DeleteAsync(employee);
+            await _employeeRepository.DeleteAsync(employee);
 
             //reset a "Parent employee" property of all child subcategories
             var subcategories = await GetAllEmployeesByParentEmployeeIdAsync(employee.Id, true);
-            foreach (var subcategory in subcategories)
+            foreach (var subemployee in subcategories)
             {
-                subcategory.ParentEmployeeId = 0;
-                await UpdateEmployeeAsync(subcategory);
+                subemployee.ParentEmployeeId = 0;
+                await UpdateEmployeeAsync(subemployee);
             }
         }
 
@@ -153,7 +153,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Gets all employees
         /// </summary>
-        /// <param name="categoryName">Employee name</param>
+        /// <param name="employeeName">Employee name</param>
         /// <param name="storeId">Store identifier; 0 if you want to get all records</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -167,10 +167,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// A task that represents the asynchronous operation
         /// The task result contains the employees
         /// </returns>
-        public virtual async Task<IPagedList<Employee>> GetAllEmployeesAsync(string categoryName, int storeId = 0,
+        public virtual async Task<IPagedList<Employee>> GetAllEmployeesAsync(string employeeName, int storeId = 0,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false, bool? overridePublished = null)
         {
-            var unsortedEmployees = await _categoryRepository.GetAllAsync(async query =>
+            var unsortedEmployees = await _employeeRepository.GetAllAsync(async query =>
             {
                 if (!showHidden)
                     query = query.Where(c => c.Published);
@@ -187,8 +187,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
                     query = await _aclService.ApplyAcl(query, customer);
                 }
 
-                if (!string.IsNullOrWhiteSpace(categoryName))
-                    query = query.Where(c => c.Name.Contains(categoryName));
+                if (!string.IsNullOrWhiteSpace(employeeName))
+                    query = query.Where(c => c.Name.Contains(employeeName));
 
                 query = query.Where(c => !c.Deleted);
 
@@ -216,7 +216,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         {
             var store = await _storeContext.GetCurrentStoreAsync();
             var customer = await _workContext.GetCurrentCustomerAsync();
-            var employees = await _categoryRepository.GetAllAsync(async query =>
+            var employees = await _employeeRepository.GetAllAsync(async query =>
             {
                 if (!showHidden)
                 {
@@ -248,7 +248,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// </returns>
         public virtual async Task<IList<Employee>> GetAllEmployeesDisplayedOnHomepageAsync(bool showHidden = false)
         {
-            var employees = await _categoryRepository.GetAllAsync(query =>
+            var employees = await _employeeRepository.GetAllAsync(query =>
             {
                 return from c in query
                        orderby c.DisplayOrder, c.Id
@@ -312,14 +312,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Gets a employee
         /// </summary>
-        /// <param name="categoryId">Employee identifier</param>
+        /// <param name="employeeId">Employee identifier</param>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the employee
         /// </returns>
-        public virtual async Task<Employee> GetEmployeeByIdAsync(int categoryId)
+        public virtual async Task<Employee> GetEmployeeByIdAsync(int employeeId)
         {
-            return await _categoryRepository.GetByIdAsync(categoryId, cache => default);
+            return await _employeeRepository.GetByIdAsync(employeeId, cache => default);
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual async Task InsertEmployeeAsync(Employee employee)
         {
-            await _categoryRepository.InsertAsync(employee);
+            await _employeeRepository.InsertAsync(employee);
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
                 parentEmployee = await GetEmployeeByIdAsync(parentEmployee.ParentEmployeeId);
             }
 
-            await _categoryRepository.UpdateAsync(employee);
+            await _employeeRepository.UpdateAsync(employee);
         }
 
 
@@ -363,18 +363,18 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Returns a list of names of not existing employees
         /// </summary>
-        /// <param name="categoryIdsNames">The names and/or IDs of the employees to check</param>
+        /// <param name="employeeIdsNames">The names and/or IDs of the employees to check</param>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the list of names and/or IDs not existing employees
         /// </returns>
-        public virtual async Task<string[]> GetNotExistingEmployeesAsync(string[] categoryIdsNames)
+        public virtual async Task<string[]> GetNotExistingEmployeesAsync(string[] employeeIdsNames)
         {
-            if (categoryIdsNames == null)
-                throw new ArgumentNullException(nameof(categoryIdsNames));
+            if (employeeIdsNames == null)
+                throw new ArgumentNullException(nameof(employeeIdsNames));
 
-            var query = _categoryRepository.Table;
-            var queryFilter = categoryIdsNames.Distinct().ToArray();
+            var query = _employeeRepository.Table;
+            var queryFilter = employeeIdsNames.Distinct().ToArray();
             //filtering by name
             var filter = await query.Select(c => c.Name)
                 .Where(c => queryFilter.Contains(c))
@@ -397,14 +397,14 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Gets employees by identifier
         /// </summary>
-        /// <param name="categoryIds">Employee identifiers</param>
+        /// <param name="employeeIds">Employee identifiers</param>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the employees
         /// </returns>
-        public virtual async Task<IList<Employee>> GetEmployeesByIdsAsync(int[] categoryIds)
+        public virtual async Task<IList<Employee>> GetEmployeesByIdsAsync(int[] employeeIds)
         {
-            return await _categoryRepository.GetByIdsAsync(categoryIds, includeDeleted: false);
+            return await _employeeRepository.GetByIdsAsync(employeeIds, includeDeleted: false);
         }
 
         /// <summary>
@@ -427,8 +427,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
             var breadcrumb = await GetEmployeeBreadCrumbAsync(employee, allEmployees, true);
             for (var i = 0; i <= breadcrumb.Count - 1; i++)
             {
-                var categoryName = await _localizationService.GetLocalizedAsync(breadcrumb[i], x => x.Name, languageId);
-                result = string.IsNullOrEmpty(result) ? categoryName : $"{result} {separator} {categoryName}";
+                var employeeName = await _localizationService.GetLocalizedAsync(breadcrumb[i], x => x.Name, languageId);
+                result = string.IsNullOrEmpty(result) ? employeeName : $"{result} {separator} {employeeName}";
             }
 
             return result;

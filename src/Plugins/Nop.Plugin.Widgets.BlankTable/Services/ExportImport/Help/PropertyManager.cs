@@ -22,19 +22,19 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help
         private readonly Dictionary<string, PropertyByName<T>> _properties;
 
         /// <summary>
-        /// Catalog settings
+        /// Hr settings
         /// </summary>
-        private readonly EmployeeSettings _catalogSettings;
+        private readonly EmployeeSettings _hrSettings;
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="properties">All access properties</param>
-        /// <param name="employeeSettings">Catalog settings</param>
+        /// <param name="employeeSettings">Hr settings</param>
         public PropertyManager(IEnumerable<PropertyByName<T>> properties, EmployeeSettings employeeSettings)
         {
             _properties = new Dictionary<string, PropertyByName<T>>();
-            _catalogSettings = employeeSettings;
+            _hrSettings = employeeSettings;
 
             var poz = 1;
             foreach (var propertyByName in properties.Where(p => !p.Ignore))
@@ -130,7 +130,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help
             foreach (var prop in _properties.Values)
             {
                 var cell = xlRrow.Cell(prop.PropertyOrderPosition + cellOffset);
-                if (prop.IsDropDownCell && _catalogSettings.ExportImportRelatedEntitiesByName)
+                if (prop.IsDropDownCell && _hrSettings.ExportImportRelatedEntitiesByName)
                 {
                     var dropDownElements = prop.GetDropDownElements();
                     if (!dropDownElements.Any())
@@ -278,6 +278,6 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport.Help
         /// <summary>
         /// Gets a value indicating whether need create dropdown list for export
         /// </summary>
-        public bool UseDropdownLists => _catalogSettings.ExportImportUseDropdownlistsForAssociatedEntities && _catalogSettings.ExportImportRelatedEntitiesByName;
+        public bool UseDropdownLists => _hrSettings.ExportImportUseDropdownlistsForAssociatedEntities && _hrSettings.ExportImportRelatedEntitiesByName;
     }
 }

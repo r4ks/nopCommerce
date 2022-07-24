@@ -13,7 +13,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Security
         {
             private readonly PermissionRecord _permissionRecord = new()
             {
-                Name = "Test name", SystemName = "Test permission record system name", Category = "Test category"
+                Name = "Test name", SystemName = "Test permission record system name", Category = "Test employee"
             };
 
             public IEnumerable<PermissionRecord> GetPermissions()
@@ -23,7 +23,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Security
                     _permissionRecord};
             }
 
-            public static readonly PermissionRecord ManageEmployees = new() { Name = "Admin area. Manage Categories", SystemName = "ManageCategories", Category = "Catalog" };
+            public static readonly PermissionRecord ManageEmployees = new() { Name = "Admin area. Manage Categories", SystemName = "ManageCategories", Category = "Hr" };
             public HashSet<(string systemRoleName, PermissionRecord[] permissions)> GetDefaultPermissions()
             {
                 return new()

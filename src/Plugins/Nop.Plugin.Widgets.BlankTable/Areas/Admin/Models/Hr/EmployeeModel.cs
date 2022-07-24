@@ -40,42 +40,45 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Hr
         #region Labels
         public static partial class Labels
         {
-            public const string Name = "Admin.Catalog.Employees.Fields.Name";
-            public const string Description = "Admin.Catalog.Employees.Fields.Description";
-            public const string SeName = "Admin.Catalog.Employees.Fields.SeName";
-            public const string ParentEmployeeId = "Admin.Catalog.Employees.Fields.Parent";
-            public const string PictureId = "Admin.Catalog.Employees.Fields.Picture";
-            public const string PageSize = "Admin.Catalog.Employees.Fields.PageSize";
-            public const string AllowCustomersToSelectPageSize = "Admin.Catalog.Employees.Fields.AllowCustomersToSelectPageSize";
-            public const string PageSizeOptions = "Admin.Catalog.Employees.Fields.PageSizeOptions";
-            public const string ShowOnHomepage = "Admin.Catalog.Employees.Fields.ShowOnHomepage";
-            public const string IncludeInTopMenu = "Admin.Catalog.Employees.Fields.IncludeInTopMenu";
-            public const string Published = "Admin.Catalog.Employees.Fields.Published";
-            public const string Deleted = "Admin.Catalog.Employees.Fields.Deleted";
-            public const string DisplayOrder = "Admin.Catalog.Employees.Fields.DisplayOrder";
-            public const string SelectedCustomerRoleIds = "Admin.Catalog.Employees.Fields.AclCustomerRoles";
-            public const string SelectedStoreIds = "Admin.Catalog.Employees.Fields.LimitedToStores";
-            public const string None = "Admin.Catalog.Employees.Fields.Parent.None";
+            public const string Name = "Admin.Hr.Employees.Fields.Name";
+            public const string Description = "Admin.Hr.Employees.Fields.Description";
+            public const string SeName = "Admin.Hr.Employees.Fields.SeName";
+            public const string ParentEmployeeId = "Admin.Hr.Employees.Fields.Parent";
+            public const string PictureId = "Admin.Hr.Employees.Fields.Picture";
+            public const string PageSize = "Admin.Hr.Employees.Fields.PageSize";
+            public const string AllowCustomersToSelectPageSize = "Admin.Hr.Employees.Fields.AllowCustomersToSelectPageSize";
+            public const string PageSizeOptions = "Admin.Hr.Employees.Fields.PageSizeOptions";
+            public const string ShowOnHomepage = "Admin.Hr.Employees.Fields.ShowOnHomepage";
+            public const string IncludeInTopMenu = "Admin.Hr.Employees.Fields.IncludeInTopMenu";
+            public const string Published = "Admin.Hr.Employees.Fields.Published";
+            public const string Deleted = "Admin.Hr.Employees.Fields.Deleted";
+            public const string DisplayOrder = "Admin.Hr.Employees.Fields.DisplayOrder";
+            public const string SelectedCustomerRoleIds = "Admin.Hr.Employees.Fields.AclCustomerRoles";
+            public const string SelectedStoreIds = "Admin.Hr.Employees.Fields.LimitedToStores";
+            public const string None = "Admin.Hr.Employees.Fields.Parent.None";
 
             //View Labels:
-            public const string EditEmployeeDetails = "Admin.Catalog.Employees.EditEmployeeDetails";
-            public const string BackToList = "Admin.Catalog.Employees.BackToList";
-            public const string AddNew = "Admin.Catalog.Employees.AddNew";
-            public const string Info = "Admin.Catalog.Employees.Info";
-            public const string Display = "Admin.Catalog.Employees.Display";
-            public const string Mappings = "Admin.Catalog.Employees.Mappings";
-            public const string Products = "Admin.Catalog.Employees.Products";
+            public const string Title = "Admin.Hr.Employees";
+            public const string EditEmployeeDetails = "Admin.Hr.Employees.EditEmployeeDetails";
+            public const string BackToList = "Admin.Hr.Employees.BackToList";
+            public const string AddNew = "Admin.Hr.Employees.AddNew";
+            public const string Info = "Admin.Hr.Employees.Info";
+            public const string Display = "Admin.Hr.Employees.Display";
+            public const string Mappings = "Admin.Hr.Employees.Mappings";
+            public const string Products = "Admin.Hr.Employees.Products";
 
             // Events
-            public const string AddedEvent = "Admin.Catalog.Employees.Added";
-            public const string UpdatedEvent = "Admin.Catalog.Employees.Updated";
-            public const string DeletedEvent = "Admin.Catalog.Employees.Deleted";
-            public const string ImportedEvent = "Admin.Catalog.Employees.Imported";
+            public const string AddedEvent = "Admin.Hr.Employees.Added";
+            public const string UpdatedEvent = "Admin.Hr.Employees.Updated";
+            public const string DeletedEvent = "Admin.Hr.Employees.Deleted";
+            public const string ImportedEvent = "Admin.Hr.Employees.Imported";
 
             // Notifications
             public const string LogAddNewEmployee = "ActivityLog.AddNewEmployee";
             public const string LogEditEmployee = "ActivityLog.EditEmployee";
             public const string LogDeleteEmployee = "ActivityLog.DeleteEmployee";
+
+            // Don't override this please
             public const string LogUploadFile = "Admin.Common.UploadFile";
         }
         #endregion

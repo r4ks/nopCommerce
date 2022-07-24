@@ -17,8 +17,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Infrastructure
         {
             endpointRouteBuilder.MapControllerRoute(
                 name: BlankTableDefaults.ConfigurationRouteName,
-                pattern: "Admin/BlankTable/Configure",
-                new { Controller = "BlankTable", action = "GetCustomersCountByCountry" }
+                pattern: "Admin/EmployeeSetting/Hr",
+                new { Controller = "EmployeeSetting", action = "Hr" }
             );
         }
     }

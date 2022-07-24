@@ -4,27 +4,27 @@
     //page title
     ViewBag.PageTitle = T(EmployeeSettingsModel.Labels.Title).Text;
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName("Catalog settings");
+    NopHtml.SetActiveMenuItemSystemName("Hr settings");
 }
 
 @{
-    const string hideSearchBlockAttributeName = "CatalogSettingsPage.HideSearchBlock";
+    const string hideSearchBlockAttributeName = "HrSettingsPage.HideSearchBlock";
     var customer = await workContext.GetCurrentCustomerAsync();
     var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSearchBlockAttributeName);
 
-    const string hidePerformanceBlockAttributeName = "CatalogSettingsPage.HidePerformanceBlock";
+    const string hidePerformanceBlockAttributeName = "HrSettingsPage.HidePerformanceBlock";
     var hidePerformanceBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hidePerformanceBlockAttributeName);
 
-    const string hideShareBlockAttributeName = "CatalogSettingsPage.HideShareBlock";
+    const string hideShareBlockAttributeName = "HrSettingsPage.HideShareBlock";
     var hideShareBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideShareBlockAttributeName);
 
-    const string hideAdditionalSectionsBlockAttributeName = "CatalogSettingsPage.HideAdditionalSectionsBlock";
+    const string hideAdditionalSectionsBlockAttributeName = "HrSettingsPage.HideAdditionalSectionsBlock";
     var hideAdditionalSectionsBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideAdditionalSectionsBlockAttributeName);
 
-    const string hideCatalogPagesBlockAttributeName = "CatalogSettingsPage.HideCatalogPagesBlock";
-    var hideCatalogPagesBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideCatalogPagesBlockAttributeName);
+    const string hideHrPagesBlockAttributeName = "HrSettingsPage.HideHrPagesBlock";
+    var hideHrPagesBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideHrPagesBlockAttributeName);
 
-    const string hideExportImportBlockAttributeName = "CatalogSettingsPage.HideExportImportBlock";
+    const string hideExportImportBlockAttributeName = "HrSettingsPage.HideExportImportBlock";
     var hideExportImportBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideExportImportBlockAttributeName);
 
 }
@@ -37,7 +37,7 @@
     }
 }
 
-<form asp-controller="EmployeeSetting" asp-action="Catalog" method="post">
+<form asp-controller="EmployeeSetting" asp-action="Hr" method="post">
     <div class="content-header clearfix">
         <h1 class="float-left">
             @T(EmployeeSettingsModel.Labels.Title)
@@ -47,7 +47,7 @@
                 <i class="far fa-save"></i>
                 @T(Common.Labels.Save)
             </button>
-            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CatalogSettingsButtons, additionalData = Model })
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.HrSettingsButtons, additionalData = Model })
         </div>
     </div>
 
@@ -58,15 +58,15 @@
                 @await Component.InvokeAsync(typeof(SettingModeViewComponent))
                 <div asp-validation-summary="All"></div>
 
-                <nop-cards id="catalogsettings-cards">
-                    <nop-card asp-name="catalogsettings-search" asp-icon="fas fa-search" asp-title="@T(EmployeeSettingsModel.Labels.Search)" asp-hide-block-attribute-name="@hideSearchBlockAttributeName" asp-hide="@hideSearchBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.Search"), Model)</nop-card>
-                    <nop-card asp-name="catalogsettings-performance" asp-icon="fas fa-chart-line" asp-title="@T(EmployeeSettingsModel.Labels.Performance)" asp-hide-block-attribute-name="@hidePerformanceBlockAttributeName" asp-hide="@hidePerformanceBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.Performance"), Model)</nop-card>
-                    <nop-card asp-name="catalogsettings-share" asp-icon="fas fa-share-square" asp-title="@T(EmployeeSettingsModel.Labels.Share)" asp-hide-block-attribute-name="@hideShareBlockAttributeName" asp-hide="@hideShareBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.Share"), Model)</nop-card>
-                    <nop-card asp-name="catalogsettings-additional-sections" asp-icon="fas fa-plus" asp-title="@T(EmployeeSettingsModel.Labels.AdditionalSections)" asp-hide-block-attribute-name="@hideAdditionalSectionsBlockAttributeName" asp-hide="@hideAdditionalSectionsBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.AdditionalSections"), Model)</nop-card>
-                    <nop-card asp-name="catalogsettings-catalog-pages" asp-icon="fas fa-th-list" asp-title="@T(EmployeeSettingsModel.Labels.CatalogPages)" asp-hide-block-attribute-name="@hideCatalogPagesBlockAttributeName" asp-hide="@hideCatalogPagesBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.CatalogPages"), Model)</nop-card>
-                    <nop-card asp-name="catalogsettings-export-import" asp-icon="fas fa-exchange-alt" asp-title="@T(EmployeeSettingsModel.Labels.ExportImport)" asp-hide-block-attribute-name="@hideExportImportBlockAttributeName" asp-hide="@hideExportImportBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.ExportImport"), Model)</nop-card>
+                <nop-cards id="hrsettings-cards">
+                    <nop-card asp-name="hrsettings-search" asp-icon="fas fa-search" asp-title="@T(EmployeeSettingsModel.Labels.Search)" asp-hide-block-attribute-name="@hideSearchBlockAttributeName" asp-hide="@hideSearchBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.Search"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-performance" asp-icon="fas fa-chart-line" asp-title="@T(EmployeeSettingsModel.Labels.Performance)" asp-hide-block-attribute-name="@hidePerformanceBlockAttributeName" asp-hide="@hidePerformanceBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.Performance"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-share" asp-icon="fas fa-share-square" asp-title="@T(EmployeeSettingsModel.Labels.Share)" asp-hide-block-attribute-name="@hideShareBlockAttributeName" asp-hide="@hideShareBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.Share"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-additional-sections" asp-icon="fas fa-plus" asp-title="@T(EmployeeSettingsModel.Labels.AdditionalSections)" asp-hide-block-attribute-name="@hideAdditionalSectionsBlockAttributeName" asp-hide="@hideAdditionalSectionsBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.AdditionalSections"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-hr-pages" asp-icon="fas fa-th-list" asp-title="@T(EmployeeSettingsModel.Labels.HrPages)" asp-hide-block-attribute-name="@hideHrPagesBlockAttributeName" asp-hide="@hideHrPagesBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.HrPages"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-export-import" asp-icon="fas fa-exchange-alt" asp-title="@T(EmployeeSettingsModel.Labels.ExportImport)" asp-hide-block-attribute-name="@hideExportImportBlockAttributeName" asp-hide="@hideExportImportBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.ExportImport"), Model)</nop-card>
 
-                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.CatalogSettingsDetailsBlock, additionalData = Model })
+                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.HrSettingsDetailsBlock, additionalData = Model })
                 </nop-cards>
             </div>
         </div>

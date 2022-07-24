@@ -24,9 +24,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
     {
         #region Fields
 
-        private readonly EmployeeSettings _catalogSettings;
+        private readonly EmployeeSettings _hrSettings;
         private readonly ICustomerActivityService _customerActivityService;
-        private readonly IEmployeeService _categoryService;
+        private readonly IEmployeeService _employeeService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ILocalizationService _localizationService;
         private readonly IPictureService _pictureService;
@@ -40,7 +40,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         public PluginExportManager(
             EmployeeSettings employeeSettings,
             ICustomerActivityService customerActivityService,
-            IEmployeeService categoryService,
+            IEmployeeService employeeService,
             IGenericAttributeService genericAttributeService,
             ILocalizationService localizationService,
             IPictureService pictureService,
@@ -48,9 +48,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
             IWorkContext workContext
             )
         {
-            _catalogSettings = employeeSettings;
+            _hrSettings = employeeSettings;
             _customerActivityService = customerActivityService;
-            _categoryService = categoryService;
+            _employeeService = employeeService;
             _genericAttributeService = genericAttributeService;
             _localizationService = localizationService;
             _pictureService = pictureService;
@@ -65,7 +65,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         /// <returns>A task that represents the asynchronous operation</returns>
         protected virtual async Task<int> WriteEmployeesAsync(XmlWriter xmlWriter, int parentEmployeeId, int totalEmployees)
         {
-            var employees = await _categoryService.GetAllEmployeesByParentEmployeeIdAsync(parentEmployeeId, true);
+            var employees = await _employeeService.GetAllEmployeesByParentEmployeeIdAsync(parentEmployeeId, true);
             if (employees == null || !employees.Any())
                 return totalEmployees;
 
@@ -175,9 +175,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
         public virtual async Task<byte[]> ExportEmployeesToXlsxAsync(IList<Employee> employees)
         {
             var parentEmployees = new List<Employee>();
-            if (_catalogSettings.ExportImportEmployeesUsingEmployeeName)
+            if (_hrSettings.ExportImportEmployeesUsingEmployeeName)
                 //performance optimization, load all parent employees in one SQL request
-                parentEmployees.AddRange(await _categoryService.GetEmployeesByIdsAsync(employees.Select(c => c.ParentEmployeeId).Where(id => id != 0).ToArray()));
+                parentEmployees.AddRange(await _employeeService.GetEmployeesByIdsAsync(employees.Select(c => c.ParentEmployeeId).Where(id => id != 0).ToArray()));
 
             //property manager 
             var manager = new PropertyManager<Employee>(new[]
@@ -190,9 +190,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 new PropertyByName<Employee>("ParentEmployeeName", async p =>
                 {
                     var employee = parentEmployees.FirstOrDefault(c => c.Id == p.ParentEmployeeId);
-                    return employee != null ? await _categoryService.GetFormattedBreadCrumbAsync(employee) : null;
+                    return employee != null ? await _employeeService.GetFormattedBreadCrumbAsync(employee) : null;
 
-                }, !_catalogSettings.ExportImportEmployeesUsingEmployeeName),
+                }, !_hrSettings.ExportImportEmployeesUsingEmployeeName),
                 new PropertyByName<Employee>("Picture", async p => await GetPicturesAsync(p.PictureId)),
                 new PropertyByName<Employee>("PageSize", p => p.PageSize, await IgnoreExportEmployeePropertyAsync()),
                 new PropertyByName<Employee>("AllowCustomersToSelectPageSize", p => p.AllowCustomersToSelectPageSize, await IgnoreExportEmployeePropertyAsync()),
@@ -201,7 +201,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.ExportImport
                 new PropertyByName<Employee>("IncludeInTopMenu", p => p.IncludeInTopMenu, await IgnoreExportEmployeePropertyAsync()),
                 new PropertyByName<Employee>("Published", p => p.Published, await IgnoreExportEmployeePropertyAsync()),
                 new PropertyByName<Employee>("DisplayOrder", p => p.DisplayOrder)
-            }, _catalogSettings);
+            }, _hrSettings);
 
             //activity log
             await _customerActivityService.InsertActivityAsync("ExportEmployees",

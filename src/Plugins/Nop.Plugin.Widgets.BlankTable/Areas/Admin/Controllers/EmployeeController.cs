@@ -24,6 +24,9 @@ using Nop.Web.Areas.Admin.Controllers;
 using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Nop.Web.Framework.Mvc.Filters;
 using Nop.Plugin.Widgets.BlankTable.Services.Security;
+using Nop.Services.Helpers;
+using System.Globalization;
+using Nop.Services.Orders;
 
 namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 {
@@ -32,8 +35,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         #region Fields
 
         private readonly IAclService _aclService;
-        private readonly IEmployeeModelFactory _categoryModelFactory;
-        private readonly IEmployeeService _categoryService;
+        private readonly IEmployeeModelFactory _employeeModelFactory;
+        private readonly IEmployeeService _employeeService;
         private readonly ICustomerActivityService _customerActivityService;
         private readonly ICustomerService _customerService;
         private readonly IPluginExportManager _exportManager;
@@ -48,14 +51,16 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         private readonly IStoreService _storeService;
         private readonly IUrlRecordService _urlRecordService;
         private readonly IWorkContext _workContext;
+        private readonly IDateTimeHelper _dateTimeHelper;
+        private readonly IOrderService _orderService;
 
         #endregion
 
         #region Ctor
 
         public EmployeeController(IAclService aclService,
-            IEmployeeModelFactory categoryModelFactory,
-            IEmployeeService categoryService,
+            IEmployeeModelFactory employeeModelFactory,
+            IEmployeeService employeeService,
             ICustomerActivityService customerActivityService,
             ICustomerService customerService,
             IPluginExportManager exportManager,
@@ -69,11 +74,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             IStoreMappingService storeMappingService,
             IStoreService storeService,
             IUrlRecordService urlRecordService,
-            IWorkContext workContext)
+            IWorkContext workContext,
+            IDateTimeHelper dateTimeHelper)
         {
             _aclService = aclService;
-            _categoryModelFactory = categoryModelFactory;
-            _categoryService = categoryService;
+            _employeeModelFactory = employeeModelFactory;
+            _employeeService = employeeService;
             _customerActivityService = customerActivityService;
             _customerService = customerService;
             _exportManager = exportManager;
@@ -88,6 +94,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             _storeService = storeService;
             _urlRecordService = urlRecordService;
             _workContext = workContext;
+            _dateTimeHelper = dateTimeHelper;
         }
 
         #endregion
@@ -124,7 +131,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         protected virtual async Task SaveEmployeeAclAsync(Employee employee, EmployeeModel model)
         {
             employee.SubjectToAcl = model.SelectedCustomerRoleIds.Any();
-            await _categoryService.UpdateEmployeeAsync(employee);
+            await _employeeService.UpdateEmployeeAsync(employee);
 
             var existingAclRecords = await _aclService.GetAclRecordsAsync(employee);
             var allCustomerRoles = await _customerService.GetAllCustomerRolesAsync(true);
@@ -145,7 +152,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
         protected virtual async Task SaveStoreMappingsAsync(Employee employee, EmployeeModel model)
         {
             employee.LimitedToStores = model.SelectedStoreIds.Any();
-            await _categoryService.UpdateEmployeeAsync(employee);
+            await _employeeService.UpdateEmployeeAsync(employee);
 
             var existingStoreMappings = await _storeMappingService.GetStoreMappingsAsync(employee);
             var allStores = await _storeService.GetAllStoresAsync();
@@ -178,7 +185,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //prepare model
-            var model = await _categoryModelFactory.PrepareEmployeeSearchModelAsync(new EmployeeSearchModel());
+            var model = await _employeeModelFactory.PrepareEmployeeSearchModelAsync(new EmployeeSearchModel());
 
             return View(EmployeeSearchModel.LIST_VIEW, model);
             //return View(model);
@@ -191,7 +198,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 return await AccessDeniedDataTablesJson();
 
             //prepare model
-            var model = await _categoryModelFactory.PrepareEmployeeListModelAsync(searchModel);
+            var model = await _employeeModelFactory.PrepareEmployeeListModelAsync(searchModel);
 
             return Json(model);
         }
@@ -206,7 +213,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //prepare model
-            var model = await _categoryModelFactory.PrepareEmployeeModelAsync(new EmployeeModel(), null);
+            var model = await _employeeModelFactory.PrepareEmployeeModelAsync(new EmployeeModel(), null);
 
             //return View(model);
             return View(EmployeeModel.CREATE_VIEW, model);
@@ -223,7 +230,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 var employee = model.ToEntity<Employee>();
                 employee.CreatedOnUtc = DateTime.UtcNow;
                 employee.UpdatedOnUtc = DateTime.UtcNow;
-                await _categoryService.InsertEmployeeAsync(employee);
+                await _employeeService.InsertEmployeeAsync(employee);
 
                 //search engine name
                 model.SeName = await _urlRecordService.ValidateSeNameAsync(employee, model.SeName, employee.Name, true);
@@ -232,7 +239,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 //locales
                 await UpdateLocalesAsync(employee, model);
 
-                await _categoryService.UpdateEmployeeAsync(employee);
+                await _employeeService.UpdateEmployeeAsync(employee);
 
                 //update picture seo file name
                 await UpdatePictureSeoNamesAsync(employee);
@@ -256,7 +263,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             }
 
             //prepare model
-            model = await _categoryModelFactory.PrepareEmployeeModelAsync(model, null, true);
+            model = await _employeeModelFactory.PrepareEmployeeModelAsync(model, null, true);
 
             //if we got this far, something failed, redisplay form
             return View(model);
@@ -268,12 +275,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //try to get a employee with the specified id
-            var employee = await _categoryService.GetEmployeeByIdAsync(id);
+            var employee = await _employeeService.GetEmployeeByIdAsync(id);
             if (employee == null || employee.Deleted)
                 return RedirectToAction("List");
 
             //prepare model
-            var model = await _categoryModelFactory.PrepareEmployeeModelAsync(null, employee);
+            var model = await _employeeModelFactory.PrepareEmployeeModelAsync(null, employee);
 
             //return View(model);
             return View(EmployeeModel.EDIT_VIEW, model);
@@ -286,7 +293,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //try to get a employee with the specified id
-            var employee = await _categoryService.GetEmployeeByIdAsync(model.Id);
+            var employee = await _employeeService.GetEmployeeByIdAsync(model.Id);
             if (employee == null || employee.Deleted)
                 return RedirectToAction("List");
 
@@ -303,7 +310,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
 
                 employee = model.ToEntity(employee);
                 employee.UpdatedOnUtc = DateTime.UtcNow;
-                await _categoryService.UpdateEmployeeAsync(employee);
+                await _employeeService.UpdateEmployeeAsync(employee);
 
                 //search engine name
                 model.SeName = await _urlRecordService.ValidateSeNameAsync(employee, model.SeName, employee.Name, true);
@@ -312,7 +319,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 //locales
                 await UpdateLocalesAsync(employee, model);
 
-                await _categoryService.UpdateEmployeeAsync(employee);
+                await _employeeService.UpdateEmployeeAsync(employee);
 
                 //delete an old picture (if deleted or updated)
                 if (prevPictureId > 0 && prevPictureId != employee.PictureId)
@@ -344,7 +351,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             }
 
             //prepare model
-            model = await _categoryModelFactory.PrepareEmployeeModelAsync(model, employee, true);
+            model = await _employeeModelFactory.PrepareEmployeeModelAsync(model, employee, true);
 
             //if we got this far, something failed, redisplay form
             return View(model);
@@ -357,11 +364,11 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
                 return AccessDeniedView();
 
             //try to get a employee with the specified id
-            var employee = await _categoryService.GetEmployeeByIdAsync(id);
+            var employee = await _employeeService.GetEmployeeByIdAsync(id);
             if (employee == null)
                 return RedirectToAction("List");
 
-            await _categoryService.DeleteEmployeeAsync(employee);
+            await _employeeService.DeleteEmployeeAsync(employee);
 
             //activity log
             await _customerActivityService.InsertActivityAsync("DeleteEmployee",
@@ -381,7 +388,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             if (selectedIds == null || selectedIds.Count == 0)
                 return NoContent();
 
-            await _categoryService.DeleteEmployeesAsync(await (await _categoryService.GetEmployeesByIdsAsync(selectedIds.ToArray())).ToListAsync());
+            await _employeeService.DeleteEmployeesAsync(await (await _employeeService.GetEmployeesByIdsAsync(selectedIds.ToArray())).ToListAsync());
 
             return Json(new { Result = true });
         }
@@ -416,7 +423,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             try
             {
                 var bytes = await _exportManager
-                    .ExportEmployeesToXlsxAsync((await _categoryService.GetAllEmployeesAsync(showHidden: true)).ToList());
+                    .ExportEmployeesToXlsxAsync((await _employeeService.GetAllEmployeesAsync(showHidden: true)).ToList());
 
                 return File(bytes, MimeTypes.TextXlsx, "employees.xlsx");
             }
@@ -454,6 +461,85 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Controllers
             }
         }
 
+        public virtual async Task<IActionResult> LoadOrderStatistics(string period)
+        {
+            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageOrders))
+                return Content(string.Empty);
+
+            var result = new List<object>();
+
+            var nowDt = await _dateTimeHelper.ConvertToUserTimeAsync(DateTime.Now);
+            var timeZone = await _dateTimeHelper.GetCurrentTimeZoneAsync();
+
+            var culture = new CultureInfo((await _workContext.GetWorkingLanguageAsync()).LanguageCulture);
+
+            switch (period)
+            {
+                case "year":
+                    //year statistics
+                    var yearAgoDt = nowDt.AddYears(-1).AddMonths(1);
+                    var searchYearDateUser = new DateTime(yearAgoDt.Year, yearAgoDt.Month, 1);
+                    for (var i = 0; i <= 12; i++)
+                    {
+                        result.Add(new
+                        {
+                            date = searchYearDateUser.Date.ToString("Y", culture),
+                            value = (await _orderService.SearchOrdersAsync(
+                                createdFromUtc: _dateTimeHelper.ConvertToUtcTime(searchYearDateUser, timeZone),
+                                createdToUtc: _dateTimeHelper.ConvertToUtcTime(searchYearDateUser.AddMonths(1), timeZone),
+                                pageIndex: 0,
+                                pageSize: 1, getOnlyTotalCount: true)).TotalCount.ToString()
+                        });
+
+                        searchYearDateUser = searchYearDateUser.AddMonths(1);
+                    }
+
+                    break;
+                case "month":
+                    //month statistics
+                    var monthAgoDt = nowDt.AddDays(-30);
+                    var searchMonthDateUser = new DateTime(monthAgoDt.Year, monthAgoDt.Month, monthAgoDt.Day);
+                    for (var i = 0; i <= 30; i++)
+                    {
+                        result.Add(new
+                        {
+                            date = searchMonthDateUser.Date.ToString("M", culture),
+                            value = (await _orderService.SearchOrdersAsync(
+                                createdFromUtc: _dateTimeHelper.ConvertToUtcTime(searchMonthDateUser, timeZone),
+                                createdToUtc: _dateTimeHelper.ConvertToUtcTime(searchMonthDateUser.AddDays(1), timeZone),
+                                pageIndex: 0,
+                                pageSize: 1, getOnlyTotalCount: true)).TotalCount.ToString()
+                        });
+
+                        searchMonthDateUser = searchMonthDateUser.AddDays(1);
+                    }
+
+                    break;
+                case "week":
+                default:
+                    //week statistics
+                    var weekAgoDt = nowDt.AddDays(-7);
+                    var searchWeekDateUser = new DateTime(weekAgoDt.Year, weekAgoDt.Month, weekAgoDt.Day);
+                    for (var i = 0; i <= 7; i++)
+                    {
+                        result.Add(new
+                        {
+                            date = searchWeekDateUser.Date.ToString("d dddd", culture),
+                            value = (await _orderService.SearchOrdersAsync(
+                                createdFromUtc: _dateTimeHelper.ConvertToUtcTime(searchWeekDateUser, timeZone),
+                                createdToUtc: _dateTimeHelper.ConvertToUtcTime(searchWeekDateUser.AddDays(1), timeZone),
+                                pageIndex: 0,
+                                pageSize: 1, getOnlyTotalCount: true)).TotalCount.ToString()
+                        });
+
+                        searchWeekDateUser = searchWeekDateUser.AddDays(1);
+                    }
+
+                    break;
+            }
+
+            return Json(result);
+        }
         #endregion
 
     }

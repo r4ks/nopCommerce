@@ -4,7 +4,7 @@ using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
 namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
 {
     /// <summary>
-    /// Represents default values related to catalog services
+    /// Represents default values related to hr services
     /// </summary>
     public static partial class NopEmployeeDefaults
     {
@@ -130,8 +130,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// {1} : customer role Ids
         /// {2} : current store ID
         /// </remarks>
-        public static CacheKey EmployeeFeaturedProductsIdsKey => new("Nop.product.featured.bycategory.{0}-{1}-{2}", EmployeeFeaturedProductsIdsPrefix, FeaturedProductIdsPrefix);
-        public static string EmployeeFeaturedProductsIdsPrefix => "Nop.product.featured.bycategory.{0}";
+        public static CacheKey EmployeeFeaturedProductsIdsKey => new("Nop.product.featured.byemployee.{0}-{1}-{2}", EmployeeFeaturedProductsIdsPrefix, FeaturedProductIdsPrefix);
+        public static string EmployeeFeaturedProductsIdsPrefix => "Nop.product.featured.byemployee.{0}";
 
         public static string FeaturedProductIdsPrefix => "Nop.product.featured.";
         #endregion
@@ -201,7 +201,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <remarks>
         /// {0} : employee ID
         /// </remarks>
-        public static CacheKey SpecificationAttributeOptionsByEmployeeCacheKey => new("Nop.specificationattributeoption.bycategory.{0}", FilterableSpecificationAttributeOptionsPrefix);
+        public static CacheKey SpecificationAttributeOptionsByEmployeeCacheKey => new("Nop.specificationattributeoption.byemployee.{0}", FilterableSpecificationAttributeOptionsPrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache

@@ -3,13 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nop.Core;
 using Nop.Core.Configuration;
-using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings;
 using Nop.Plugin.Widgets.BlankTable.Domains.Hr;
-using Nop.Services;
 using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Directory;
@@ -98,10 +96,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
         {
             //load settings for a chosen store scope
             var storeId = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-            var catalogSettings = await _settingService.LoadSettingAsync<EmployeeSettings>(storeId);
+            var hrSettings = await _settingService.LoadSettingAsync<EmployeeSettings>(storeId);
 
             //fill in model values from the entity
-            model ??= catalogSettings.ToSettingsModel<EmployeeSettingsModel>();
+            model ??= hrSettings.ToSettingsModel<EmployeeSettingsModel>();
 
             //fill in additional values (not existing in the entity)
             model.ActiveStoreScopeConfiguration = storeId;
@@ -120,21 +118,21 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             //fill in overridden values
             if (storeId > 0)
             {
-                model.DefaultViewMode_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.DefaultViewMode, storeId);
-                model.ShowShareButton_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.ShowShareButton, storeId);
-                model.PageShareCode_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.PageShareCode, storeId);
-                model.EmailAFriendEnabled_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.EmailAFriendEnabled, storeId);
-                model.AllowAnonymousUsersToEmailAFriend_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.AllowAnonymousUsersToEmailAFriend, storeId);
-                model.SearchPageAllowCustomersToSelectPageSize_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.SearchPageAllowCustomersToSelectPageSize, storeId);
-                model.SearchPagePageSizeOptions_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.SearchPagePageSizeOptions, storeId);
-                model.ExportImportEmployeesUsingEmployeeName_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.ExportImportEmployeesUsingEmployeeName, storeId);
-                model.ExportImportAllowDownloadImages_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.ExportImportAllowDownloadImages, storeId);
-                model.ExportImportRelatedEntitiesByName_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.ExportImportRelatedEntitiesByName, storeId);
-                model.DisplayDatePreOrderAvailability_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.DisplayDatePreOrderAvailability, storeId);
-                model.EnableSpecificationAttributeFiltering_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.EnableSpecificationAttributeFiltering, storeId);
-                model.DisplayAllPicturesOnCatalogPages_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.DisplayAllPicturesOnCatalogPages, storeId);
-                model.CategoryBreadcrumbEnabled_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.EmployeeBreadcrumbEnabled, storeId);
-                model.AllowCustomersToSearchWithEmployeeName_OverrideForStore = await _settingService.SettingExistsAsync(catalogSettings, x => x.AllowCustomersToSearchWithEmployeeName, storeId);
+                model.DefaultViewMode_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.DefaultViewMode, storeId);
+                model.ShowShareButton_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.ShowShareButton, storeId);
+                model.PageShareCode_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.PageShareCode, storeId);
+                model.EmailAFriendEnabled_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.EmailAFriendEnabled, storeId);
+                model.AllowAnonymousUsersToEmailAFriend_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.AllowAnonymousUsersToEmailAFriend, storeId);
+                model.SearchPageAllowCustomersToSelectPageSize_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.SearchPageAllowCustomersToSelectPageSize, storeId);
+                model.SearchPagePageSizeOptions_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.SearchPagePageSizeOptions, storeId);
+                model.ExportImportEmployeesUsingEmployeeName_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.ExportImportEmployeesUsingEmployeeName, storeId);
+                model.ExportImportAllowDownloadImages_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.ExportImportAllowDownloadImages, storeId);
+                model.ExportImportRelatedEntitiesByName_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.ExportImportRelatedEntitiesByName, storeId);
+                model.DisplayDatePreOrderAvailability_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.DisplayDatePreOrderAvailability, storeId);
+                model.EnableSpecificationAttributeFiltering_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.EnableSpecificationAttributeFiltering, storeId);
+                model.DisplayAllPicturesOnHrPages_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.DisplayAllPicturesOnHrPages, storeId);
+                model.EmployeeBreadcrumbEnabled_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.EmployeeBreadcrumbEnabled, storeId);
+                model.AllowCustomersToSearchWithEmployeeName_OverrideForStore = await _settingService.SettingExistsAsync(hrSettings, x => x.AllowCustomersToSearchWithEmployeeName, storeId);
             }
 
             //prepare nested search model

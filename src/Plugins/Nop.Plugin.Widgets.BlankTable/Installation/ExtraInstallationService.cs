@@ -33,7 +33,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         private readonly INopDataProvider _dataProvider;
         private readonly INopFileProvider _fileProvider;
-        private readonly IRepository<Employee> _categoryRepository;
+        private readonly IRepository<Employee> _employeeRepository;
         private readonly IRepository<UrlRecord> _urlRecordRepository;
 
         #endregion
@@ -42,13 +42,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
         public ExtraInstallationService(INopDataProvider dataProvider,
             INopFileProvider fileProvider,
-            IRepository<Employee> categoryRepository,
+            IRepository<Employee> employeeRepository,
             IRepository<UrlRecord> urlRecordRepository
             )
         {
             _dataProvider = dataProvider;
             _fileProvider = fileProvider;
-            _categoryRepository = categoryRepository;
+            _employeeRepository = employeeRepository;
             _urlRecordRepository = urlRecordRepository;
         }
 
@@ -186,7 +186,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 UseAjaxLoadMenu = false,
                 EnableSpecificationAttributeFiltering = true,
                 AllowCustomersToSearchWithEmployeeName = true,
-                DisplayAllPicturesOnCatalogPages = false,
+                DisplayAllPicturesOnHrPages = false,
             });
 
 
@@ -206,84 +206,84 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
 
             //employees
             var allEmployees = new List<Employee>();
-            var categoryComputers = new Employee
+            var employeeComputers = new Employee
             {
                 Name = "Computers",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_computers.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Computers"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_computers.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Computers"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryComputers);
+            allEmployees.Add(employeeComputers);
 
-            await InsertInstallationDataAsync(categoryComputers);
+            await InsertInstallationDataAsync(employeeComputers);
 
-            var categoryDesktops = new Employee
+            var employeeDesktops = new Employee
             {
                 Name = "Desktops",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryComputers.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_desktops.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Desktops"))).Id,
+                ParentEmployeeId = employeeComputers.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_desktops.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Desktops"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryDesktops);
+            allEmployees.Add(employeeDesktops);
 
-            await InsertInstallationDataAsync(categoryDesktops);
+            await InsertInstallationDataAsync(employeeDesktops);
 
-            var categoryNotebooks = new Employee
+            var employeeNotebooks = new Employee
             {
                 Name = "Notebooks",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryComputers.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_notebooks.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Notebooks"))).Id,
+                ParentEmployeeId = employeeComputers.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_notebooks.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Notebooks"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 2,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryNotebooks);
+            allEmployees.Add(employeeNotebooks);
 
-            await InsertInstallationDataAsync(categoryNotebooks);
+            await InsertInstallationDataAsync(employeeNotebooks);
 
-            var categorySoftware = new Employee
+            var employeeSoftware = new Employee
             {
                 Name = "Software",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryComputers.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_software.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Software"))).Id,
+                ParentEmployeeId = employeeComputers.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_software.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Software"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 3,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categorySoftware);
+            allEmployees.Add(employeeSoftware);
 
-            await InsertInstallationDataAsync(categorySoftware);
+            await InsertInstallationDataAsync(employeeSoftware);
 
-            var categoryElectronics = new Employee
+            var employeeElectronics = new Employee
             {
                 Name = "Electronics",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_electronics.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Electronics"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_electronics.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Electronics"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 ShowOnHomepage = true,
@@ -291,71 +291,71 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryElectronics);
+            allEmployees.Add(employeeElectronics);
 
-            await InsertInstallationDataAsync(categoryElectronics);
+            await InsertInstallationDataAsync(employeeElectronics);
 
-            var categoryCameraPhoto = new Employee
+            var employeeCameraPhoto = new Employee
             {
                 Name = "Camera & photo",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryElectronics.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_camera_photo.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Camera, photo"))).Id,
+                ParentEmployeeId = employeeElectronics.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_camera_photo.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Camera, photo"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryCameraPhoto);
+            allEmployees.Add(employeeCameraPhoto);
 
-            await InsertInstallationDataAsync(categoryCameraPhoto);
+            await InsertInstallationDataAsync(employeeCameraPhoto);
 
-            var categoryCellPhones = new Employee
+            var employeeCellPhones = new Employee
             {
                 Name = "Cell phones",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryElectronics.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_cell_phones.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Cell phones"))).Id,
+                ParentEmployeeId = employeeElectronics.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_cell_phones.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Cell phones"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 2,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryCellPhones);
+            allEmployees.Add(employeeCellPhones);
 
-            await InsertInstallationDataAsync(categoryCellPhones);
+            await InsertInstallationDataAsync(employeeCellPhones);
 
-            var categoryOthers = new Employee
+            var employeeOthers = new Employee
             {
                 Name = "Others",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryElectronics.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_accessories.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Accessories"))).Id,
+                ParentEmployeeId = employeeElectronics.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_accessories.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Accessories"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 3,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryOthers);
+            allEmployees.Add(employeeOthers);
 
-            await InsertInstallationDataAsync(categoryOthers);
+            await InsertInstallationDataAsync(employeeOthers);
 
-            var categoryApparel = new Employee
+            var employeeApparel = new Employee
             {
                 Name = "Apparel",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_apparel.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Apparel"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_apparel.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Apparel"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 ShowOnHomepage = true,
@@ -363,71 +363,71 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryApparel);
+            allEmployees.Add(employeeApparel);
 
-            await InsertInstallationDataAsync(categoryApparel);
+            await InsertInstallationDataAsync(employeeApparel);
 
-            var categoryShoes = new Employee
+            var employeeShoes = new Employee
             {
                 Name = "Shoes",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryApparel.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_shoes.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Shoes"))).Id,
+                ParentEmployeeId = employeeApparel.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_shoes.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Shoes"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 1,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryShoes);
+            allEmployees.Add(employeeShoes);
 
-            await InsertInstallationDataAsync(categoryShoes);
+            await InsertInstallationDataAsync(employeeShoes);
 
-            var categoryClothing = new Employee
+            var employeeClothing = new Employee
             {
                 Name = "Clothing",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryApparel.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_clothing.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Clothing"))).Id,
+                ParentEmployeeId = employeeApparel.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_clothing.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Clothing"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 2,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryClothing);
+            allEmployees.Add(employeeClothing);
 
-            await InsertInstallationDataAsync(categoryClothing);
+            await InsertInstallationDataAsync(employeeClothing);
 
-            var categoryAccessories = new Employee
+            var employeeAccessories = new Employee
             {
                 Name = "Accessories",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                ParentEmployeeId = categoryApparel.Id,
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_apparel_accessories.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Apparel Accessories"))).Id,
+                ParentEmployeeId = employeeApparel.Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_apparel_accessories.jpg")), MimeTypes.ImagePJpeg, await pictureService.GetPictureSeNameAsync("Apparel Accessories"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 3,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryAccessories);
+            allEmployees.Add(employeeAccessories);
 
-            await InsertInstallationDataAsync(categoryAccessories);
+            await InsertInstallationDataAsync(employeeAccessories);
 
-            var categoryDigitalDownloads = new Employee
+            var employeeDigitalDownloads = new Employee
             {
                 Name = "Digital downloads",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_digital_downloads.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Digital downloads"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_digital_downloads.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Digital downloads"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 ShowOnHomepage = true,
@@ -435,60 +435,60 @@ namespace Nop.Plugin.Widgets.BlankTable.Installation
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryDigitalDownloads);
+            allEmployees.Add(employeeDigitalDownloads);
 
-            await InsertInstallationDataAsync(categoryDigitalDownloads);
+            await InsertInstallationDataAsync(employeeDigitalDownloads);
 
-            var categoryBooks = new Employee
+            var employeeBooks = new Employee
             {
                 Name = "Books",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_book.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Book"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_book.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Book"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 5,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryBooks);
+            allEmployees.Add(employeeBooks);
 
-            await InsertInstallationDataAsync(categoryBooks);
+            await InsertInstallationDataAsync(employeeBooks);
 
-            var categoryJewelry = new Employee
+            var employeeJewelry = new Employee
             {
                 Name = "Jewelry",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_jewelry.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Jewelry"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_jewelry.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Jewelry"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 6,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryJewelry);
+            allEmployees.Add(employeeJewelry);
 
-            await InsertInstallationDataAsync(categoryJewelry);
+            await InsertInstallationDataAsync(employeeJewelry);
 
-            var categoryGiftCards = new Employee
+            var employeeGiftCards = new Employee
             {
                 Name = "Gift Cards",
                 PageSize = 6,
                 AllowCustomersToSelectPageSize = true,
                 PageSizeOptions = "6, 3, 9",
-                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "category_gift_cards.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Gift Cards"))).Id,
+                PictureId = (await pictureService.InsertPictureAsync(await _fileProvider.ReadAllBytesAsync(_fileProvider.Combine(sampleImagesPath, "employee_gift_cards.jpeg")), MimeTypes.ImageJpeg, await pictureService.GetPictureSeNameAsync("Gift Cards"))).Id,
                 IncludeInTopMenu = true,
                 Published = true,
                 DisplayOrder = 7,
                 CreatedOnUtc = DateTime.UtcNow,
                 UpdatedOnUtc = DateTime.UtcNow
             };
-            allEmployees.Add(categoryGiftCards);
+            allEmployees.Add(employeeGiftCards);
 
-            await InsertInstallationDataAsync(categoryGiftCards);
+            await InsertInstallationDataAsync(employeeGiftCards);
 
             //search engine names
             foreach (var employee in allEmployees)

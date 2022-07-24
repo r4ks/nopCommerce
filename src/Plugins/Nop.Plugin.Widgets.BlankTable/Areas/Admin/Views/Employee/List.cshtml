@@ -2,7 +2,7 @@
 
 @{
     //page title
-    ViewBag.PageTitle = T(EmployeeSearchModel.Labels.Title).Text;
+    ViewBag.PageTitle = T(EmployeeModel.Labels.Title).Text;
     //active menu item (system name)
     NopHtml.SetActiveMenuItemSystemName("Employees");
 }
@@ -14,7 +14,7 @@
 
 <div class="content-header clearfix">
     <h1 class="float-left">
-        @T(EmployeeSearchModel.Labels.Title)
+        @T(EmployeeModel.Labels.Title)
     </h1>
     <div class="float-right">
         <a asp-action="Create" class="btn btn-primary">
@@ -138,18 +138,18 @@
                                 },
                                 new ColumnProperty(nameof(EmployeeModel.Breadcrumb))
                                 {
-                                    Title = T(EmployeeSearchModel.Labels.Breadcrumb).Text
+                                    Title = T(EmployeeModel.Labels.Name).Text
                                 },
                                 new ColumnProperty(nameof(EmployeeModel.Published))
                                 {
-                                    Title = T(EmployeeSearchModel.Labels.Published).Text,
+                                    Title = T(EmployeeModel.Labels.Published).Text,
                                     Width = "100",
                                     ClassName = NopColumnClassDefaults.CenterAll,
                                     Render = new RenderBoolean()
                                 },
                                 new ColumnProperty(nameof(EmployeeModel.DisplayOrder))
                                 {
-                                    Title = T(EmployeeSearchModel.Labels.DisplayOrder).Text,
+                                    Title = T(EmployeeModel.Labels.DisplayOrder).Text,
                                     Width = "150",
                                     ClassName =  NopColumnClassDefaults.CenterAll
                                 },

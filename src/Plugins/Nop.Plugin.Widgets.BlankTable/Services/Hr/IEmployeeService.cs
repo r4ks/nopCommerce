@@ -31,7 +31,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Gets all employees
         /// </summary>
-        /// <param name="categoryName">Employee name</param>
+        /// <param name="employeeName">Employee name</param>
         /// <param name="storeId">Store identifier; 0 if you want to get all records</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -45,7 +45,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// A task that represents the asynchronous operation
         /// The task result contains the employees
         /// </returns>
-        Task<IPagedList<Employee>> GetAllEmployeesAsync(string categoryName, int storeId = 0,
+        Task<IPagedList<Employee>> GetAllEmployeesAsync(string employeeName, int storeId = 0,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false, bool? overridePublished = null);
 
         /// <summary>
@@ -84,12 +84,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Gets a employee
         /// </summary>
-        /// <param name="categoryId">Employee identifier</param>
+        /// <param name="employeeId">Employee identifier</param>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the employee
         /// </returns>
-        Task<Employee> GetEmployeeByIdAsync(int categoryId);
+        Task<Employee> GetEmployeeByIdAsync(int employeeId);
 
         /// <summary>
         /// Inserts employee
@@ -115,22 +115,22 @@ namespace Nop.Plugin.Widgets.BlankTable.Services.Hr
         /// <summary>
         /// Returns a list of names of not existing employees
         /// </summary>
-        /// <param name="categoryIdsNames">The names and/or IDs of the employees to check</param>
+        /// <param name="employeeIdsNames">The names and/or IDs of the employees to check</param>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the list of names and/or IDs not existing employees
         /// </returns>
-        Task<string[]> GetNotExistingEmployeesAsync(string[] categoryIdsNames);
+        Task<string[]> GetNotExistingEmployeesAsync(string[] employeeIdsNames);
 
         /// <summary>
         /// Gets employees by identifier
         /// </summary>
-        /// <param name="categoryIds">Employee identifiers</param>
+        /// <param name="employeeIds">Employee identifiers</param>
         /// <returns>
         /// A task that represents the asynchronous operation
         /// The task result contains the employees
         /// </returns>
-        Task<IList<Employee>> GetEmployeesByIdsAsync(int[] categoryIds);
+        Task<IList<Employee>> GetEmployeesByIdsAsync(int[] employeeIds);
 
 
         /// <summary>

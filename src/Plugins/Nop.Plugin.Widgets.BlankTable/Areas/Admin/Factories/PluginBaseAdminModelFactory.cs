@@ -18,7 +18,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
     {
         #region Fields
 
-        private readonly IEmployeeService _categoryService;
+        private readonly IEmployeeService _employeeService;
 
         private readonly ILocalizationService _localizationService;
         private readonly IStaticCacheManager _staticCacheManager;
@@ -28,13 +28,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
         #region Ctor
 
-        public PluginBaseAdminModelFactory(IEmployeeService categoryService,
+        public PluginBaseAdminModelFactory(IEmployeeService employeeService,
             ILocalizationService localizationService,
             IStaticCacheManager staticCacheManager,
             IStoreService storeService
             )
         {
-            _categoryService = categoryService;
+            _employeeService = employeeService;
             _localizationService = localizationService;
             _staticCacheManager = staticCacheManager;
             _storeService = storeService;
@@ -82,10 +82,10 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(NopModelCacheDefaults.EmployeesListKey, showHidden);
             var listItems = await _staticCacheManager.GetAsync(cacheKey, async () =>
             {
-                var employees = await _categoryService.GetAllEmployeesAsync(showHidden: showHidden);
+                var employees = await _employeeService.GetAllEmployeesAsync(showHidden: showHidden);
                 return await employees.SelectAwait(async c => new SelectListItem
                 {
-                    Text = await _categoryService.GetFormattedBreadCrumbAsync(c, employees),
+                    Text = await _employeeService.GetFormattedBreadCrumbAsync(c, employees),
                     Value = c.Id.ToString()
                 }).ToListAsync();
             });
@@ -142,8 +142,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
 
             //prepare available employees
             var availableEmployeeItems = await GetEmployeeListAsync();
-            foreach (var categoryItem in availableEmployeeItems)
-                items.Add(categoryItem);
+            foreach (var employeeItem in availableEmployeeItems)
+                items.Add(employeeItem);
 
             //insert special item for the default value
             await PrepareDefaultItemAsync(items, withSpecialDefaultItem, defaultItemText);

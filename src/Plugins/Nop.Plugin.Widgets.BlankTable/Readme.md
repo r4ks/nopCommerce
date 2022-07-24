@@ -8,7 +8,7 @@ My NopCommerce Notes:
 # Environment Variables
   -Add the following key value pair into your env:
     ConnectionStrings__ConnectionString
-    Data Source=localhost;Initial Catalog=nopcommerce_database;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=nitro2022;Trust Server Certificate=True
+    Data Source=localhost;Initial Hr=nopcommerce_database;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=nitro2022;Trust Server Certificate=True
 
 
 # Error on install: "Setup failed: Sequence contains more than one element"

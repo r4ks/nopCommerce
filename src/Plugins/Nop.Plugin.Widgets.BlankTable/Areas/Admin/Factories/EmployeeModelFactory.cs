@@ -24,12 +24,12 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
     {
         #region Fields
 
-        private readonly EmployeeSettings _catalogSettings;
+        private readonly EmployeeSettings _hrSettings;
         private readonly CurrencySettings _currencySettings;
         private readonly ICurrencyService _currencyService;
         private readonly IAclSupportedModelFactory _aclSupportedModelFactory;
         private readonly IPluginBaseAdminModelFactory _baseAdminModelFactory;
-        private readonly IEmployeeService _categoryService;
+        private readonly IEmployeeService _employeeService;
         private readonly ILocalizationService _localizationService;
         private readonly ILocalizedModelFactory _localizedModelFactory;
         private readonly IStoreMappingSupportedModelFactory _storeMappingSupportedModelFactory;
@@ -44,18 +44,18 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             ICurrencyService currencyService,
             IAclSupportedModelFactory aclSupportedModelFactory,
             IPluginBaseAdminModelFactory baseAdminModelFactory,
-            IEmployeeService categoryService,
+            IEmployeeService employeeService,
             ILocalizationService localizationService,
             ILocalizedModelFactory localizedModelFactory,
             IStoreMappingSupportedModelFactory storeMappingSupportedModelFactory,
             IUrlRecordService urlRecordService)
         {
-            _catalogSettings = employeeSettings;
+            _hrSettings = employeeSettings;
             _currencySettings = currencySettings;
             _currencyService = currencyService;
             _aclSupportedModelFactory = aclSupportedModelFactory;
             _baseAdminModelFactory = baseAdminModelFactory;
-            _categoryService = categoryService;
+            _employeeService = employeeService;
             _localizationService = localizationService;
             _localizedModelFactory = localizedModelFactory;
             _storeMappingSupportedModelFactory = storeMappingSupportedModelFactory;
@@ -83,7 +83,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             //prepare available stores
             await _baseAdminModelFactory.PrepareStoresAsync(searchModel.AvailableStores);
 
-            searchModel.HideStoresList = _catalogSettings.IgnoreStoreLimitations || searchModel.AvailableStores.SelectionIsNotPossible();
+            searchModel.HideStoresList = _hrSettings.IgnoreStoreLimitations || searchModel.AvailableStores.SelectionIsNotPossible();
 
             //prepare "published" filter (0 - all; 1 - published only; 2 - unpublished only)
             searchModel.AvailablePublishedOptions.Add(new SelectListItem
@@ -121,7 +121,7 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             if (searchModel == null)
                 throw new ArgumentNullException(nameof(searchModel));
             //get employees
-            var employees = await _categoryService.GetAllEmployeesAsync(categoryName: searchModel.SearchEmployeeName,
+            var employees = await _employeeService.GetAllEmployeesAsync(employeeName: searchModel.SearchEmployeeName,
                 showHidden: true,
                 storeId: searchModel.SearchStoreId,
                 pageIndex: searchModel.Page - 1, pageSize: searchModel.PageSize,
@@ -133,13 +133,13 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
                 return employees.SelectAwait(async employee =>
                 {
                     //fill in model values from the entity
-                    var categoryModel = employee.ToModel<EmployeeModel>();
+                    var employeeModel = employee.ToModel<EmployeeModel>();
 
                     //fill in additional values (not existing in the entity)
-                    categoryModel.Breadcrumb = await _categoryService.GetFormattedBreadCrumbAsync(employee);
-                    categoryModel.SeName = await _urlRecordService.GetSeNameAsync(employee, 0, true, false);
+                    employeeModel.Breadcrumb = await _employeeService.GetFormattedBreadCrumbAsync(employee);
+                    employeeModel.SeName = await _urlRecordService.GetSeNameAsync(employee, 0, true, false);
 
-                    return categoryModel;
+                    return employeeModel;
                 });
             });
 
@@ -181,8 +181,8 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Factories
             //set default values for the new model
             if (employee == null)
             {
-                model.PageSize = _catalogSettings.DefaultEmployeePageSize;
-                model.PageSizeOptions = _catalogSettings.DefaultEmployeePageSizeOptions;
+                model.PageSize = _hrSettings.DefaultEmployeePageSize;
+                model.PageSizeOptions = _hrSettings.DefaultEmployeePageSizeOptions;
                 model.Published = true;
                 model.IncludeInTopMenu = true;
                 model.AllowCustomersToSelectPageSize = true;

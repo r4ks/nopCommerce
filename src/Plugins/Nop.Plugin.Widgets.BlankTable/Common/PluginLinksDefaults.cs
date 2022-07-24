@@ -43,17 +43,17 @@
             /// <summary>
             /// Gets the payment plugins page
             /// </summary>
-            public static string PaymentPlugins => "https://www.nopcommerce.com/en/marketplace/?category=payment-modules";
+            public static string PaymentPlugins => "https://www.nopcommerce.com/en/marketplace/?employee=payment-modules";
 
             /// <summary>
             /// Gets the shipping plugins page
             /// </summary>
-            public static string ShippingPlugins => "https://www.nopcommerce.com/en/marketplace/?category=shipping-delivery";
+            public static string ShippingPlugins => "https://www.nopcommerce.com/en/marketplace/?employee=shipping-delivery";
 
             /// <summary>
             /// Gets the tax plugins page
             /// </summary>
-            public static string TaxPlugins => "https://www.nopcommerce.com/en/marketplace/?category=taxes";
+            public static string TaxPlugins => "https://www.nopcommerce.com/en/marketplace/?employee=taxes";
 
             /// <summary>
             /// Gets the themes page
@@ -79,17 +79,17 @@
             /// <summary>
             /// Gets a URL of the Categories docs page
             /// </summary>
-            public static string Categories => "https://docs.nopcommerce.com/running-your-store/catalog/categories.html";
+            public static string Categories => "https://docs.nopcommerce.com/running-your-store/hr/categories.html";
 
             /// <summary>
             /// Gets a URL of the Employees docs page
             /// </summary>
-            public static string Employees => "https://docs.nopcommerce.com/running-your-store/catalog/categories.html";
+            public static string Employees => "https://docs.nopcommerce.com/running-your-store/hr/categories.html";
 
             /// <summary>
             /// Gets a URL of the specification attributes docs page
             /// </summary>
-            public static string SpecificationAttributes => "https://docs.nopcommerce.com/running-your-store/catalog/products/specification-attributes.html";
+            public static string SpecificationAttributes => "https://docs.nopcommerce.com/running-your-store/hr/products/specification-attributes.html";
 
             /// <summary>
             /// Gets a URL of the checkout attributes docs page
@@ -114,7 +114,7 @@
             /// <summary>
             /// Gets a URL of the recurring payments docs page
             /// </summary>
-            public static string RecurringPayments => "https://docs.nopcommerce.com/running-your-store/catalog/products/recurring-products.html";
+            public static string RecurringPayments => "https://docs.nopcommerce.com/running-your-store/hr/products/recurring-products.html";
 
             /// <summary>
             /// Gets a URL of the shopping carts and wishlists docs page

@@ -22,7 +22,7 @@
     <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml" />
     <None Remove="Areas\Admin\Views\Setting\Employee.cshtml" />
     <None Remove="Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.CatalogPages.cshtml" />
+    <None Remove="Areas\Admin\Views\Setting\_Employee.HrPages.cshtml" />
     <None Remove="Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml" />
     <None Remove="Areas\Admin\Views\Setting\_Employee.Performance.cshtml" />
     <None Remove="Areas\Admin\Views\Setting\_Employee.Search.cshtml" />
@@ -30,9 +30,7 @@
     <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
     <None Remove="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Remove="logo.jpg" />
-	<None Remove="plugin.json" />
-	<None Remove="Views\BlankTable.cshtml" />
-    <None Remove="Views\Configure.cshtml" />
+    <None Remove="plugin.json" />
     <None Remove="Views\CustomWidget.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
@@ -72,7 +70,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.CatalogPages.cshtml">
+    <Content Include="Areas\Admin\Views\Setting\_Employee.HrPages.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -109,9 +107,6 @@
     <Content Include="plugin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Configure.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\_ViewImports.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -126,12 +121,6 @@
 
   <ItemGroup>
     <Content Include="Views\CustomWidget.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Views\BlankTable.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

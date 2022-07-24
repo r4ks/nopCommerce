@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Nop.Web.Areas.Admin.Models.Catalog;
 using Nop.Web.Areas.Admin.Models.Settings;
 using Nop.Web.Framework.Models;
 using Nop.Web.Framework.Mvc.ModelBinding;
@@ -8,7 +7,7 @@ using Nop.Web.Framework.Mvc.ModelBinding;
 namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings
 {
     /// <summary>
-    /// Represents a catalog settings model
+    /// Represents a hr settings model
     /// </summary>
     public partial record EmployeeSettingsModel : BaseNopModel, ISettingsModel
     {
@@ -19,37 +18,37 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings
         #region Labels
         public static class Labels
         {
-            public const string Title = "Admin.Configuration.Settings.Catalog";
+            public const string Title = "Admin.Configuration.Settings.Hr";
 
             public const string EditSettings = "ActivityLog.EditSettings";
             public const string Updated = "Admin.Configuration.Updated";
-            public const string Grid = "Admin.Catalog.ViewMode.Grid";
-            public const string List = "Admin.Catalog.ViewMode.List";
+            public const string Grid = "Admin.Hr.ViewMode.Grid";
+            public const string List = "Admin.Hr.ViewMode.List";
 
-            public const string DefaultViewMode = "Admin.Configuration.Settings.Catalog.DefaultViewMode";
-            public const string ShowShareButton = "Admin.Configuration.Settings.Catalog.ShowShareButton";
-            public const string PageShareCode = "Admin.Configuration.Settings.Catalog.PageShareCode";
-            public const string EmailAFriendEnabled = "Admin.Configuration.Settings.Catalog.EmailAFriendEnabled";
-            public const string AllowAnonymousUsersToEmailAFriend = "Admin.Configuration.Settings.Catalog.AllowAnonymousUsersToEmailAFriend";
-            public const string SearchPageAllowCustomersToSelectPageSize = "Admin.Configuration.Settings.Catalog.SearchPageAllowCustomersToSelectPageSize";
-            public const string SearchPagePageSizeOptions = "Admin.Configuration.Settings.Catalog.SearchPagePageSizeOptions";
-            public const string ExportImportEmployeesUsingEmployeeName = "Admin.Configuration.Settings.Catalog.ExportImportEmployeesUsingEmployeeName";
-            public const string ExportImportAllowDownloadImages = "Admin.Configuration.Settings.Catalog.ExportImportAllowDownloadImages";
-            public const string ExportImportRelatedEntitiesByName = "Admin.Configuration.Settings.Catalog.ExportImportRelatedEntitiesByName";
-            public const string CategoryBreadcrumbEnabled = "Admin.Configuration.Settings.Catalog.CategoryBreadcrumbEnabled";
-            public const string IgnoreAcl = "Admin.Configuration.Settings.Catalog.IgnoreAcl";
-            public const string IgnoreStoreLimitations = "Admin.Configuration.Settings.Catalog.IgnoreStoreLimitations";
-            public const string DisplayDatePreOrderAvailability = "Admin.Configuration.Settings.Catalog.DisplayDatePreOrderAvailability";
-            public const string EnableSpecificationAttributeFiltering = "Admin.Configuration.Settings.Catalog.EnableSpecificationAttributeFiltering";
-            public const string DisplayAllPicturesOnCatalogPages = "Admin.Configuration.Settings.Catalog.DisplayAllPicturesOnCatalogPages";
-            public const string AllowCustomersToSearchWithEmployeeName = "Admin.Configuration.Settings.Catalog.AllowCustomersToSearchWithCategoryName";
+            public const string DefaultViewMode = "Admin.Configuration.Settings.Hr.DefaultViewMode";
+            public const string ShowShareButton = "Admin.Configuration.Settings.Hr.ShowShareButton";
+            public const string PageShareCode = "Admin.Configuration.Settings.Hr.PageShareCode";
+            public const string EmailAFriendEnabled = "Admin.Configuration.Settings.Hr.EmailAFriendEnabled";
+            public const string AllowAnonymousUsersToEmailAFriend = "Admin.Configuration.Settings.Hr.AllowAnonymousUsersToEmailAFriend";
+            public const string SearchPageAllowCustomersToSelectPageSize = "Admin.Configuration.Settings.Hr.SearchPageAllowCustomersToSelectPageSize";
+            public const string SearchPagePageSizeOptions = "Admin.Configuration.Settings.Hr.SearchPagePageSizeOptions";
+            public const string ExportImportEmployeesUsingEmployeeName = "Admin.Configuration.Settings.Hr.ExportImportEmployeesUsingEmployeeName";
+            public const string ExportImportAllowDownloadImages = "Admin.Configuration.Settings.Hr.ExportImportAllowDownloadImages";
+            public const string ExportImportRelatedEntitiesByName = "Admin.Configuration.Settings.Hr.ExportImportRelatedEntitiesByName";
+            public const string EmployeeBreadcrumbEnabled = "Admin.Configuration.Settings.Hr.EmployeeBreadcrumbEnabled";
+            public const string IgnoreAcl = "Admin.Configuration.Settings.Hr.IgnoreAcl";
+            public const string IgnoreStoreLimitations = "Admin.Configuration.Settings.Hr.IgnoreStoreLimitations";
+            public const string DisplayDatePreOrderAvailability = "Admin.Configuration.Settings.Hr.DisplayDatePreOrderAvailability";
+            public const string EnableSpecificationAttributeFiltering = "Admin.Configuration.Settings.Hr.EnableSpecificationAttributeFiltering";
+            public const string DisplayAllPicturesOnHrPages = "Admin.Configuration.Settings.Hr.DisplayAllPicturesOnHrPages";
+            public const string AllowCustomersToSearchWithEmployeeName = "Admin.Configuration.Settings.Hr.AllowCustomersToSearchWithEmployeeName";
 
-            public const string Search = "Admin.Configuration.Settings.Catalog.BlockTitle.Search";
-            public const string Performance = "Admin.Configuration.Settings.Catalog.BlockTitle.Performance";
-            public const string Share = "Admin.Configuration.Settings.Catalog.BlockTitle.Share";
-            public const string AdditionalSections = "Admin.Configuration.Settings.Catalog.BlockTitle.AdditionalSections";
-            public const string CatalogPages = "Admin.Configuration.Settings.Catalog.BlockTitle.CatalogPages";
-            public const string ExportImport = "Admin.Configuration.Settings.Catalog.BlockTitle.ExportImport";
+            public const string Search = "Admin.Configuration.Settings.Hr.BlockTitle.Search";
+            public const string Performance = "Admin.Configuration.Settings.Hr.BlockTitle.Performance";
+            public const string Share = "Admin.Configuration.Settings.Hr.BlockTitle.Share";
+            public const string AdditionalSections = "Admin.Configuration.Settings.Hr.BlockTitle.AdditionalSections";
+            public const string HrPages = "Admin.Configuration.Settings.Hr.BlockTitle.HrPages";
+            public const string ExportImport = "Admin.Configuration.Settings.Hr.BlockTitle.ExportImport";
         }
         #endregion
 
@@ -108,9 +107,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings
         public bool ExportImportRelatedEntitiesByName { get; set; }
         public bool ExportImportRelatedEntitiesByName_OverrideForStore { get; set; }
 
-        [NopResourceDisplayName(Labels.CategoryBreadcrumbEnabled)]
-        public bool CategoryBreadcrumbEnabled { get; set; }
-        public bool CategoryBreadcrumbEnabled_OverrideForStore { get; set; }
+        [NopResourceDisplayName(Labels.EmployeeBreadcrumbEnabled)]
+        public bool EmployeeBreadcrumbEnabled { get; set; }
+        public bool EmployeeBreadcrumbEnabled_OverrideForStore { get; set; }
 
         [NopResourceDisplayName(Labels.IgnoreAcl)]
         public bool IgnoreAcl { get; set; }
@@ -130,9 +129,9 @@ namespace Nop.Plugin.Widgets.BlankTable.Areas.Admin.Models.Settings
         public bool EnableSpecificationAttributeFiltering_OverrideForStore { get; set; }
 
         public string PrimaryStoreCurrencyCode { get; set; }
-        [NopResourceDisplayName(Labels.DisplayAllPicturesOnCatalogPages)]
-        public bool DisplayAllPicturesOnCatalogPages { get; set; }
-        public bool DisplayAllPicturesOnCatalogPages_OverrideForStore { get; set; }
+        [NopResourceDisplayName(Labels.DisplayAllPicturesOnHrPages)]
+        public bool DisplayAllPicturesOnHrPages { get; set; }
+        public bool DisplayAllPicturesOnHrPages_OverrideForStore { get; set; }
 
         [NopResourceDisplayName(Labels.AllowCustomersToSearchWithEmployeeName)]
         public bool AllowCustomersToSearchWithEmployeeName { get; set; }

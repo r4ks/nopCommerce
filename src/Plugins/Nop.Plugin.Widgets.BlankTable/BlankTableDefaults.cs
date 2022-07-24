@@ -13,10 +13,12 @@ namespace Nop.Plugin.Widgets.BlankTable
 
         public static string UserAgent => $"nopcommerce-{NopVersion.CURRENT_VERSION}";
 
-        public static string ConfigurationRouteName => "Plugin.Widgets.BlankTable.Configure";
+        public static string ConfigurationRouteName => "Plugin.Widgets.BlankTable.Areas.Admin.EmployeeSetting.Hr";
 
         // Common Labels
         public static class Labels {
+            // Standard Localized String
+            // *Recommended to not override these keys:
             public const string All = "Admin.Common.All";
             public const string AddNew = "Admin.Common.AddNew";
             public const string Export = "Admin.Common.Export";
@@ -36,16 +38,16 @@ namespace Nop.Plugin.Widgets.BlankTable
             public const string Delete = "Admin.Common.Delete";
             public const string View = "Admin.Common.View";
             public const string SEO = "Admin.Common.SEO";
+            public const string Saved = "Admin.Plugins.Saved";
 
-            //Others
+            // Others
             public const string OrderStatistics = "Admin.SalesReport.OrderStatistics";
             public const string OYear = "Admin.SalesReport.OrderStatistics.Year";
             public const string OMonth = "Admin.SalesReport.OrderStatistics.Month";
             public const string OWeek = "Admin.SalesReport.OrderStatistics.Week";
 
-            public const string Saved = "Admin.Plugins.Saved";
             public const string ImportEmployees = "ActivityLog.ImportEmployees";
-            public const string EmployeesArentImported = "Admin.Catalog.Employees.Import.EmployeesArentImported";
+            public const string EmployeesArentImported = "Admin.Hr.Employees.Import.EmployeesArentImported";
         }
     }
 }
