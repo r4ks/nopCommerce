@@ -12,51 +12,57 @@
     var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideSearchBlockAttributeName);
 }
 
-<div class="content-header clearfix">
-    <h1 class="float-left">
-        @T(EmployeeModel.Labels.Title)
-    </h1>
-    <div class="float-right">
-        <a asp-action="Create" class="btn btn-primary">
-            <i class="fas fa-plus-square"></i>
-            @T(Common.Labels.AddNew)
-        </a>
-        <div class="btn-group">
-            <button type="button" class="btn btn-success">
-                <i class="fas fa-download"></i>
-                @T(Common.Labels.Export)
+<form asp-controller="Employee" asp-action="List" method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T(EmployeeModel.Labels.Title)
+        </h1>
+        <div class="float-right">
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus-square"></i>
+                @T(Common.Labels.AddNew)
+            </a>
+            <button asp-action="DownloadHumanResourcePDF" type="submit" name="download-humanresource-pdf" class="btn bg-purple">
+                <i class="far fa-file-pdf"></i>
+                @T(EmployeeSearchModel.Labels.DownloadPDF)
             </button>
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">&nbsp;</span>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success">
+                    <i class="fas fa-download"></i>
+                    @T(Common.Labels.Export)
+                </button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">&nbsp;</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-item">
+                        <a asp-action="ExportXml">
+                            <i class="far fa-file-code"></i>
+                            @T(Common.Labels.ExportToXml)
+                        </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a asp-action="ExportXlsx">
+                            <i class="far fa-file-excel"></i>
+                            @T(Common.Labels.ExportToExcel)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
+                <i class="fas fa-upload"></i>
+                @T(Common.Labels.Import)
             </button>
-            <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-item">
-                    <a asp-action="ExportXml">
-                        <i class="far fa-file-code"></i>
-                        @T(Common.Labels.ExportToXml)
-                    </a>
-                </li>
-                <li class="dropdown-item">
-                    <a asp-action="ExportXlsx">
-                        <i class="far fa-file-excel"></i>
-                        @T(Common.Labels.ExportToExcel)
-                    </a>
-                </li>
-            </ul>
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeListButtons, additionalData = Model })
+            <button type="button" id="delete-selected" class="btn btn-danger">
+                <i class="far fa-trash-alt"></i>
+                @T(Common.Labels.Selected)
+            </button>
+            <nop-action-confirmation asp-button-id="delete-selected" />
         </div>
-        <button type="button" name="importexcel" class="btn bg-olive" data-toggle="modal" data-target="#importexcel-window">
-            <i class="fas fa-upload"></i>
-            @T(Common.Labels.Import)
-        </button>
-        @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeListButtons, additionalData = Model })
-        <button type="button" id="delete-selected" class="btn btn-danger">
-            <i class="far fa-trash-alt"></i>
-            @T(Common.Labels.Selected)
-        </button>
-        <nop-action-confirmation asp-button-id="delete-selected" />
     </div>
-</div>
+</form>
 
 <section class="content">
     <div class="container-fluid">

@@ -27,6 +27,9 @@ using Nop.Plugin.Widgets.HumanResource.Services.Security;
 using Nop.Services.Helpers;
 using System.Globalization;
 using Nop.Services.Orders;
+using Nop.Web.Framework.Controllers;
+using System.IO;
+using Nop.Plugin.Widgets.HumanResource.Common;
 
 namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
 {
@@ -52,6 +55,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
         private readonly IUrlRecordService _urlRecordService;
         private readonly IWorkContext _workContext;
         private readonly IDateTimeHelper _dateTimeHelper;
+        private readonly IPluginPdfService _pdfService;
 
         #endregion
 
@@ -74,7 +78,8 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
             IStoreService storeService,
             IUrlRecordService urlRecordService,
             IWorkContext workContext,
-            IDateTimeHelper dateTimeHelper)
+            IDateTimeHelper dateTimeHelper,
+            IPluginPdfService pdfService)
         {
             _aclService = aclService;
             _employeeModelFactory = employeeModelFactory;
@@ -94,6 +99,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
             _urlRecordService = urlRecordService;
             _workContext = workContext;
             _dateTimeHelper = dateTimeHelper;
+            _pdfService = pdfService;
         }
 
         #endregion
@@ -395,6 +401,43 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
         #endregion
 
         #region Export / Import
+
+        [HttpPost, ActionName("DownloadHumanResourcePDF")]
+        [FormValueRequired("download-humanresource-pdf")]
+        public virtual async Task<IActionResult> DownloadHumanResourcePDF(EmployeeSearchModel model)
+        {
+            if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageProducts))
+                return AccessDeniedView();
+
+            //0 - all (according to "ShowHidden" parameter)
+            //1 - published only
+            //2 - unpublished only
+            bool? overridePublished = null;
+            if (model.SearchPublishedId == 1)
+                overridePublished = true;
+            else if (model.SearchPublishedId == 2)
+                overridePublished = false;
+
+            var products = await _employeeService.SearchEmployeesAsync(
+                );
+
+            try
+            {
+                byte[] bytes;
+                await using (var stream = new MemoryStream())
+                {
+                    await _pdfService.PrintEmployeesToPdfAsync(stream, products);
+                    bytes = stream.ToArray();
+                }
+
+                return File(bytes, MimeTypes.ApplicationPdf, "pdfcatalog.pdf");
+            }
+            catch (Exception exc)
+            {
+                await _notificationService.ErrorNotificationAsync(exc);
+                return RedirectToAction("List");
+            }
+        }
 
         public virtual async Task<IActionResult> ExportXml()
         {

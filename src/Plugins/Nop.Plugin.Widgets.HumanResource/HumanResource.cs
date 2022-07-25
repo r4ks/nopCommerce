@@ -207,6 +207,7 @@ namespace Nop.Plugin.Widgets.HumanResource
                 [EmployeeSearchModel.Labels.All] = "All",
                 [EmployeeSearchModel.Labels.PublishedOnly] = "Published only",
                 [EmployeeSearchModel.Labels.UnpublishedOnly] = "Unpublished only",
+                [EmployeeSearchModel.Labels.DownloadPDF] = "Download List as PDF",
 
                 [EmployeeSettingsModel.Labels.Title] = "HumanResource settings",
                 [EmployeeSettingsModel.Labels.EditSettings] = "Edited settings",

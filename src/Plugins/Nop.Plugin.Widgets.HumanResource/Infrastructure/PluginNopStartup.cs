@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
 using Nop.Plugin.Widgets.HumanResource.Areas.Admin.Factories;
+using Nop.Plugin.Widgets.HumanResource.Common;
 using Nop.Plugin.Widgets.HumanResource.Installation;
 using Nop.Plugin.Widgets.HumanResource.Services;
 using Nop.Plugin.Widgets.HumanResource.Services.ExportImport;
@@ -37,6 +38,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Infrastructure
             services.AddScoped<IExtraInstallationService, ExtraInstallationService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeSettingModelFactory,EmployeeSettingModelFactory>();
+            services.AddScoped<IPluginPdfService, PluginPdfService>();
         }
 
         /// <summary>

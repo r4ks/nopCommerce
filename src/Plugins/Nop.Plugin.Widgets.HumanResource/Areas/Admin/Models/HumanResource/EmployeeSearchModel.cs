@@ -24,6 +24,8 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Models.HumanResource
             public const string PublishedOnly = "Admin.HumanResource.Employees.List.SearchPublished.PublishedOnly";
             public const string UnpublishedOnly = "Admin.HumanResource.Employees.List.SearchPublished.UnpublishedOnly";
 
+            public const string DownloadPDF = "Admin.HumanResource.Employees.List.DownloadPDF";
+
         }
 
         #endregion
