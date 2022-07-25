@@ -39,6 +39,10 @@ Basically is recommended to put all Adminitrative related things inside Areas/Ad
 All public related things you can put inside the normal Views, Controllers, Factories, Components, Validators ... folders on Plugins Root.
 
 ## Plugin Main File
+Normally it's named as the Last part of the plugins project name.
+There you can find the Install, Uninstall, Update methods that will be executed when the user install, uninstall or change the version.
+You can find the localized strings install method, the widgets declaration and there configuration.
+The Settings url getter is declared at the same file.
 
 ## Views
 Create your views inside Areas/Admin/Views/{GroupName}/??????.cshtml.
