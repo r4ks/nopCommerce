@@ -11,6 +11,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Models.HumanResource
     public partial record EmployeeSearchModel : BaseSearchModel
     {
         public const string LIST_VIEW = "~/Plugins/Widgets.HumanResource/Areas/Admin/Views/Employee/List.cshtml";
+        public const string SYSTEM_NAME = "Widgets.HumanResource.EmployeeListMenuItem";
         #region Labels
         public static class Labels
         {

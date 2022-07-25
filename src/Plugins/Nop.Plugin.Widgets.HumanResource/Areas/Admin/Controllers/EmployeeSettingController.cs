@@ -16,6 +16,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
 {
     public partial class EmployeeSettingController : BaseAdminController
     {
+        public const string ConfigureActionName = "Configure";
         #region Fields
 
         private readonly ICustomerActivityService _customerActivityService;
@@ -52,7 +53,8 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
         #endregion
 
         #region Methods
-        public virtual async Task<IActionResult> HumanResource()
+        [HttpGet, ActionName(EmployeeSettingController.ConfigureActionName)]
+        public virtual async Task<IActionResult> Configure()
         {
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageSettings))
                 return AccessDeniedView();
@@ -63,8 +65,8 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
             return View(EmployeeSettingsModel.View, model);
         }
 
-        [HttpPost]
-        public virtual async Task<IActionResult> HumanResource(EmployeeSettingsModel model)
+        [HttpPost, ActionName(EmployeeSettingController.ConfigureActionName)]
+        public virtual async Task<IActionResult> Configure(EmployeeSettingsModel model)
         {
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageSettings))
                 return AccessDeniedView();
@@ -106,7 +108,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
 
                 _notificationService.SuccessNotification(await _localizationService.GetResourceAsync(EmployeeSettingsModel.Labels.Updated));
 
-                return RedirectToAction("HumanResource");
+                return RedirectToAction(ConfigureActionName);
             }
 
             //prepare model

@@ -100,9 +100,22 @@ namespace Nop.Plugin.Widgets.HumanResource
         /// <returns></returns>
         public async Task ManageSiteMapAsync(SiteMapNode rootNode)
         {
+            // Menu Item for Settings bellow Settings Category
+            var humanResourceSettingMenuItem = new SiteMapNode()
+            {
+                SystemName = EmployeeSettingsModel.SYSTEM_NAME,
+                Title = "Employees Setings",
+                ActionName = "Configure",
+                ControllerName = "EmployeeSetting",
+                IconClass = "fas fa-male",
+                Visible = true,
+                RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
+            };
+
+            // Menu item for Employee List below Human Resource Category
             var employeeListMenuItem = new SiteMapNode()
             {
-                SystemName = "Widgets.HumanResource.EmployeeListMenuItem",
+                SystemName = EmployeeSearchModel.SYSTEM_NAME,
                 Title = "Employee List",
                 ControllerName = "Employee",
                 ActionName = "List",
@@ -118,6 +131,7 @@ namespace Nop.Plugin.Widgets.HumanResource
                 [HumanResourceNodeTitle] = "Human Resource"
             });
             var title = await _localizationService.GetResourceAsync(HumanResourceNodeTitle);
+            // Human Resource Category Menu Item
             var mainNode = new SiteMapNode()
             {
                 SystemName = "HumanResource.MainNode",
@@ -126,16 +140,24 @@ namespace Nop.Plugin.Widgets.HumanResource
                 Visible = true,
             };
 
-                rootNode.ChildNodes.Add(mainNode);
+            rootNode.ChildNodes.Add(mainNode);
 
-                var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "HumanResource.MainNode");
+            var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "HumanResource.MainNode");
+            var configurationNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Configuration");
+            var settingsNode = configurationNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Settings");
 
-                if (pluginNode != null)
-                {
-                    pluginNode.ChildNodes.Add(employeeListMenuItem);
-                }
-                else
-                    rootNode.ChildNodes.Add(employeeListMenuItem);
+            //if (settingsNode != null)
+            //    settingsNode.ChildNodes.Add(settingsNode);
+
+
+            if (pluginNode != null)
+            {
+                pluginNode.ChildNodes.Add(employeeListMenuItem);
+            }
+            else
+            {
+                rootNode.ChildNodes.Add(employeeListMenuItem);
+            }
         }
 
         /// <summary>

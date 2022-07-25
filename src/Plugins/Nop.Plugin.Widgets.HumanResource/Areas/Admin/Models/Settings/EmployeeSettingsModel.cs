@@ -11,6 +11,10 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Models.Settings
     /// </summary>
     public partial record EmployeeSettingsModel : BaseNopModel, ISettingsModel
     {
+        /// <summary>
+        /// System name used on menu item and activation of menu item.
+        /// </summary>
+        public const string SYSTEM_NAME = "Human Resource settings";
         #region Models View Path
         public const string View = "~/Plugins/Widgets.HumanResource/Areas/Admin/Views/Setting/Employee.cshtml";
         #endregion

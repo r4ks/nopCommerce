@@ -8,7 +8,7 @@ namespace Nop.Plugin.Widgets.HumanResource
 
         public static string UserAgent => $"nopcommerce-{NopVersion.CURRENT_VERSION}";
 
-        public static string ConfigurationRouteName => "Plugin.Widgets.HumanResource.Areas.Admin.EmployeeSetting.HumanResource";
+        public static string ConfigurationRouteName => "Plugin.Widgets.HumanResource.Areas.Admin.EmployeeSetting.Configure";
 
         // Common Labels
         public static class Labels {

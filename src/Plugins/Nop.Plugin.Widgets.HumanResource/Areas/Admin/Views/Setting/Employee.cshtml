@@ -4,7 +4,7 @@
     //page title
     ViewBag.PageTitle = T(EmployeeSettingsModel.Labels.Title).Text;
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName("HumanResource settings");
+    NopHtml.SetActiveMenuItemSystemName(EmployeeSettingsModel.SYSTEM_NAME);
 }
 
 @{
@@ -37,7 +37,7 @@
     }
 }
 
-<form asp-controller="EmployeeSetting" asp-action="HumanResource" method="post">
+<form asp-controller="EmployeeSetting" asp-action="Configure" method="post">
     <div class="content-header clearfix">
         <h1 class="float-left">
             @T(EmployeeSettingsModel.Labels.Title)

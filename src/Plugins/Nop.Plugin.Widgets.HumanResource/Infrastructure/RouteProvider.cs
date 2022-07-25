@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers;
 using Nop.Web.Framework.Mvc.Routing;
 
 namespace Nop.Plugin.Widgets.HumanResource.Infrastructure
@@ -17,8 +18,8 @@ namespace Nop.Plugin.Widgets.HumanResource.Infrastructure
         {
             endpointRouteBuilder.MapControllerRoute(
                 name: HumanResourceDefaults.ConfigurationRouteName,
-                pattern: "Admin/EmployeeSetting/HumanResource",
-                new { Controller = "EmployeeSetting", action = "HumanResource" }
+                pattern: "Admin/EmployeeSetting/Configure",
+                new { Controller = "EmployeeSetting", action = EmployeeSettingController.ConfigureActionName }
             );
         }
     }

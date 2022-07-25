@@ -6,7 +6,7 @@
     //page title
     ViewBag.PageTitle = T(EmployeeModel.Labels.EditEmployeeDetails).Text;
     //active menu item (system name)
-    NopHtml.SetActiveMenuItemSystemName("Employees");
+    NopHtml.SetActiveMenuItemSystemName(EmployeeSearchModel.SYSTEM_NAME);
 }
 
 <form asp-controller="Employee" asp-action="Edit" method="post" id="employee-form">
