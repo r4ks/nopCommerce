@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Shipping.EasyPos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Widgets.What3words", "Plugins\Nop.Plugin.Widgets.What3words\Nop.Plugin.Widgets.What3words.csproj", "{CF2A6564-C31D-4A2A-B42A-6BCA38F25219}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Widgets.BlankTable", "Plugins\Nop.Plugin.Widgets.BlankTable\Nop.Plugin.Widgets.BlankTable.csproj", "{E142CD59-9834-458F-9957-50425EAD1AD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Widgets.HumanResource", "Plugins\Nop.Plugin.Widgets.HumanResource\Nop.Plugin.Widgets.HumanResource.csproj", "{E142CD59-9834-458F-9957-50425EAD1AD1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6BDA8332-939F-45B7-A25E-7A797260AE59} = {6BDA8332-939F-45B7-A25E-7A797260AE59}
 	EndProjectSection

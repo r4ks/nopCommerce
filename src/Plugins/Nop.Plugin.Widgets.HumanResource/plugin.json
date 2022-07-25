@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Human Resource Plugin",
+  "SystemName": "Widgets.HumanResource",
+  "Version": "1.01",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "Nitro Erp Dev Team 2022.",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.HumanResource.dll",
+  "Description": "Nitro Human Resource Plugin"
+}
