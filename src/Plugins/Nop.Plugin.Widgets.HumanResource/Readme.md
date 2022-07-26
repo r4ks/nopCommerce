@@ -36,13 +36,20 @@
 └───Views
 ```
 Basically is recommended to put all Adminitrative related things inside Areas/Admin with the exception of Domains, Migrations, Infrastructure, Mapping and Services.
-All public related things you can put inside the normal Views, Controllers, Factories, Components, Validators ... folders on Plugins Root.
+All public related things you can put inside the normal Views, Controllers, Factories, Components, Validators ... folders on the plugins root.
 
 ## Plugin Main File
 Normally it's named as the Last part of the plugins project name.
+This file contains a class that implements BasePlugin, IWidgetPlugin and IAdminMenuPlugin.
 There you can find the Install, Uninstall, Update methods that will be executed when the user install, uninstall or change the version.
-You can find the localized strings install method, the widgets declaration and there configuration.
-The Settings url getter is declared at the same file.
+IAdminMenuPlugin interface implementors are have the right to add menu items on the admin side menu, look the method ManageSiteMapAsync(SiteMapNode rootNode).
+You can find the localized strings install method InstallLocalizedStringsAsync().
+GetConfigurationPageUrl() is in charge of returning a valid url that go to the Settings View.
+GetWidgetZonesAsync() is where you give the WidgetZone where you want to show.
+GetWidgetViewComponent() should return the class that implements NopViewComponent and implement Invoke() that should return a valid View.
+InstallPermissionsAsync() method install a key into the permission system on the nopCommerce that you can use to check if after when a user is accessing the controller or something else...
+### plugin.json
+Certify that this file exists, and check the "SupportedVersions" property that that should be like the running nopCommerce version.
 
 ## Views
 Create your views inside Areas/Admin/Views/{GroupName}/??????.cshtml.

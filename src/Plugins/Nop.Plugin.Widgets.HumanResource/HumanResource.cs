@@ -59,8 +59,8 @@ namespace Nop.Plugin.Widgets.HumanResource
             var cultureInfo = new CultureInfo(NopCommonDefaults.DefaultLanguageCulture);
             await _extraInstallationService.InstallRequiredDataAsync(regionInfo, cultureInfo);
 
-            await InstallLocalizedStrings();
-            await InstallPermissions();
+            await InstallLocalizedStringsAsync();
+            await InstallPermissionsAsync();
 
 
 
@@ -125,12 +125,7 @@ namespace Nop.Plugin.Widgets.HumanResource
             };
 
             // Add localized title and parent menu item
-            const string HumanResourceNodeTitle = "HumanResource.MainNode.Title";
-            await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
-            {
-                [HumanResourceNodeTitle] = "Human Resource"
-            });
-            var title = await _localizationService.GetResourceAsync(HumanResourceNodeTitle);
+            var title = await _localizationService.GetResourceAsync(HumanResourceDefaults.Labels.HumanResourceNodeTitle);
             // Human Resource Category Menu Item
             var mainNode = new SiteMapNode()
             {
@@ -197,7 +192,7 @@ namespace Nop.Plugin.Widgets.HumanResource
         /// Add Localized Strings into the Localized Dictionary from Localization Service.
         /// </summary>
         /// <returns></returns>
-        private async Task InstallLocalizedStrings()
+        private async Task InstallLocalizedStringsAsync()
         {
             //locales
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
@@ -286,7 +281,9 @@ namespace Nop.Plugin.Widgets.HumanResource
                 [HumanResourceDefaults.Labels.ImportEmployees] = "{0} employees were imported",
                 [HumanResourceDefaults.Labels.EmployeesArentImported] = "Employees with the following names aren't imported - {0}",
 
-                [HumanResourceDefaults.Labels.EmployeeStatistics] = "Employee Numbers"
+                [HumanResourceDefaults.Labels.EmployeeStatistics] = "Employee Numbers",
+
+                [HumanResourceDefaults.Labels.HumanResourceNodeTitle] = "Human Resource"
 
             });
         }
@@ -295,7 +292,7 @@ namespace Nop.Plugin.Widgets.HumanResource
         /// Install Plugins Permissions
         /// </summary>
         /// <returns></returns>
-        private async Task InstallPermissions()
+        private async Task InstallPermissionsAsync()
         {
             //register default permissions
             var permissionProviders = new List<Type> { typeof(APermissionProvider) };

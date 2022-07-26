@@ -43,6 +43,9 @@ namespace Nop.Plugin.Widgets.HumanResource
 
             public const string ImportEmployees = "ActivityLog.ImportEmployees";
             public const string EmployeesArentImported = "Admin.HumanResource.Employees.Import.EmployeesArentImported";
+
+            // Menu Item
+            public const string HumanResourceNodeTitle = "HumanResource.MainNode.Title";
         }
     }
 }
