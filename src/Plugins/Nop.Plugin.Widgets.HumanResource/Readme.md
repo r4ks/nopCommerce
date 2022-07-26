@@ -2,38 +2,51 @@
 
 ## Pluging Project Organization
 ```
-├───Areas
-│   └───Admin
-│       ├───Controllers
-│       ├───Factories
-│       ├───Models
-│       │   ├───HumanResource
-│       │   └───Settings
-│       ├───Validators
-│       │   └───HumanResource
-│       └───Views
-│           ├───Employee
-│           └───Setting
-├───Caching
-├───Common
-├───Components
-├───Domains
-│   └───HumanResource
-├───Factories
-├───Infrastructure
-│   ├───Cache
-│   └───Mapper
-├───Installation
-├───Mapping
-│   └───Builders
-├───Migrations
+├───Core
+│   ├───Caching
+│   └───Domains
+│       └───HumanResource
+├───Data
+│   ├───Mapping
+│   │   └───Builders
+│   │       └───HumanResource
+│   └───Migrations
+├───obj
+│   └───Debug
+│       └───net6.0
+│           ├───ref
+│           └───refint
 ├───Services
+│   ├───Common
 │   ├───ExportImport
 │   │   └───Help
 │   ├───HumanResource
+│   ├───Installation
 │   └───Security
-├───Validators
-└───Views
+├───Web
+│   ├───Areas
+│   │   └───Admin
+│   │       ├───Controllers
+│   │       │   ├───HumanResource
+│   │       │   └───Settings
+│   │       ├───Factories
+│   │       ├───Models
+│   │       │   ├───HumanResource
+│   │       │   └───Settings
+│   │       ├───Validators
+│   │       │   └───HumanResource
+│   │       └───Views
+│   │           ├───Employee
+│   │           └───Setting
+│   ├───Components
+│   ├───Content
+│   ├───Infrastructure
+│   │   ├───Cache
+│   │   └───Mapper
+│   ├───Validators
+│   └───Views
+└───Web.Framework
+    └───Factories
 ```
 Basically is recommended to put all Adminitrative related things inside Areas/Admin with the exception of Domains, Migrations, Infrastructure, Mapping and Services.
 All public related things you can put inside the normal Views, Controllers, Factories, Components, Validators ... folders on the plugins root.
