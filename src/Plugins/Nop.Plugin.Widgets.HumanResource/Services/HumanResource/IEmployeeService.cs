@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nop.Core;
-using Nop.Plugin.Widgets.HumanResource.Domains.HumanResource;
+using Nop.Plugin.Widgets.HumanResource.Core.Domains.HumanResource;
 
 namespace Nop.Plugin.Widgets.HumanResource.Services.HumanResource
 {

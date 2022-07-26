@@ -9,7 +9,7 @@ using Nop.Services.Customers;
 using Nop.Services.Localization;
 using Nop.Services.Security;
 using Nop.Services.Stores;
-using Nop.Plugin.Widgets.HumanResource.Domains.HumanResource;
+using Nop.Plugin.Widgets.HumanResource.Core.Domains.HumanResource;
 
 namespace Nop.Plugin.Widgets.HumanResource.Services.HumanResource
 {

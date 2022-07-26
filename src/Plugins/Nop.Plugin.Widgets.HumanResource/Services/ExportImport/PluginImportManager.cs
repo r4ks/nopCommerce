@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Nop.Core;
 using Nop.Core.Domain.Media;
 using Nop.Core.Infrastructure;
-using Nop.Plugin.Widgets.HumanResource.Domains.HumanResource;
 using Nop.Plugin.Widgets.HumanResource.Services.HumanResource;
 using Nop.Plugin.Widgets.HumanResource.Services.ExportImport.Help;
 using Nop.Services.Localization;
@@ -18,6 +17,7 @@ using Nop.Services.Logging;
 using Nop.Services.Media;
 using Nop.Services.Seo;
 using Nop.Services.Stores;
+using Nop.Plugin.Widgets.HumanResource.Core.Domains.HumanResource;
 
 namespace Nop.Plugin.Widgets.HumanResource.Services.ExportImport
 {

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using Nop.Core;
-using Nop.Plugin.Widgets.HumanResource.Domains.HumanResource;
 using Nop.Plugin.Widgets.HumanResource.Services.HumanResource;
 using Nop.Plugin.Widgets.HumanResource.Services.ExportImport.Help;
 using Nop.Services.Common;
@@ -14,6 +13,7 @@ using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Media;
 using Nop.Services.Seo;
+using Nop.Plugin.Widgets.HumanResource.Core.Domains.HumanResource;
 
 namespace Nop.Plugin.Widgets.HumanResource.Services.ExportImport
 {

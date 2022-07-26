@@ -12,100 +12,97 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Areas\Admin\Views\Employee\Create.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\Edit.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\List.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml" />
-    <None Remove="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\Employee.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.HumanResourcePages.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.Performance.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.Search.cshtml" />
-    <None Remove="Areas\Admin\Views\Setting\_Employee.Share.cshtml" />
-    <None Remove="Areas\Admin\Views\_ViewImports.cshtml" />
-    <None Remove="Areas\Admin\Views\_ViewStart.cshtml" />
-    <None Remove="Content\Styles.css" />
+    <None Remove="Web\Areas\Admin\Views\Employee\Create.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\Edit.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\List.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\Employee.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\_Employee.HumanResourcePages.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\_Employee.Performance.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\_Employee.Search.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\Setting\_Employee.Share.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Remove="Web\Areas\Admin\Views\_ViewStart.cshtml" />
+    <None Remove="Web\Content\Styles.css" />
     <None Remove="logo.jpg" />
     <None Remove="plugin.json" />
-    <None Remove="Views\HumanResourceStatsWidget.cshtml" />
-    <None Remove="Views\_EmployeeStatistics.cshtml" />
-    <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Employee\Create.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\Create.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\Edit.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\Edit.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\List.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\List.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Display.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Info.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Mappings.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Employee\_CreateOrUpdate.Seo.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\Employee.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\Employee.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\_Employee.AdditionalSections.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\_Employee.ExportImport.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.HumanResourcePages.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\_Employee.HumanResourcePages.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.Performance.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\_Employee.Performance.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.Search.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\_Employee.Search.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\Setting\_Employee.Share.cshtml">
+    <Content Include="Web\Areas\Admin\Views\Setting\_Employee.Share.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\_ViewImports.cshtml">
+    <Content Include="Web\Areas\Admin\Views\_ViewImports.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml">
+    <Content Include="Web\Areas\Admin\Views\_ViewStart.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Styles.css">
+    <Content Include="Web\Content\Styles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="logo.jpg">
@@ -114,13 +111,13 @@
     <Content Include="plugin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\HumanResourceStatsWidget.cshtml">
+    <Content Include="Web\Views\HumanResourceStatsWidget.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\_EmployeeStatistics.cshtml">
+    <Content Include="Web\Views\_EmployeeStatistics.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\_ViewImports.cshtml">
+    <Content Include="Web\Views\_ViewImports.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -133,10 +130,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Extensions\" />
+    <Folder Include="Web\Areas\Admin\Extensions\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Factories\" />
-    <Folder Include="Validators\" />
+    <Folder Include="Web.Framework\Factories\" />
+    <Folder Include="Web.Framework\" />
+    <Folder Include="Web\Validators\" />
   </ItemGroup>
  
   <!-- This target execute after "Build" target -->

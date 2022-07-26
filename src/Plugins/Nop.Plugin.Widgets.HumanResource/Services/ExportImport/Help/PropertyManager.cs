@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Nop.Plugin.Widgets.HumanResource.Domains.HumanResource;
+using Nop.Plugin.Widgets.HumanResource.Core.Domains.HumanResource;
 
 namespace Nop.Plugin.Widgets.HumanResource.Services.ExportImport.Help
 {
