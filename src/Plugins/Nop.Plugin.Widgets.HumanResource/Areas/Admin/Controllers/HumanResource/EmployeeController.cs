@@ -418,8 +418,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers.HumanResource
             else if (model.SearchPublishedId == 2)
                 overridePublished = false;
 
-            var products = await _employeeService.SearchEmployeesAsync(
-                );
+            var products = await _employeeService.SearchEmployeesAsync( );
 
             try
             {
@@ -430,7 +429,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers.HumanResource
                     bytes = stream.ToArray();
                 }
 
-                return File(bytes, MimeTypes.ApplicationPdf, "pdfcatalog.pdf");
+                return File(bytes, MimeTypes.ApplicationPdf, "employees.pdf");
             }
             catch (Exception exc)
             {
