@@ -155,4 +155,4 @@ You can do the mapping extending NopEntityBuilder<YourDomain> and overriding the
       - plugins.json
       - appsettings.json
       - Localization/*
-    *Sometimes are good to backup the above files, that will guarantee you to skip the install process when executing a clean nopCommerce project and you wish to reuse the old database, localized strings, and installed plugins status.
+    *Sometimes it's good to backup the above files, that will guarantee you to skip the install process when executing a clean nopCommerce project and maybe you wish to reuse the old database, localized strings, and installed plugins status.
