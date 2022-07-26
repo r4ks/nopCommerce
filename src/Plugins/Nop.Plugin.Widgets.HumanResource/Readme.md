@@ -11,11 +11,6 @@
 │   │   └───Builders
 │   │       └───HumanResource
 │   └───Migrations
-├───obj
-│   └───Debug
-│       └───net6.0
-│           ├───ref
-│           └───refint
 ├───Services
 │   ├───Common
 │   ├───ExportImport
