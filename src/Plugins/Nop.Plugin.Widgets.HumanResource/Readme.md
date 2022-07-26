@@ -44,9 +44,13 @@ This file contains a class that implements BasePlugin, IWidgetPlugin and IAdminM
 There you can find the Install, Uninstall, Update methods that will be executed when the user install, uninstall or change the version.
 IAdminMenuPlugin interface implementors are have the right to add menu items on the admin side menu, look the method ManageSiteMapAsync(SiteMapNode rootNode).
 You can find the localized strings install method InstallLocalizedStringsAsync().
+
 GetConfigurationPageUrl() is in charge of returning a valid url that go to the Settings View.
+
 GetWidgetZonesAsync() is where you give the WidgetZone where you want to show.
+
 GetWidgetViewComponent() should return the class that implements NopViewComponent and implement Invoke() that should return a valid View.
+
 InstallPermissionsAsync() method install a key into the permission system on the nopCommerce that you can use to check if after when a user is accessing the controller or something else...
 ### plugin.json
 Certify that this file exists, and check the "SupportedVersions" property that that should be like the running nopCommerce version.
@@ -56,46 +60,31 @@ Create your views inside Areas/Admin/Views/{GroupName}/??????.cshtml.
 Public Views can be saved inside the root folder Views if you want.
 - Certify that the view file has properties set to Content and Always copy!
   Or check if it's included to be copied inside the projects .csproj file.
-- Don't forget to point to the right Model if there is one!
+- Don't forget to point to the right Model if there is one with @model YourModel.
 
 ## Models
+Models are classes that implements BaseNopEntityModel.
+
 Areas/Admin/Models is the common place to save the Views related Models
 *Always decorate each property inside the Model with [NopResourceDisplayName( "put.your.special.localized.string.here")]
 *Thre is a inner class named Labels witch holds the localized strings but you can put your localized strings whatever place you want, it's only for re-use purporse, to avoid misstyping, and get compilators checking for free!
 
+## Validators
+Models can have Validator, you have to create a class that implements BaseNopValidator<YourModel>
+and add the RuleFor for the properties you want or for the props that you made mandatory on your domain.
+
 ## Controller
 - Generally you return the View when the method is GET and return a json on the same action with POST method that represents the view component.
+Normally everybody inject a Service on the controller, that Service will get data from an Repository and return the data to be returned as json or in the case when returning a View from controller everybody injects a ModelFactory class that will be responsible of filling the ModelClass used on the View from the data of a Service that takes the data from the repository of a Domain, them this ModelClass instance will be returned together with the View address on a new View() instance.
 
-
-Many services are called on Installation process when user is redirected into the "HomePage",
-  Migrations occur, routes are registered, language are set, admin accoung, etc...
-  look Presentation > Nop.Web > Controllers > InstallController
-
-## The presention model
--Look for files present at:
-  \Presentation\Nop.Web\Areas\Admin\Models\...
-  Assembly: Nop.Admin
-  Solution Location: Nop.Web.Areas.Admin.Models.????
-  *** Models are classes that implements BaseNopEntityModel at least.
-
--Presentation Models can have Validators which are present at:
-  \Presentation\Nop.Web\Areas\Admin\Validators\...
-  Assembly: Nop.Web
-  Solution Location: Nop.Web.Areas.Admin.Validators.???
-  *** Validators are classes that implements BaseNopValidators<Model> with generic type of the
-  Model of the Presentation.
-
-## if context injection fails
-  set this to true on the prj file
-  <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
-
-## The View
--Look for template files at:
-  \Presentation\Nop.Web\Areas\Admin\Views\...cshtml
-  Assembly: Nop.Web
 
 ## Permissions
-- create a class that implements IPermissionProvider and add the record permissions:
+Permissions are like keys that are registered on the system and you can install or uninstall.
+to install a new permission, inject the PermissionService and call:
+  await _permissionService.InstallPermissionsAsync(provider);
+and give the instance of IPermission implementor.
+To create a Permission:
+- create a class that implements IPermissionProvider and add a public static record readonly permissions.
 - register the permission class like at the code bellow:
     //register default permissions
     var permissionProviders = new List<Type> { typeof(StandardPermissionProvider) };
@@ -104,110 +93,42 @@ Many services are called on Installation process when user is redirected into th
         var provider = (IPermissionProvider)Activator.CreateInstance(providerType);
         await _permissionService.Value.InstallPermissionsAsync(provider);
     }
+To validate a Permission:
+  - inject the PermissionService on your controller
+  - call _permissionService.AuthorizeAsync() and pass the permission static record permission that you want to check where before some operations.
 
-## The Controller
-The controller is responsible for mapping the domain data modelto our view model and vice versa.
-\Presentation\Nop.Web\Areas\Admin\Controllers\???.cs
-Assembly: Nop.Admin
-Solution Location: Nop.Web.Areas.Admin.Controllers.???.cs
-
-## DI
-Libraries > Nop.Core > Infrastructure > INopStartup.cs
-- Create a class that implements INopStartup interface to inject whatever you want, and register them!
+## Dependency Injection
+ nopCommerce will seek for all classes that implements INopStartup interface, inside ConfigureServices(IServiceCollection services, IConfiguration configuration) you can register the classes you need to be injected.
+ Configure(IApplicationBuilder application) method give you the ability to configure whatever you want. For example you want to change mvc behaviors or change a option from razor template system.
+ Don't forget to set the Order property that decides witch configuration has more priority.
 
 ## Routes
-- Create a class that implements IRouteProvider and implement the ReisterRoutes() method.
-routes are registered:
-NopRoutingStartup defines UseNopEndpoints() that is called by NopEndpoints which is called by NopEngine.ConfigureServices() which
-is instantiated on EngineContext.Create(); EngineContext hold the single instance of application where you can get the
-IRepository, IShoppingCartService, ISettingService, IPictureService, IForumService, ILogger, ILanguageService, ...
-
-Presentation > Nop.Web.Framework > Infrastructure > NopStartup.cs adds all services into Ioc Container.
-Some Services call the EngineContext that you can get the single instance of desired other Service.
-
-Presentation > Nop.Web.Framework > Mvc > Routing > RoutePublisher.RegisterRoutes(IEndpointRouteBuilder endpointRouteBuilder) calls
-  Presentation > Nop.Web.Framework > Mvc > Routing > IRouteProvider.RegisterRoutes(IEndpointRouteBuilder endpoitRouteBuilder)
-
+Normally all routes will be created accordling to the Views directory structure but you can give a extra reinforcement on the patterns and the key routes on the IRouteProvider implementor. 
+The framework will seek for any class that implements IRouteProvider and call RegisterRoutes() method on the boostrap process.
+Routes are registered calling the MapControllerRoute() method.
   *You can override nopCommerce default routes using Plugins routes if you want!
     - Only register the new route again with the same name but w/ different controller and action inside the RegisterRoutes(...)!
     *Don't forget to set Priority to int.MaxValue to called first!
 
 ## Events
-Libraries > Nop.Data > EntityRepository inject IEventPublisher to call the desired event too.
-Libraries > Nop.Services > ??? > ???Service.cs will inject EventPlublisherExtension and call the desired event.
-Libraries > Nop.Core > Events > EventPlublisherExctension has:
-  - EntityInsertedAsync()
-  - EntityUpdatedAsync()
-  - EntityDeletedAsync()
-  that call PublishAsync bellow:
-    Libraries > Nop.Services > Events > EventPlublisher.PublishAsync(event) calls
-      Libraries > Nop.Services > Events > IConsumer.HandleEventAsync(eventMessage)
-  *Event Consumer
-    -create a class that implements IConsumer<EntityInsertedEvent<YourEntity>> and implement
-      HandleEventAsync(EntityInsertedEvent<YourEntity> eventMessage)
-      *Each HandleEventAsync paramerters will be related to the IConsumer<Entity?????Async<*****>>
+nopCommerce has a event system that you can use to do some side effects. You can consume, publish or listenen for a specific event.
+To consule create a class that implemnts IConsumer<Entity?????Event<YourDomain>>. The ?????? will be the Operation you wish to consume like Inserted, Updated or Deleted.
+You have to implement all HandleEventAsync for each Entity????Event you want to consume.
+To publish inject IEventPublisher and call PublishAsync() givin the event as his parameter.
 
-// Where the Map Builder is scanning!
-Libraries > Nop.Data > Extensions > FluentMigratorExtensions.cs
-  -> public static void RetrieveTableExpressions()
-  // it looks for classes that implements NopEntityBuilder
+## Domains
+All you have to do is create a class that extends BaseEntity at least, declare the properties and them register it on the migration file.
 
-  -> public static void TableFor<TEntity>(this ICreateExpressionRoot expressionRoot) where TEntity : BaseEntity
-  // will excecute the creation of tables.
-
-  // look Libraries > Nop.Data > Mapping > Builders > ...
-  // Models are located at Libraries > Nop.Core > Domain > ...
-  // Normally the Model and the MapBuilder have a similar name but different suffix.
-
-  TableFor() => RetrieveTableExpressions()
+## Migration
+To do a Migration create a class that extends AutoReversingMigration, decorate the class with [NopMigration("valid date time", "write a description")] and override Up() or Down().
+Inside Up() don't forget to declare Create.TableFor<YourDomain>().
+*the NopMigration accept a valid datetime as first argument! Don't forget the zero for day or month!
 
 
-  // You have to add manually the migrations?
-  // inside Nop.Data.Migrations.???.???
-
-
-  // The procedure for updating migrations is carried out during the
-  // initialization of the database at:
-  // Libraries > Nop.Data > DataProviders > BaseDataProvider.cs defines InitializeDatabase()
-  //   and call ApplyUpMigrations(typeof(NopDbStartup).Assembly);
-  //
-  // obs.:
-  // Presentation > Nop.Web > Controllers > InstallContollers.cs call InitializeDatabase()
-  // which is fired when users come to the main page (the route 'Homepage');
-  // This controller only fires if there is connectionString defined which is checked by
-  // Libraries > Nop.Data > DataSettingsManager.cs -> IsDatabaseInstalled()
-
-## Entities
-  - Create a class that implements NopEntityBuilder<Model> and Configure the Entity
-    properties implementing the method MapEntity().
-  NopDbStartup seeks for all classes that implements MigrationBase and excecutes them all.
-
-  // Libraries > Nop.Data > Migrations > Installation > SchemaMigration.cs
-  // will fire all migrations; classes that implements BaseEntity
-  // The class SchemaMigration that implements AutoReversingMigration itself
-  // is need FluentMigration configuration service will look for that!
-  *When decorating the migration class with NopMigration give a validy DateTime or you will get an error!
-
-  // FluentMigration configuration are services that implement INopStartup
-  Libraries > Nop.Core > Infrastructure > NopEngine.cs
-  -> public void ConfigureServices() // seek for classes that implements INopStartup
-
-  // Migrations
-  // create a class that extends AutoReversinMigration
-  // Decorate with NopMigration("2022-07-03 16:33:44", "Nop.Plugin.Group.NamePlugin 1.77. Description", MigrationProcessType.Update)
-  // *the NopMigration accept a valid datetime as first argument! Don't forget the zero for day or month!
-
-  // Builders are helper classes that configure the entities by mapping the right properties.
-  // Nop.Data.Mapping.Builders.????.?????Builder.cs
-
-  *For Plugins:
-    -Generaly Entities are saved on PluginFolder/Domain
-    -Migrations are saved at PluginFolder/Data/SchemaMigration.cs a class that extends AutoReversingMigration class.
-
-## Models
-    * Is the view model. Generaly extends BaseNopModel record.
-    - Usualy located inside Models folders
-    - Use [NopResourceDisplayName("unique.string.for.localized.text")] decorator on top of the property.
+## Entity Configuration or Domain Mapping
+You can do the mapping extending NopEntityBuilder<YourDomain> and overriding the method MapEntity() where you declare the properties of the properties of your domain entity.
+-Generaly Entities are saved on PluginFolder/Domain
+-Migrations are saved at PluginFolder/Data/SchemaMigration.cs a class that extends AutoReversingMigration class.
 
 ## Model Factories
   look at Nop.Web/Areas/Admin/Factories/??????Factory
@@ -230,119 +151,13 @@ Libraries > Nop.Data > Extensions > FluentMigratorExtensions.cs
   - process the filter before the controller action is executed.
   A class that extends IFilterProvider and ActionFilterAttribute
   override the methods like OnActionExecuting(ActionExecutingContext filterContext)
-    -ActionExecutingContext has ActionDescriptor property that has the ActionName property witch you can use to do something...
+    -ActionExecutingContext has ActionDescriptor property that has the ActionName property witch you can use to do something you wish...
     -ActionExecutingContext has Controller property witch holds the controller name intercepted.
     - You can access the session on ActionExecutingContext.HttpContext.Session which is a dictionary.
   *To Use a filter you have to register it on NopStartup:
     -let's say you defined a filter called AutoAddRolesFilterAttribute them configure mvc with:
       IServiceCollection.AddMvc(options => options.Filters.Add(typeof(AutoAddRolesFilterAttribute)));
     -it is good to register it on IOC too with AddScoped<AutoAddRolesFilterAttribute>();
-  *Don't forget to specify it on dependency register inside Register method on the class that implements IDependencyRegistrar
-    - builder.RegisterType<AutoAddRolesFilterAttribute>().As<IFilterProvider>().InstancePerLifetimeScope();
-
-## Add Settings into a plugin
-  -> create a class that extends ISettings
-  -> On Controller; inject that class you created and the ISettingService.
-  -> set your configurations and call _settingService.SaveSettingAsync(_contentSettings);
-  -> implement GetConfigurationPageurl()
-  *set an correct route that GetConfigurationPageurl() is returning! a wrong url will make it not show the configuration btn.
-
-  -to add plugin into Admin Menu:
-    - implement the ManageSiteMap(SiteMapNode rootNode) method
-    - add the menu item into the rootNode:
-      var menuItem = new SiteMapNode() { SystemName = ..., Title = ..., Url = ..., Visible = true, IconClass = "fa fa-dot-circle-o", }
-      var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Third party plugins")
-      if(pluginNode != null) pluginNode.ChildNodes.Add(menuItem); else rootNode.ChildNodes.Add(menuItem)
-    - set HideInWidgetList => false to get visible at /Admin/Widget/List
-
-## Views
-  *You can override a view file:
-    - Define a class that extends IViewLocationExpander, implement the method ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
-      and return the list of view files list concatenated with the list of new view files.
-    - In NopStartup class at ConfigureServices(IServiceCollection services, IConfiguration configuration)
-      add a view expander
-      services.Configura<RazorViewEngineOptions>(options => options.ViewLocationExpanders.Add(new ViewLocationExpander()));
-
-## Template Generator from nopCommerce for VisualStudio
-  *Don't forget to update the Plugin.json "SupportedVersions"
-  *Check The naming convention of the plugin, e.g.: Group.NamePlugin
-  *Don't forget to override the "BasePlugin" methods like UninstallAsync(), UpdateAsync(), InstallAsync()...
-
-## Admin
-  Usualy is located at src/Presentation/Nop.Web/Areas/Admin/
-  * Home Page
-  > src\Presentation\Nop.Web\Areas\Admin\Views\Home\Index.cshtml
-  * Side Menu
-   > src\Presentation\Nop.Web\Areas\Admin\Views\Shared\Menu.cshtml
-   -Plugins should implement IAdminMenuPlugin interface to have the right to be shown at Admin side menu.
-
-## Urls and Routes
-   - You can use the urlHelperfactory.GetUrlHelper(_actionContextAccessor.actionContext).Routeurl("some.user.defined.route")
-    to get the right route.
-  - Don't forget to define it on RouteProvider.RegisterRoutes(IEndpointRouteBuilder endpointRouteBuilder) with
-    same name("some.user.defined.route") a valid pattern, right controller and the correct action inside MapControllerRoute().
-
-## Public Site
-  uses folders like:
-    src/Presentation/Nop.Web/
-      - Components (*are small sections)
-      - Controllers (getter actions usualy pass the view and the view get the data from an action with same name but post method and some extra parameters.)
-      - Extensions
-      - Factories
-      - Infrastructure
-      - Logs
-      - Models
-      - obj
-      - Themes
-      - Validators
-      - Views
-
-## Localization
-   - src/Presentation/Nop.Web/
-
-## Controller -> ViewComponent + Model
-   *Always create a get and a post for each ViewComponent!
-   *Don't forget to add a name to the view if you want to locate by name! use the decorator [ViewComponent(Name = "????????")]
-   -View Components have to implement NopViewComponent and implement Invoke() that returns a View object that point to a view file(.cshtml file).
-   e.g.: For a Configure View there is Configure() and [HttpPost] Configure(ConfigurationModel model).
-
-## CustomerRoles
-   - PermissionRecord can be installed or uninstalled;
-   - Each CustomerRole can have many PermissionRecord.
-
-## NopResourceDisplayName
-   - takes a string that represets the localized string on the model to be displayed at the view component!
-   you can access using the property "resourceKey"
-   *Best practices: always decorate the Models properties with NopResourceDisplayName to reduce code on the view!
-   - tag helpers will use the Display Name!
-
-## AutoMapper
-   Nop.Core.Infrastructure.NopEngine declares AddAutoMapper() method that scan for classes that
-    implements IOrderedMapperProfile and Create Instances and Activate the mapped configs on that classes.
-  - You only have to create a class that inherits from Profile and IOrderedMapperProfile and implement what is necessary.
-
-## Tips
-  - Always check at the Plugins deploy folder: "src\Presentation\Nop.Web\Plugins\????????"
-  - check if the assets are there! sometime when you move files inside your project, the
-    properties aren't keep and them not copyed on the folder above.
-    Certify that your views was copied correctly on views deploy folder above!
-
-  ### Error on install: "Setup failed: Sequence contains more than one element"
-  copy the old project file src/Presentation/Nop.Web/App_Data/appsettings.json to the new project at the same place.
-  *you can find a similar instruction at a Readme.txt on any upgrade folder at nopCommerce folder.
-
-  ### Add Project into Solution
-  Use the following command to add the Plugin project into the nopCommerce solution:
-  ```
-  > dotnet sln add .\Plugins\Nop.Plugin.Widgets.HumanResource
-  ```
-
-  ### Connection String as Environment Variables
-  If you wish to not edit your appsettings.json when working with many friends you can export the following environment variable other than change everytime some other friend changes it!
-  ```
-  ConnectionStrings__ConnectionString="valid connection string"
-  ```
-  *But beware that this environment variable can trigger the recreation of appsettings.json automatically when nopCommerce starts and can't find any appsettings.json.
 
   ### Running Configurations are stored at:
     - Presentation/Nop.Web/App_Data
