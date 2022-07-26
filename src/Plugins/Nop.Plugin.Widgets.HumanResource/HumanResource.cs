@@ -107,7 +107,7 @@ namespace Nop.Plugin.Widgets.HumanResource
                 Title = "Employees Setings",
                 ActionName = "Configure",
                 ControllerName = "EmployeeSetting",
-                IconClass = "fas fa-male",
+                IconClass = "far fa-circle",
                 Visible = true,
                 RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
             };
@@ -119,7 +119,7 @@ namespace Nop.Plugin.Widgets.HumanResource
                 Title = "Employee List",
                 ControllerName = "Employee",
                 ActionName = "List",
-                IconClass = "far fa-circle",
+                IconClass = "fas fa-male",
                 Visible = true,
                 RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
             };
