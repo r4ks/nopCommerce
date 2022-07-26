@@ -86,13 +86,16 @@ and give the instance of IPermission implementor.
 To create a Permission:
 - create a class that implements IPermissionProvider and add a public static record readonly permissions.
 - register the permission class like at the code bellow:
+```
     //register default permissions
     var permissionProviders = new List<Type> { typeof(StandardPermissionProvider) };
+
     foreach (var providerType in permissionProviders)
     {
         var provider = (IPermissionProvider)Activator.CreateInstance(providerType);
         await _permissionService.Value.InstallPermissionsAsync(provider);
     }
+```
 To validate a Permission:
   - inject the PermissionService on your controller
   - call _permissionService.AuthorizeAsync() and pass the permission static record permission that you want to check where before some operations.
@@ -144,20 +147,8 @@ You can do the mapping extending NopEntityBuilder<YourDomain> and overriding the
     *Don't forget to register it on the IOC Container with the same Interface but with the override class!
 
 ## Filtering
-  - make the desired Model implements BaseSearchModel
-    BaseSearchModel contains properties like Page, PageSize, Start, Length, ...
-
-## Filters
-  - process the filter before the controller action is executed.
-  A class that extends IFilterProvider and ActionFilterAttribute
-  override the methods like OnActionExecuting(ActionExecutingContext filterContext)
-    -ActionExecutingContext has ActionDescriptor property that has the ActionName property witch you can use to do something you wish...
-    -ActionExecutingContext has Controller property witch holds the controller name intercepted.
-    - You can access the session on ActionExecutingContext.HttpContext.Session which is a dictionary.
-  *To Use a filter you have to register it on NopStartup:
-    -let's say you defined a filter called AutoAddRolesFilterAttribute them configure mvc with:
-      IServiceCollection.AddMvc(options => options.Filters.Add(typeof(AutoAddRolesFilterAttribute)));
-    -it is good to register it on IOC too with AddScoped<AutoAddRolesFilterAttribute>();
+  Filtering by standard at nopCommerce use as a parameter of a method that excecute queries a class model that implements BaseSearchModel. You can add whatever field that represents the property you are intenting to do a search for.
+    BaseSearchModel contains properties like Page, PageSize, Start, Length, ... to help on the filtering, and promoting code reuse.
 
   ### Running Configurations are stored at:
     - Presentation/Nop.Web/App_Data
