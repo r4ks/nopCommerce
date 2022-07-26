@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers;
+using Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers.Settings;
 using Nop.Web.Framework.Mvc.Routing;
 
 namespace Nop.Plugin.Widgets.HumanResource.Infrastructure

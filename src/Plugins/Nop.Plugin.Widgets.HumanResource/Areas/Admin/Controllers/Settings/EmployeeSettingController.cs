@@ -12,7 +12,7 @@ using Nop.Services.Security;
 using Nop.Web.Areas.Admin.Controllers;
 using Nop.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 
-namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
+namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers.Settings
 {
     public partial class EmployeeSettingController : BaseAdminController
     {
@@ -53,7 +53,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
         #endregion
 
         #region Methods
-        [HttpGet, ActionName(EmployeeSettingController.ConfigureActionName)]
+        [HttpGet, ActionName(ConfigureActionName)]
         public virtual async Task<IActionResult> Configure()
         {
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageSettings))
@@ -65,7 +65,7 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
             return View(EmployeeSettingsModel.View, model);
         }
 
-        [HttpPost, ActionName(EmployeeSettingController.ConfigureActionName)]
+        [HttpPost, ActionName(ConfigureActionName)]
         public virtual async Task<IActionResult> Configure(EmployeeSettingsModel model)
         {
             if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageSettings))

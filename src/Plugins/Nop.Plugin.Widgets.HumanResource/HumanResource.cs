@@ -119,7 +119,7 @@ namespace Nop.Plugin.Widgets.HumanResource
                 Title = "Employee List",
                 ControllerName = "Employee",
                 ActionName = "List",
-                IconClass = "fas fa-male",
+                IconClass = "far fa-circle",
                 Visible = true,
                 RouteValues = new Microsoft.AspNetCore.Routing.RouteValueDictionary() { { "area", AreaNames.Admin } },
             };
@@ -146,8 +146,21 @@ namespace Nop.Plugin.Widgets.HumanResource
             var configurationNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Configuration");
             var settingsNode = configurationNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Settings");
 
-            //if (settingsNode != null)
-            //    settingsNode.ChildNodes.Add(settingsNode);
+            // Add human resource settings at Configuration > Settings
+            // and before All Settings.
+            if (settingsNode != null)
+            {
+                var last = settingsNode.ChildNodes.FirstOrDefault((i) => i.SystemName == "All settings");
+                var index = settingsNode.ChildNodes.IndexOf(last);
+                if(index != null)
+                {
+                    settingsNode.ChildNodes.Insert(index, humanResourceSettingMenuItem);
+                }
+                else
+                {
+                    settingsNode.ChildNodes.Add(humanResourceSettingMenuItem);
+                }
+            }
 
 
             if (pluginNode != null)

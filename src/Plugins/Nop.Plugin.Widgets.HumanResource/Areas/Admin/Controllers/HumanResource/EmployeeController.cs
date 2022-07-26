@@ -31,7 +31,7 @@ using Nop.Web.Framework.Controllers;
 using System.IO;
 using Nop.Plugin.Widgets.HumanResource.Common;
 
-namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
+namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers.HumanResource
 {
     public partial class EmployeeController : BaseAdminController
     {
@@ -145,13 +145,13 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
                     //new role
                     if (!existingAclRecords.Any(acl => acl.CustomerRoleId == customerRole.Id))
                         await _aclService.InsertAclRecordAsync(employee, customerRole.Id);
-                else
-                {
-                    //remove role
-                    var aclRecordToDelete = existingAclRecords.FirstOrDefault(acl => acl.CustomerRoleId == customerRole.Id);
-                    if (aclRecordToDelete != null)
-                        await _aclService.DeleteAclRecordAsync(aclRecordToDelete);
-                }
+                    else
+                    {
+                        //remove role
+                        var aclRecordToDelete = existingAclRecords.FirstOrDefault(acl => acl.CustomerRoleId == customerRole.Id);
+                        if (aclRecordToDelete != null)
+                            await _aclService.DeleteAclRecordAsync(aclRecordToDelete);
+                    }
         }
 
         protected virtual async Task SaveStoreMappingsAsync(Employee employee, EmployeeModel model)
@@ -166,13 +166,13 @@ namespace Nop.Plugin.Widgets.HumanResource.Areas.Admin.Controllers
                     //new store
                     if (!existingStoreMappings.Any(sm => sm.StoreId == store.Id))
                         await _storeMappingService.InsertStoreMappingAsync(employee, store.Id);
-                else
-                {
-                    //remove store
-                    var storeMappingToDelete = existingStoreMappings.FirstOrDefault(sm => sm.StoreId == store.Id);
-                    if (storeMappingToDelete != null)
-                        await _storeMappingService.DeleteStoreMappingAsync(storeMappingToDelete);
-                }
+                    else
+                    {
+                        //remove store
+                        var storeMappingToDelete = existingStoreMappings.FirstOrDefault(sm => sm.StoreId == store.Id);
+                        if (storeMappingToDelete != null)
+                            await _storeMappingService.DeleteStoreMappingAsync(storeMappingToDelete);
+                    }
         }
 
         #endregion
