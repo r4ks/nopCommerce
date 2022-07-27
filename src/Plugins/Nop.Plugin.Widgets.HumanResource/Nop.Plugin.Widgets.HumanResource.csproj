@@ -12,6 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="Web\Areas\Admin\Extensions\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="Web\Areas\Admin\Extensions\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="Web\Areas\Admin\Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Web\Areas\Admin\Views\Employee\Create.cshtml" />
     <None Remove="Web\Areas\Admin\Views\Employee\Edit.cshtml" />
     <None Remove="Web\Areas\Admin\Views\Employee\List.cshtml" />
@@ -130,8 +139,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Areas\Admin\Extensions\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Web.Framework\Factories\" />
     <Folder Include="Web.Framework\" />
     <Folder Include="Web\Validators\" />
