@@ -43,11 +43,11 @@
 └───Web.Framework
     └───Factories
 ```
-Basically is recommended to put all Adminitrative related things inside Areas/Admin with the exception of Domains, Migrations, Infrastructure, Mapping and Services.
-All public related things you can put inside the normal Views, Controllers, Factories, Components, Validators ... folders on the plugins root.
+Everything resembles the nopCommerce project inside the plugin here, you will find everything in place as in the nopCommerce.
+You Are free to rename this HumanResource Namespace and Employee table to whatever you want.
 
 ## Plugin Main File
-Normally it's named as the Last part of the plugins project name.
+Normally it's named as the Last part of the plugins project name. Sometimes this file is suffixed with Plugin on the name you are free to choose one that make you happy.
 This file contains a class that implements BasePlugin, IWidgetPlugin and IAdminMenuPlugin.
 There you can find the Install, Uninstall, Update methods that will be executed when the user install, uninstall or change the version.
 IAdminMenuPlugin interface implementors are have the right to add menu items on the admin side menu, look the method ManageSiteMapAsync(SiteMapNode rootNode).
@@ -64,7 +64,7 @@ InstallPermissionsAsync() method install a key into the permission system on the
 Certify that this file exists, and check the "SupportedVersions" property that that should be like the running nopCommerce version.
 
 ## Views
-Create your views inside Areas/Admin/Views/{GroupName}/??????.cshtml.
+Create your views inside Web/Areas/Admin/Views/{GroupName}/??????.cshtml.
 Public Views can be saved inside the root folder Views if you want.
 - Certify that the view file has properties set to Content and Always copy!
   Or check if it's included to be copied inside the projects .csproj file.
@@ -73,7 +73,7 @@ Public Views can be saved inside the root folder Views if you want.
 ## Models
 Models are classes that implements BaseNopEntityModel.
 
-Areas/Admin/Models is the common place to save the Views related Models
+Web/Areas/Admin/Models is the common place to save the Views related Models
 *Always decorate each property inside the Model with [NopResourceDisplayName( "put.your.special.localized.string.here")]
 *Thre is a inner class named Labels witch holds the localized strings but you can put your localized strings whatever place you want, it's only for re-use purporse, to avoid misstyping, and get compilators checking for free!
 
@@ -142,12 +142,12 @@ You can do the mapping extending NopEntityBuilder<YourDomain> and overriding the
 -Migrations are saved at PluginFolder/Data/SchemaMigration.cs a class that extends AutoReversingMigration class.
 
 ## Model Factories
-  look at Nop.Web/Areas/Admin/Factories/??????Factory
-  Factories will help get data from database -> EntityModel(a DTO)  -> Controller -> View Components!
+  look for files with similar names like Web/Areas/Admin/Factories/??????Factory
+  Factories will help you get data from service -> database -> EntityModel(a DTO)  -> Controller -> View Components!
 
 ## Services
   -Generaly all entities data are served through a service that injects the IRepository<SomeEntity>!
-  // look at: Nop.Services.?????.?????Service.cs
+  // look at: Services/?????/?????Service.cs
 
   *you can override services too:
     - create the class that extends the method to override and mark the method with "override"
@@ -158,9 +158,9 @@ You can do the mapping extending NopEntityBuilder<YourDomain> and overriding the
   Filtering by standard at nopCommerce use as a parameter of a method that excecute queries a class model that implements BaseSearchModel. You can add whatever field that represents the property you are intenting to do a search for.
     BaseSearchModel contains properties like Page, PageSize, Start, Length, ... to help on the filtering, and promoting code reuse.
 
-  ### Running Configurations are stored at:
-    - Presentation/Nop.Web/App_Data
-      - plugins.json
-      - appsettings.json
-      - Localization/*
-    *Sometimes it's good to backup the above files, that will guarantee you to skip the install process when executing a clean nopCommerce project and maybe you wish to reuse the old database, localized strings, and installed plugins status.
+## Running Configurations are stored at:
+  - Presentation/Nop.Web/App_Data
+    - plugins.json
+    - appsettings.json
+    - Localization/*
+  *Sometimes it's good to backup the above files, that will guarantee you to skip the install process when executing a clean nopCommerce project and maybe you wish to reuse the old database, localized strings, and installed plugins status.
