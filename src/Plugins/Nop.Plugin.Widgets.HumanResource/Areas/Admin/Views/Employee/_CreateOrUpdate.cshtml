@@ -1,0 +1,43 @@
+﻿@model EmployeeModel
+
+@{
+    const string hideInfoBlockAttributeName = "EmployeePage.HideInfoBlock";
+    var customer = await workContext.GetCurrentCustomerAsync();
+    var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideInfoBlockAttributeName);
+
+    const string hideDisplayBlockAttributeName = "EmployeePage.HideDisplayBlock";
+    var hideDisplayBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideDisplayBlockAttributeName, defaultValue: true);
+
+    const string hideMappingsBlockAttributeName = "EmployeePage.HideMappingsBlock";
+    var hideMappingsBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideMappingsBlockAttributeName, defaultValue: true);
+
+    const string hideSeoBlockAttributeName = "EmployeePage.HideSEOBlock";
+    var hideSeoBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSeoBlockAttributeName, defaultValue: true);
+
+}
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12 clearfix">
+                    <div class="float-left">
+                        @await Component.InvokeAsync(typeof(SettingModeViewComponent), new { modeName = "employee-advanced-mode" })
+                    </div>
+                </div>
+            </div>
+
+            <nop-cards id="employee-cards">
+                <nop-card asp-name="employee-info" asp-icon="fas fa-info" asp-title="@T(EmployeeModel.Labels.Info)" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("./_CreateOrUpdate.Info.cshtml", Model)</nop-card>
+                <nop-card asp-name="employee-display" asp-icon="fas fa-tv" asp-title="@T(EmployeeModel.Labels.Display)" asp-hide-block-attribute-name="@hideDisplayBlockAttributeName" asp-hide="@hideDisplayBlock" asp-advanced="false">@await Html.PartialAsync("./_CreateOrUpdate.Display.cshtml", Model)</nop-card>
+                <nop-card asp-name="employee-mappings" asp-icon="fas fa-bookmark" asp-title="@T(EmployeeModel.Labels.Mappings)" asp-hide-block-attribute-name="@hideMappingsBlockAttributeName" asp-hide="@hideMappingsBlock" asp-advanced="true">@await Html.PartialAsync("./_CreateOrUpdate.Mappings.cshtml", Model)</nop-card>
+                <nop-card asp-name="employee-seo" asp-icon="fas fa-search-plus" asp-title="@T(Common.Labels.SEO)" asp-hide-block-attribute-name="@hideSeoBlockAttributeName" asp-hide="@hideSeoBlock" asp-advanced="true">@await Html.PartialAsync("./_CreateOrUpdate.Seo.cshtml", Model)</nop-card>
+
+                @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeDetailsBlock, additionalData = Model })
+            </nop-cards>
+        </div>
+    </div>
+</section>

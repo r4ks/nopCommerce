@@ -1,0 +1,100 @@
+{
+    "$schema": "https://json.schemastore.org/template",
+    "author": "Ricks",
+    "classifications": ["Console"],
+    "identity": "ricks.dev.console.generator",
+    "name": "Basic Nop Plugin With Widget",
+    "shortName": "basic-nop",
+    "tags": {
+        "type": "project",
+        "languague": "C#"
+    },
+    "defaultName": "Nop.Plugin.Widgets.SuperPlugin",
+    "preferNameDirectory": true,
+    "symbols": {
+        "Framework": {
+            "type": "parameter",
+            "description": "The target framework for the project",
+            "datatype": "choice",
+            "choices": [
+                {
+                    "choice": "net6.0",
+                    "description": "Target .net 6"
+                },
+                {
+                    "choice": "net7.0",
+                    "description": "Target .net 7"
+                }
+            ],
+            "replaces": "net6.0",
+            "defaultValue": "net6.0"
+
+        },
+        "module": {
+            "replaces": "HumanResource",
+            "fileRename": "HumanResource",
+            "isRequired": true,
+            "type":"parameter",
+            "datatype": "text",
+            "defaultValue": "SuperModule",
+            "description": "Main Module Name for the Entity On the Plugin. (CamelCase)"
+        },
+        "entity": {
+            "replaces": "Employee",
+            "fileRename": "Employee",
+            "isRequired": true,
+            "type":"parameter",
+            "datatype": "text",
+            "defaultValue": "SuperTable",
+            "description": "Main Entity Name On the Plugin (CamelCase and not pluralized)."
+        },
+        "entityDerivativesLower": {
+            "type": "generated",
+            "generator": "casing",
+            "parameters": {
+                "source": "entity",
+                "toLower": true
+            },
+            "replaces": "employee"
+        },
+        "lowerNameSpace": {
+            "type": "generated",
+            "generator": "casing",
+            "parameters": {
+                "source": "sourceName",
+                "toLower": true
+            },
+            "replaces": "humanResources"
+        },
+        "title": {
+            "type": "parameter",
+            "replaces": "Human Resource",
+            "isRequired": true,
+            "datatype": "text",
+            "defaultValue": "Super Title",
+            "description": "The Plugins Title"
+        },
+        "generateMigrationDate": {
+            "type": "generated",
+            "generator": "now",
+            "parameters": {
+                "format": "yyyy-MM-dd hh:mm:ss"
+            },
+            "replaces": "2022-07-04 15:36:00"
+
+        },
+        "generateNewDateForIndexes": {
+            "type": "generated",
+            "generator": "now",
+            "parameters": {
+                "format": "yyyy/MM/dd hh:mm:ss:fffffff"
+            },
+            "replaces": "2020/03/13 09:36:08:9037677"
+        }
+    },
+    "forms": {
+        "capitalized": {
+            "identifier": "firstUpperCase"
+        }
+    }
+}

@@ -1,0 +1,74 @@
+@model EmployeeSettingsModel
+
+@{
+    //page title
+    ViewBag.PageTitle = T(EmployeeSettingsModel.Labels.Title).Text;
+    //active menu item (system name)
+    NopHtml.SetActiveMenuItemSystemName(EmployeeSettingsModel.SYSTEM_NAME);
+}
+
+@{
+    const string hideSearchBlockAttributeName = "HumanResourceSettingsPage.HideSearchBlock";
+    var customer = await workContext.GetCurrentCustomerAsync();
+    var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideSearchBlockAttributeName);
+
+    const string hidePerformanceBlockAttributeName = "HumanResourceSettingsPage.HidePerformanceBlock";
+    var hidePerformanceBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hidePerformanceBlockAttributeName);
+
+    const string hideShareBlockAttributeName = "HumanResourceSettingsPage.HideShareBlock";
+    var hideShareBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideShareBlockAttributeName);
+
+    const string hideAdditionalSectionsBlockAttributeName = "HumanResourceSettingsPage.HideAdditionalSectionsBlock";
+    var hideAdditionalSectionsBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideAdditionalSectionsBlockAttributeName);
+
+    const string hideHumanResourcePagesBlockAttributeName = "HumanResourceSettingsPage.HideHumanResourcePagesBlock";
+    var hideHumanResourcePagesBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideHumanResourcePagesBlockAttributeName);
+
+    const string hideExportImportBlockAttributeName = "HumanResourceSettingsPage.HideExportImportBlock";
+    var hideExportImportBlock = await genericAttributeService.GetAttributeAsync<bool>(customer, hideExportImportBlockAttributeName);
+
+}
+
+@{
+    // Helper to get string prefixed and sulfixed.
+    string Gsf(string radical)
+    {
+        return "./" + radical + ".cshtml";
+    }
+}
+
+<form asp-controller="EmployeeSetting" asp-action="Configure" method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T(EmployeeSettingsModel.Labels.Title)
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T(Common.Labels.Save)
+            </button>
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.HumanResourceSettingsButtons, additionalData = Model })
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                @await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+                @await Component.InvokeAsync(typeof(SettingModeViewComponent))
+                <div asp-validation-summary="All"></div>
+
+                <nop-cards id="hrsettings-cards">
+                    <nop-card asp-name="hrsettings-search" asp-icon="fas fa-search" asp-title="@T(EmployeeSettingsModel.Labels.Search)" asp-hide-block-attribute-name="@hideSearchBlockAttributeName" asp-hide="@hideSearchBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.Search"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-performance" asp-icon="fas fa-chart-line" asp-title="@T(EmployeeSettingsModel.Labels.Performance)" asp-hide-block-attribute-name="@hidePerformanceBlockAttributeName" asp-hide="@hidePerformanceBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.Performance"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-share" asp-icon="fas fa-share-square" asp-title="@T(EmployeeSettingsModel.Labels.Share)" asp-hide-block-attribute-name="@hideShareBlockAttributeName" asp-hide="@hideShareBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.Share"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-additional-sections" asp-icon="fas fa-plus" asp-title="@T(EmployeeSettingsModel.Labels.AdditionalSections)" asp-hide-block-attribute-name="@hideAdditionalSectionsBlockAttributeName" asp-hide="@hideAdditionalSectionsBlock" asp-advanced="false">@await Html.PartialAsync(Gsf("_Employee.AdditionalSections"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-hr-pages" asp-icon="fas fa-th-list" asp-title="@T(EmployeeSettingsModel.Labels.HumanResourcePages)" asp-hide-block-attribute-name="@hideHumanResourcePagesBlockAttributeName" asp-hide="@hideHumanResourcePagesBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.HumanResourcePages"), Model)</nop-card>
+                    <nop-card asp-name="hrsettings-export-import" asp-icon="fas fa-exchange-alt" asp-title="@T(EmployeeSettingsModel.Labels.ExportImport)" asp-hide-block-attribute-name="@hideExportImportBlockAttributeName" asp-hide="@hideExportImportBlock" asp-advanced="true">@await Html.PartialAsync(Gsf("_Employee.ExportImport"), Model)</nop-card>
+
+                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.HumanResourceSettingsDetailsBlock, additionalData = Model })
+                </nop-cards>
+            </div>
+        </div>
+    </section>
+</form>

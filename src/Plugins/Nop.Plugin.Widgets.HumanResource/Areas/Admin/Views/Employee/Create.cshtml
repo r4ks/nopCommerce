@@ -1,0 +1,31 @@
+@model EmployeeModel
+@{
+    //page title
+    ViewBag.PageTitle = T(EmployeeModel.Labels.AddNew).Text;
+    //active menu item (system name)
+    NopHtml.SetActiveMenuItemSystemName(EmployeeSearchModel.SYSTEM_NAME);
+}
+
+<form asp-controller="Employee" asp-action="Create" method="post" id="employee-form">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T(EmployeeModel.Labels.AddNew)
+            <small>
+                <i class="fas fa-arrow-circle-left"></i>
+                <a asp-action="List">@T(EmployeeModel.Labels.BackToList)</a>
+            </small>
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T(Common.Labels.Save)
+            </button>
+            <button type="submit" name="save-continue" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T(Common.Labels.SaveContinue)
+            </button>
+            @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = PluginWidgetZones.EmployeeDetailsButtons, additionalData = Model })
+        </div>
+    </div>
+    @await Html.PartialAsync(EmployeeModel.CREATE_OR_UPDATE_VIEW, Model)
+</form>

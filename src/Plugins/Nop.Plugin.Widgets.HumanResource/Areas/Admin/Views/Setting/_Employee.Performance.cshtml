@@ -1,0 +1,23 @@
+@model EmployeeSettingsModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-label asp-for="IgnoreAcl" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="IgnoreAcl" />
+            <span asp-validation-for="IgnoreAcl"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-label asp-for="IgnoreStoreLimitations" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="IgnoreStoreLimitations" />
+            <span asp-validation-for="IgnoreStoreLimitations"></span>
+        </div>
+    </div>
+
+</div>

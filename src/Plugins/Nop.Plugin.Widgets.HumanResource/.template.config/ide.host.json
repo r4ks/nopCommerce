@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "icon": "icon.png",
+  "symbolInfo": [
+    {
+      "id": "title",
+      "name": {
+        "text": "Plugin Title"
+      },
+      "isVisible": "true"
+    },
+    {
+      "id": "entity",
+      "name": {
+        "text": "Initial Entity Name"
+      },
+      "isVisible": "true"
+    },
+    {
+      "id": "module",
+      "name": {
+        "text": "Entity Module Name"
+      },
+      "isVisible": true
+    }
+  ]
+}
